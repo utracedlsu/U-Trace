@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/profileFrag"
+        android:icon="@drawable/nav_profile"
+        android:title=""/>
+
+    <item
+        android:id="@+id/contactTracingFrag"
+        android:icon="@drawable/nav_contacttracing"
+        android:title=""/>
+
+    <item
+        android:id="@+id/homeFrag"
+        android:icon="@drawable/nav_home"
+        android:title=""/>
+
+    <item
+        android:id="@+id/notifFrag"
+        android:icon="@drawable/nav_notif"
+        android:title=""/>
+
+    <item
+        android:id="@+id/settingsFrag"
+        android:icon="@drawable/nav_settings"
+        android:title=""/>
+
+</menu>

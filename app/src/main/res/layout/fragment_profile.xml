@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#FFFEF6"
+    tools:context=".fragments.ProfileFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_bgheader"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bgheader" />
+
+        <TextView
+            android:id="@+id/tv_utrace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="32dp"
+            android:text="U-TRACE"
+            android:textColor="#FFFEF6"
+            android:textSize="19sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="45dp"
+            android:text="PROFILE"
+            android:textColor="#D2FF99"
+            android:textSize="45sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_profileInfo"
+            android:layout_width="374dp"
+            android:layout_height="260dp"
+            android:layout_marginTop="25dp"
+            app:cardBackgroundColor="#FFFEF6"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_profile">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/ll_profileInfoBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"
+                    android:background="#428E5C"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_profileInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:paddingTop="1.5dp"
+                        android:text="PROFILE INFORMATION"
+                        android:textColor="#FFFFFF" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_dpBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:background="@drawable/profilegradientbg"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_profileInfoBanner">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/iv_banner_profilePic"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="20dp"
+                        android:src="@drawable/defaultdp"
+                        app:civ_border_color="#21C95A"
+                        app:civ_border_width="3dp" />
+
+                    <TextView
+                        android:id="@+id/tv_banner_fullName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="Firstname M.I. Lastname"
+                        android:textColor="#428E5C"
+                        android:textSize="17sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:background="#E9E7D9"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_dpBanner"></LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_fullName"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_divider">
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="13dp"
+                        android:layout_weight="1"
+                        android:text="FULL NAME"
+                        android:textColor="#2A8348"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/tv_details_fullName"
+                        android:layout_width="340dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="13dp"
+                        android:layout_weight="1"
+                        android:text="Firstname M.I. Lastname"
+                        android:textColor="#2A8348" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#FDFCF1"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ll_fullName">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="13dp"
+                        android:layout_weight="1"
+                        android:text="ADDRESS"
+                        android:textColor="#2A8348"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_details_address"
+                        android:layout_width="340dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="13dp"
+                        android:layout_weight="1"
+                        android:text="86 Simone Weil Avenue, London, United Kingdom (LN4 7NH)"
+                        android:textColor="#2A8348" />
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

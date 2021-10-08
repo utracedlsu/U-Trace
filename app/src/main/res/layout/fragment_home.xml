@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFEF6"
+    tools:context=".fragments.HomeFragment">
+
+    <ImageView
+        android:id="@+id/iv_bgheader"
+        android:layout_width="match_parent"
+        android:layout_height="210dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bgheader" />
+
+    <TextView
+        android:id="@+id/tv_utrace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="32dp"
+        android:text="U-TRACE"
+        android:textColor="#FFFEF6"
+        android:textSize="19sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_uploadData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="45dp"
+        android:text="OVERVIEW"
+        android:textColor="#D2FF99"
+        android:textSize="45sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_actions"
+        android:layout_width="374dp"
+        android:layout_height="158dp"
+        android:layout_marginTop="25dp"
+        app:cardBackgroundColor="#FFFEF6"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_uploadData">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_actionBanner"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:background="#428E5C"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_actions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="1.5dp"
+                    android:text="ACTIONS"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_bluetooth"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_actionBanner"
+                app:srcCompat="@drawable/btoff" />
+
+            <TextView
+                android:id="@+id/tv_bluetooth"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:text="BLUETOOTH IS OFF"
+                android:textColor="#7B7B7B"
+                android:textSize="10sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_bluetooth" />
+
+            <ImageView
+                android:id="@+id/iv_qr"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toEndOf="@+id/iv_bluetooth"
+                app:layout_constraintTop_toBottomOf="@+id/ll_actionBanner"
+                app:srcCompat="@drawable/qr" />
+
+            <TextView
+                android:id="@+id/tv_qr"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:text="SCAN FOR QR ENTRY"
+                android:textColor="#428E5C"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_bluetooth"
+                app:layout_constraintTop_toBottomOf="@+id/iv_qr" />
+
+            <ImageView
+                android:id="@+id/iv_ct"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="31dp"
+                app:layout_constraintEnd_toStartOf="@+id/iv_upload"
+                app:layout_constraintTop_toBottomOf="@+id/ll_actionBanner"
+                app:srcCompat="@drawable/contacttracing" />
+
+            <TextView
+                android:id="@+id/tv_ct"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:text="CONTACT TRACING"
+                android:textColor="#428E5C"
+                android:textSize="10dp"
+                app:layout_constraintStart_toEndOf="@+id/tv_qr"
+                app:layout_constraintTop_toBottomOf="@+id/iv_ct" />
+
+            <ImageView
+                android:id="@+id/iv_upload"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_actionBanner"
+                app:srcCompat="@drawable/uploadinfo" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="31dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_horizontal"
+                android:text="UPLOAD INFO"
+                android:textColor="#428E5C"
+                android:textSize="10sp"
+                app:layout_constraintStart_toEndOf="@+id/tv_ct"
+                app:layout_constraintTop_toBottomOf="@+id/iv_upload" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_status"
+        android:layout_width="374dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="15dp"
+        app:cardBackgroundColor="#FFFEF6"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cv_actions">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/ll_statusBanner"
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:background="#428E5C"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:paddingTop="1.5dp"
+                    android:text="STATUS"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_vaccination"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_statusBanner"
+                app:srcCompat="@drawable/vax_base" />
+
+            <TextView
+                android:id="@+id/tv_vaccination"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_vertical"
+                android:text="Your vaccination status has not been set. Set your vaccination status by clicking the button on the left."
+                android:textColor="#7B7B7B"
+                android:textSize="11dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_statusBanner" />
+
+            <ImageView
+                android:id="@+id/iv_test"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_vaccination"
+                app:srcCompat="@drawable/test_base" />
+
+            <TextView
+                android:id="@+id/tv_test"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_vertical"
+                android:text="You have not set a test status. Set up your latest test status now by clicking the button on the left."
+                android:textColor="#7B7B7B"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_vaccination" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

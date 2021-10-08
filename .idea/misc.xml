@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/homenav.xml" value="0.2703125" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/nav_contacttracing.xml" value="0.2703125" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/nav_home.xml" value="0.2703125" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/nav_notif.xml" value="0.2703125" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/nav_profile.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/nav_settings.xml" value="0.2703125" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/profilegradientbg.xml" value="0.2703125" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/layout/activity_upload_data.xml" value="0.4" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/layout/fragment_profile.xml" value="0.23369565217391305" />
+        <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/menu/menu.xml" value="0.264" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
