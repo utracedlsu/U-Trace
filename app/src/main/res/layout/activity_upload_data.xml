@@ -102,17 +102,17 @@
             android:layout_height="48dp"
             android:backgroundTint="#428E5C"
             android:text="UPLOAD MY DATA"
-            app:layout_constraintBottom_toTopOf="@+id/btn_cancelUploadData"
+            app:layout_constraintBottom_toTopOf="@+id/btn_back_UploadData"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/btn_cancelUploadData"
+            android:id="@+id/btn_back_UploadData"
             android:layout_width="250dp"
             android:layout_height="48dp"
             android:layout_marginBottom="20dp"
             android:backgroundTint="#708978"
-            android:text="CANCEL"
+            android:text="GO BACK"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

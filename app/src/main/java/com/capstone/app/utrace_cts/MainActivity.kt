@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         // Navigation Bar initialization
         val nav: BottomNavigationView = findViewById(R.id.navigationBar)
-        nav.setItemIconTintList(null) // code to make icon-switching (when clicked) work
+        nav.setItemIconTintList(null) // make icon-switching (when clicked) work
         nav.menu.get(2).setChecked(true) // set home (third in the array) as default
 
         replaceFragment(homeFragment) // set fragment to home on start

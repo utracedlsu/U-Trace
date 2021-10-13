@@ -28,14 +28,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // connect
         ivUpload = view.findViewById(R.id.iv_upload)
 
-        // To UploadDataActivity
+        // Go to UploadDataActivity
         ivUpload.setOnClickListener{
             val intent = Intent(activity, UploadDataActivity::class.java)
             startActivity(intent)
         }
     }
+
+    // TODO: set override back button confirming to exit app
 
     companion object {
         /**
