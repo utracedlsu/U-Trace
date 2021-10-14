@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:text="U-TRACE"
         android:textColor="#FFFEF6"
         android:textSize="19sp"
@@ -29,11 +29,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_uploadData"
+        android:id="@+id/tv_overview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="32dp"
         android:text="OVERVIEW"
         android:textColor="#D2FF99"
         android:textSize="45sp"
@@ -49,7 +49,7 @@
         app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_uploadData">
+        app:layout_constraintTop_toBottomOf="@+id/tv_overview">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

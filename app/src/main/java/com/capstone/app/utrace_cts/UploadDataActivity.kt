@@ -30,8 +30,6 @@ class UploadDataActivity : AppCompatActivity() {
 
         // go back to home
         btn_back_UploadData.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             finish()
         }
 

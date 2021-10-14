@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.capstone.app.utrace_cts.fragments.HomeFragment
+import com.capstone.app.utrace_cts.fragments.NotificationsFragment
 import com.capstone.app.utrace_cts.fragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -12,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private val homeFragment = HomeFragment()
     private val profileFragment = ProfileFragment()
+    private val notificationsFragment = NotificationsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.homeFrag -> replaceFragment(homeFragment)
                 R.id.profileFrag -> replaceFragment(profileFragment)
+                R.id.notifFrag -> replaceFragment(notificationsFragment)
             }
             true
         }
