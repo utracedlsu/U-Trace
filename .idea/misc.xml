@@ -15,13 +15,21 @@
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/layout/fragment_profile.xml" value="0.23369565217391305" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/menu/menu.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/drawable/gradientbg.xml" value="0.2703125" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/drawable/nav_settings.xml" value="0.26615384615384613" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/activity_enabling_permissions.xml" value="0.2" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/activity_login.xml" value="0.176" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/activity_upload_data.xml" value="0.4" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/fragment_confirm_upload_data.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/activity_otp_activation.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/activity_register.xml" value="0.2" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/activity_test_status.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/activity_upload_data.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/fragment_confirm_upload_data.xml" value="0.176" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/fragment_home.xml" value="0.4" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/fragment_notifications.xml" value="0.2" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/fragment_profile.xml" value="0.21331521739130435" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/fragment_notifications.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/notif_child.xml" value="0.4" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/notif_parent.xml" value="0.4" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/menu/menu.xml" value="0.25025641025641027" />
       </map>
     </option>

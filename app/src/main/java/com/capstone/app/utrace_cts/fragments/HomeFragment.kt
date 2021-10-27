@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.capstone.app.utrace_cts.R
+import com.capstone.app.utrace_cts.TestStatusActivity
 import com.capstone.app.utrace_cts.UploadDataActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -24,16 +25,24 @@ private const val ARG_PARAM2 = "param2"
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var ivUpload: ImageView
+    private lateinit var ivTestStatus : ImageView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // connect
         ivUpload = view.findViewById(R.id.iv_upload)
+        ivTestStatus = view.findViewById(R.id.iv_testStatus)
 
         // Go to UploadDataActivity
         ivUpload.setOnClickListener{
             val intent = Intent(activity, UploadDataActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Go to TestStatusActivity
+        ivTestStatus.setOnClickListener{
+            val intent = Intent(activity, TestStatusActivity::class.java)
             startActivity(intent)
         }
     }

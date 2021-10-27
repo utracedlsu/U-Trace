@@ -46,7 +46,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_profileInfo"
+            android:id="@+id/cv_testStatusInfo"
             android:layout_width="374dp"
             android:layout_height="260dp"
             android:layout_marginTop="25dp"
@@ -138,10 +138,10 @@
                         android:layout_weight="1"
                         android:text="FULL NAME"
                         android:textColor="#2A8348"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_details_fullName"
+                        android:id="@+id/tv_details_testID"
                         android:layout_width="340dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -173,7 +173,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_details_address"
+                        android:id="@+id/tv_details_dateOfTest"
                         android:layout_width="340dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

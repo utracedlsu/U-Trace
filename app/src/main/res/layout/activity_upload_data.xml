@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,117 +8,130 @@
     android:background="#FFFEF6"
     tools:context=".UploadDataActivity">
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <ImageView
+      android:id="@+id/iv_bgheader_uploadData"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="465dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/bgheader_upload_data" />
 
-    <ImageView
-        android:id="@+id/iv_bgheader_uploadData"
+  <TextView
+      android:id="@+id/tv_utrace"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="15dp"
+      android:layout_marginTop="20dp"
+      android:text="U-TRACE"
+      android:textColor="#FFFEF6"
+      android:textSize="19sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/tv_uploadData"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="15dp"
+      android:layout_marginTop="32dp"
+      android:text="UPLOAD DATA"
+      android:textColor="#D2FF99"
+      android:textSize="45sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <androidx.core.widget.NestedScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="465dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bgheader_upload_data" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_utrace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:text="U-TRACE"
-        android:textColor="#FFFEF6"
-        android:textSize="19sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+      <ImageView
+          android:id="@+id/iv_graphic1_uploadData"
+          android:layout_width="200dp"
+          android:layout_height="200dp"
+          android:layout_marginTop="100dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:srcCompat="@drawable/des1" />
 
-    <TextView
-        android:id="@+id/tv_uploadData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="32dp"
-        android:text="UPLOAD DATA"
-        android:textColor="#D2FF99"
-        android:textSize="45sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+      <androidx.cardview.widget.CardView
+          android:id="@+id/cv_testStatusInfo"
+          android:layout_width="374dp"
+          android:layout_height="350dp"
+          android:layout_marginTop="275dp"
+          android:layout_marginBottom="10dp"
+          app:cardBackgroundColor="#FFFEF6"
+          app:cardCornerRadius="10dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/iv_graphic1_uploadData"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="21dp"
-        app:layout_constraintEnd_toEndOf="@+id/iv_bgheader_uploadData"
-        app:layout_constraintStart_toStartOf="@+id/iv_bgheader_uploadData"
-        app:layout_constraintTop_toBottomOf="@+id/tv_uploadData"
-        app:srcCompat="@drawable/des1" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_profileInfo"
-        android:layout_width="374dp"
-        android:layout_height="350dp"
-        android:layout_marginTop="200dp"
-        app:cardBackgroundColor="#FFFEF6"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_uploadData">
-
-      <androidx.constraintlayout.widget.ConstraintLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
-        <TextView
-            android:id="@+id/tv_confirmationTitle"
-            android:layout_width="240dp"
-            android:layout_height="36dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            android:text="UPLOAD CONTACT TRACING HISTORY TO HEALTH AUTHORITIES?"
-            android:textColor="#428E5C"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+          <TextView
+              android:id="@+id/tv_uploadDataTitle"
+              android:layout_width="240dp"
+              android:layout_height="36dp"
+              android:layout_marginTop="20dp"
+              android:gravity="center_horizontal"
+              android:text="UPLOAD CONTACT TRACING HISTORY TO HEALTH AUTHORITIES?"
+              android:textColor="#428E5C"
+              android:textStyle="bold"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_confirmationText"
-            android:layout_width="320sp"
-            android:layout_height="wrap_content"
-            android:text="Additional supplementary desc. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            android:textColor="#428E5C"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_confirmUploadData"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_confirmationTitle" />
+          <TextView
+              android:id="@+id/tv_confirmationText"
+              android:layout_width="320sp"
+              android:layout_height="wrap_content"
+              android:text="Additional supplementary desc. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.  Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+              android:textColor="#428E5C"
+              android:textSize="12sp"
+              app:layout_constraintBottom_toTopOf="@+id/btn_enablePermissions"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/tv_uploadDataTitle" />
 
-        <Button
-            android:id="@+id/btn_confirmUploadData"
-            android:layout_width="250dp"
-            android:layout_height="48dp"
-            android:backgroundTint="#428E5C"
-            android:text="UPLOAD MY DATA"
-            app:layout_constraintBottom_toTopOf="@+id/btn_back_UploadData"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+          <Button
+              android:id="@+id/btn_enablePermissions"
+              android:layout_width="250dp"
+              android:layout_height="48dp"
+              android:backgroundTint="#428E5C"
+              android:text="UPLOAD MY DATA"
+              app:layout_constraintBottom_toTopOf="@+id/btn_back_TestStatus"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/btn_back_UploadData"
-            android:layout_width="250dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="#708978"
-            android:text="GO BACK"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+          <Button
+              android:id="@+id/btn_back_TestStatus"
+              android:layout_width="250dp"
+              android:layout_height="48dp"
+              android:layout_marginBottom="20dp"
+              android:backgroundTint="#708978"
+              android:text="GO BACK"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent" />
 
-      </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+      </androidx.cardview.widget.CardView>
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.core.widget.NestedScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
