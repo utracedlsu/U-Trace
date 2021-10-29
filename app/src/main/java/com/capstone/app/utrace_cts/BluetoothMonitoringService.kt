@@ -63,6 +63,8 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
     private val bluetoothStatusReceiver = BluetoothStatusReceiver()
 //    private val statusReceiver = StatusReceiver()
 
+    private var isRegisteredBluetoothStatus = false
+
     override fun onCreate() {
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         setup()
@@ -82,7 +84,9 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
         worker = StreetPassWorker(this.applicationContext)
 
-        unregisterReceivers()
+        if(isRegisteredBluetoothStatus) {
+            unregisterReceivers()
+        }
         registerReceivers()
 
 //        //persistence
@@ -115,6 +119,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
         val bluetoothStatusReceivedFilter = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
         registerReceiver(bluetoothStatusReceiver, bluetoothStatusReceivedFilter)
+        isRegisteredBluetoothStatus = true
 
         Log.i("BTMonitoringService", "Receivers registered")
     }
@@ -134,6 +139,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 //        }
         try{
             unregisterReceiver(bluetoothStatusReceiver)
+            isRegisteredBluetoothStatus = false
         } catch (e: Throwable){
             Log.w("BTMonitoringService", "Error unregistering bluetooth status receiver: ${e.localizedMessage}")
         }
