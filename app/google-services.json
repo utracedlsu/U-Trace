@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "122688814579",
+    "project_id": "u-trace-330014",
+    "storage_bucket": "u-trace-330014.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122688814579:android:df025eb3a3ad90739ae686",
+        "android_client_info": {
+          "package_name": "com.capstone.app.utrace_cts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122688814579-251jkd6r9n8fbv963cbqh6mb47r0a86k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlkdb-1WnSFe9FJfmJs7BjhKLjZPDBZW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122688814579-251jkd6r9n8fbv963cbqh6mb47r0a86k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
