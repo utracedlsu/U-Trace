@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ble_uuid">61ca2ddb-d5d0-489c-8542-2d1b72e594b4</string>
     <string name="ble_characuuid">011019d0-8cb6-4804-8b83-1c3348a8940c</string>
+    <string name="permission_location_rationale">Please allow Location Permissions - Google requires this for your phone to scan for another phone’s Bluetooth. We do not use or store your location.</string>
+    <string name="permission_write_rationale">OpenTrace needs save files for logs (Debug builds only)</string>
 </resources>

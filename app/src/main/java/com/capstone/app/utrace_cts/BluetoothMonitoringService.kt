@@ -21,6 +21,7 @@ import com.capstone.app.utrace_cts.Status.Status
 import com.capstone.app.utrace_cts.Streetpass.StreetPassScanner
 import com.capstone.app.utrace_cts.Streetpass.StreetPassServer
 import com.capstone.app.utrace_cts.Streetpass.StreetPassWorker
+import com.capstone.app.utrace_cts.permissions.RequestFileWritePermission
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -202,13 +203,13 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         return EasyPermissions.hasPermissions(this.applicationContext, *permissions)
     }
 
-    /*
+
     private fun acquireWritePermission() {
         val intent = Intent(this.applicationContext, RequestFileWritePermission::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
-    */
+
 
     //To do - perform user login check function
     //private fun performUserLoginCheck()
