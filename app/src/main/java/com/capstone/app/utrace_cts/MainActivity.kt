@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        Utils.startBluetoothMonitoringService(this)
     }
 
     // replaceFragment: updates the fragment holder (view) given a fragment

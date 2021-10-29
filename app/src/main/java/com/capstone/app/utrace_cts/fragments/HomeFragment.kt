@@ -10,6 +10,7 @@ import android.widget.ImageView
 import com.capstone.app.utrace_cts.R
 import com.capstone.app.utrace_cts.TestStatusActivity
 import com.capstone.app.utrace_cts.UploadDataActivity
+import com.capstone.app.utrace_cts.Utils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -45,6 +46,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             val intent = Intent(activity, TestStatusActivity::class.java)
             startActivity(intent)
         }
+
+
     }
 
     // TODO: set override back button confirming to exit app

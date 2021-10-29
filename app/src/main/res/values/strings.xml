@@ -2,4 +2,6 @@
     <string name="app_name">utrace_cts</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ble_uuid">61ca2ddb-d5d0-489c-8542-2d1b72e594b4</string>
+    <string name="ble_characuuid">011019d0-8cb6-4804-8b83-1c3348a8940c</string>
 </resources>
