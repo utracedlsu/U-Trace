@@ -45,6 +45,9 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+        if(!isLocationPermissionGranted){
+            requestLocationPermission()
+        }
         Utils.startBluetoothMonitoringService(this)
     }
 
