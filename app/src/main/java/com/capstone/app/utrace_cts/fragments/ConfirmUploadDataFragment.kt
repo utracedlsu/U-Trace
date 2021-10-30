@@ -16,7 +16,7 @@ class ConfirmUploadDataFragment: DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        // init and set bg to transparent
+        // initialize, set bg to transparent
         var content: View = inflater.inflate(R.layout.fragment_confirm_upload_data, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 

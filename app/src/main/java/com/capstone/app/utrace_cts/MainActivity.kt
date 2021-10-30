@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import com.capstone.app.utrace_cts.fragments.ContactTracingFragment
 import com.capstone.app.utrace_cts.fragments.HomeFragment
 import com.capstone.app.utrace_cts.fragments.NotificationsFragment
 import com.capstone.app.utrace_cts.fragments.ProfileFragment
@@ -14,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private val homeFragment = HomeFragment()
     private val profileFragment = ProfileFragment()
     private val notificationsFragment = NotificationsFragment()
+    private val contactTracingFragment = ContactTracingFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,17 +23,19 @@ class MainActivity : AppCompatActivity() {
 
         // Navigation Bar initialization
         val nav: BottomNavigationView = findViewById(R.id.navigationBar)
-        nav.setItemIconTintList(null) // make icon-switching (when clicked) work
-        nav.menu.get(2).setChecked(true) // set home (third in the array) as default
+        nav.itemIconTintList = null // make icon-switching (when clicked) work
 
-        replaceFragment(homeFragment) // set fragment to home on start
+        // set HomeFragment as default
+        nav.menu[2].isChecked = true
+        replaceFragment(homeFragment)
 
-        // Navigation Bar : Navigation logic
+        // Navigation Bar Logic
         nav.setOnNavigationItemSelectedListener{
             when(it.itemId){
                 R.id.homeFrag -> replaceFragment(homeFragment)
                 R.id.profileFrag -> replaceFragment(profileFragment)
                 R.id.notifFrag -> replaceFragment(notificationsFragment)
+                R.id.contactTracingFrag -> replaceFragment(contactTracingFragment)
             }
             true
         }

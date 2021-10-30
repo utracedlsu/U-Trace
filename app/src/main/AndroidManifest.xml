@@ -24,8 +24,11 @@
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />
+        <!-- (1/2) Replace below:
+                   android:name=".MainActivity"
+                   to swap Main Activity to Login Activity (change code below as well) -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".EnablingPermissionsActivity"
@@ -36,8 +39,11 @@
         <activity
             android:name=".UploadDataActivity"
             android:exported="true" />
+        <!-- (2/2) Replace below:
+                   android:name=".LoginActivity"
+                   to set Login Activity as main/default activity on launch -->
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
