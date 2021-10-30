@@ -51,8 +51,9 @@ class MainActivity : AppCompatActivity() {
         }
         if(!isLocationPermissionGranted){
             requestLocationPermission()
+        } else {
+            Utils.startBluetoothMonitoringService(this)
         }
-        Utils.startBluetoothMonitoringService(this)
     }
 
     // Check if permissions are granted
@@ -99,7 +100,7 @@ class MainActivity : AppCompatActivity() {
                 if (grantResults.firstOrNull() == PackageManager.PERMISSION_DENIED) {
                     requestLocationPermission()
                 } else {
-
+                    Utils.startBluetoothMonitoringService(this)
                 }
             }
         }
