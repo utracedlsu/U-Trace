@@ -3,10 +3,14 @@ package com.capstone.app.utrace_cts
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
@@ -99,6 +103,33 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    //Request Bluetooth Permission
+    override fun onResume(){
+        super.onResume()
+        if(!bluetoothAdapter.isEnabled){
+            promptBluetoothEnable()
+        }
+    }
+
+    private fun promptBluetoothEnable(){
+        if(!bluetoothAdapter.isEnabled){
+            val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            getResult.launch(enableIntent)
+        }
+    }
+    private val getResult = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val value = it.data?.getStringExtra("input")
+        }
+    }
+
+
+    private val bluetoothAdapter: BluetoothAdapter by lazy {
+        val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        bluetoothManager.adapter
     }
 
     // replaceFragment: updates the fragment holder (view) given a fragment
