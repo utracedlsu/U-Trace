@@ -1,4 +1,4 @@
-package com.capstone.app.utrace_cts.Bluetooth
+package com.capstone.app.utrace_cts.bluetooth
 
 import com.capstone.app.utrace_cts.BuildConfig
 

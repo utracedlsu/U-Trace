@@ -1,9 +1,9 @@
-package com.capstone.app.utrace_cts.Protocol
+package com.capstone.app.utrace_cts.protocol
 
 import android.os.Build
 import android.util.Log
-import com.capstone.app.utrace_cts.Bluetooth.BluetoothPayload
-import com.capstone.app.utrace_cts.Bluetooth.BluetoothWritePayload
+import com.capstone.app.utrace_cts.bluetooth.BluetoothPayload
+import com.capstone.app.utrace_cts.bluetooth.BluetoothWritePayload
 import com.capstone.app.utrace_cts.CentralDevice
 import com.capstone.app.utrace_cts.ConnectionRecord
 import com.capstone.app.utrace_cts.PeripheralDevice

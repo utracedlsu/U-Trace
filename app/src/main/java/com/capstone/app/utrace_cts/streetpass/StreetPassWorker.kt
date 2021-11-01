@@ -1,4 +1,4 @@
-package com.capstone.app.utrace_cts.Streetpass
+package com.capstone.app.utrace_cts.streetpass
 
 import android.bluetooth.*
 import android.content.BroadcastReceiver
@@ -11,11 +11,11 @@ import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.capstone.app.utrace_cts.BlacklistEntry
 import com.capstone.app.utrace_cts.*
-import com.capstone.app.utrace_cts.Bluetooth.ACTION_DEVICE_PROCESSED
-import com.capstone.app.utrace_cts.Bluetooth.CONNECTION_DATA
-import com.capstone.app.utrace_cts.Bluetooth.DEVICE_ADDRESS
+import com.capstone.app.utrace_cts.bluetooth.ACTION_DEVICE_PROCESSED
+import com.capstone.app.utrace_cts.bluetooth.CONNECTION_DATA
+import com.capstone.app.utrace_cts.bluetooth.DEVICE_ADDRESS
 import com.capstone.app.utrace_cts.ConnectablePeripheral
-import com.capstone.app.utrace_cts.Protocol.Bluetrace
+import com.capstone.app.utrace_cts.protocol.Bluetrace
 import com.capstone.app.utrace_cts.Utils
 import com.capstone.app.utrace_cts.Work
 import java.util.*

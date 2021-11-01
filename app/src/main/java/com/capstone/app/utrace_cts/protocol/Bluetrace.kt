@@ -1,4 +1,4 @@
-package com.capstone.app.utrace_cts.Protocol
+package com.capstone.app.utrace_cts.protocol
 
 import java.util.*
 

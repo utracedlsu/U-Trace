@@ -6,14 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.capstone.app.utrace_cts.Bluetooth.*
+import com.capstone.app.utrace_cts.bluetooth.*
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_ADVERTISE_REQ_CODE
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_BM_UPDATE
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_HEALTH_CHECK_CODE
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_SCAN_REQ_CODE
-import com.capstone.app.utrace_cts.Status.Status
-import com.capstone.app.utrace_cts.Streetpass.ACTION_DEVICE_SCANNED
-import com.capstone.app.utrace_cts.Scheduler
+import com.capstone.app.utrace_cts.status.Status
+import com.capstone.app.utrace_cts.streetpass.ACTION_DEVICE_SCANNED
 import java.text.SimpleDateFormat
 import java.util.*
 

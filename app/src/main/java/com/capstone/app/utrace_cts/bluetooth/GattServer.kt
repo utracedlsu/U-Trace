@@ -1,11 +1,9 @@
-package com.capstone.app.utrace_cts.Bluetooth
+package com.capstone.app.utrace_cts.bluetooth
 
 import android.bluetooth.*
 import android.content.Context
 import android.util.Log
-import com.capstone.app.utrace_cts.Bluetooth.BluetoothWritePayload
-import com.capstone.app.utrace_cts.Bluetooth.GattService
-import com.capstone.app.utrace_cts.Protocol.Bluetrace
+import com.capstone.app.utrace_cts.protocol.Bluetrace
 import java.util.*
 import kotlin.properties.Delegates
 

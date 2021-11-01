@@ -1,10 +1,8 @@
-package com.capstone.app.utrace_cts.Bluetooth
+package com.capstone.app.utrace_cts.bluetooth
 
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattService
 import android.content.Context
-import android.content.res.Resources
-import com.capstone.app.utrace_cts.R
 import java.util.*
 import kotlin.properties.Delegates
 

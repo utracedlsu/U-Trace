@@ -1,8 +1,8 @@
-package com.capstone.app.utrace_cts.Streetpass
+package com.capstone.app.utrace_cts.streetpass
 
 import android.content.Context
-import com.capstone.app.utrace_cts.Bluetooth.GattServer
-import com.capstone.app.utrace_cts.Bluetooth.GattService
+import com.capstone.app.utrace_cts.bluetooth.GattServer
+import com.capstone.app.utrace_cts.bluetooth.GattService
 
 class StreetPassServer constructor(val context: Context, val serviceUUIDString: String) {
 

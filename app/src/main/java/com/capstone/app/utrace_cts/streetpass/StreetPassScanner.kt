@@ -1,4 +1,4 @@
-package com.capstone.app.utrace_cts.Streetpass
+package com.capstone.app.utrace_cts.streetpass
 
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
@@ -7,10 +7,10 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import com.capstone.app.utrace_cts.Bluetooth.BLEScanner
+import com.capstone.app.utrace_cts.bluetooth.BLEScanner
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.infiniteScanning
 import com.capstone.app.utrace_cts.ConnectablePeripheral
-import com.capstone.app.utrace_cts.Status.Status
+import com.capstone.app.utrace_cts.status.Status
 import com.capstone.app.utrace_cts.Utils
 import kotlin.properties.Delegates
 

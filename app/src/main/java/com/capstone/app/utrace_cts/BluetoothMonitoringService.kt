@@ -15,26 +15,26 @@ import android.os.IBinder
 import android.os.PowerManager
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.capstone.app.utrace_cts.Bluetooth.*
-import com.capstone.app.utrace_cts.Status.Status
+import com.capstone.app.utrace_cts.bluetooth.*
 
-import com.capstone.app.utrace_cts.Streetpass.StreetPassScanner
-import com.capstone.app.utrace_cts.Streetpass.StreetPassServer
-import com.capstone.app.utrace_cts.Streetpass.StreetPassWorker
+import com.capstone.app.utrace_cts.streetpass.StreetPassScanner
+import com.capstone.app.utrace_cts.streetpass.StreetPassServer
+import com.capstone.app.utrace_cts.streetpass.StreetPassWorker
 import com.capstone.app.utrace_cts.permissions.RequestFileWritePermission
+import com.capstone.app.utrace_cts.status.Status
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import pub.devrel.easypermissions.EasyPermissions
 import java.lang.ref.WeakReference
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
-//import com.capstone.app.utrace_cts.Status.persistence.StatusRecord
-//import com.capstone.app.utrace_cts.Status.persistence.StatusRecordStorage
-//import com.capstone.app.utrace_cts.Streetpass.persistence.StreetPassRecord
-//import com.capstone.app.utrace_cts.Streetpass.persistence.StreetPassRecordStorage
+import com.capstone.app.utrace_cts.status.persistence.StatusRecord
+import com.capstone.app.utrace_cts.status.persistence.StatusRecordStorage
+import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecord
+import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecordStorage
+import kotlinx.coroutines.launch
 
 class BluetoothMonitoringService: Service(), CoroutineScope{
 
@@ -45,8 +45,8 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
     private var bleAdvertiser: BLEAdvertiser? = null
 
     //persistence
-//    private lateinit var streetPassRecordStorage: StreetPassRecordStorage
-//    private lateinit var statusRecordStorage: StatusRecordStorage
+    private lateinit var streetPassRecordStorage: StreetPassRecordStorage
+    private lateinit var statusRecordStorage: StatusRecordStorage
 
     private lateinit var commandHandler: CommandHandler
     private lateinit var localBroadcastManager: LocalBroadcastManager
@@ -60,9 +60,9 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
     private var notificationShown: NOTIFICATION_STATE? = null
 
-//    private val streetPassReceiver = StreetPassReceiver()
+    private val streetPassReceiver = StreetPassReceiver()
     private val bluetoothStatusReceiver = BluetoothStatusReceiver()
-//    private val statusReceiver = StatusReceiver()
+    private val statusReceiver = StatusReceiver()
 
     private var isRegisteredBluetoothStatus = false
 
@@ -91,8 +91,8 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         registerReceivers()
 
 //        //persistence
-//        streetPassRecordStorage = StreetPassRecordStorage(this.applicationContext)
-//        statusRecordStorage = StatusRecordStorage(this.applicationContext)
+        streetPassRecordStorage = StreetPassRecordStorage(this.applicationContext)
+        statusRecordStorage = StatusRecordStorage(this.applicationContext)
 
         //retrieve temporary id here and save it as broadcast message
     }
@@ -113,10 +113,10 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
     private fun registerReceivers() {
         val recordAvailableFilter = IntentFilter(ACTION_RECEIVED_STREETPASS)
-//        localBroadcastManager.registerReceiver(streetPassReceiver, recordAvailableFilter)
+        localBroadcastManager.registerReceiver(streetPassReceiver, recordAvailableFilter)
 
         val statusReceivedFilter = IntentFilter(ACTION_RECEIVED_STATUS)
-//        localBroadcastManager.registerReceiver(statusReceiver, statusReceivedFilter)
+        localBroadcastManager.registerReceiver(statusReceiver, statusReceivedFilter)
 
         val bluetoothStatusReceivedFilter = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
         registerReceiver(bluetoothStatusReceiver, bluetoothStatusReceivedFilter)
@@ -127,17 +127,17 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
     private fun unregisterReceivers(){
         //use try catch in case receivers were never registered in the first place
-//        try{
-//            localBroadcastManager.unregisterReceiver(streetPassReceiver)
-//        } catch (e: Throwable){
-//            Log.w("BTMonitoringService", "Error unregistering streetpass receiver: ${e.localizedMessage}")
-//        }
-//
-//        try{
-//            localBroadcastManager.unregisterReceiver(statusReceiver)
-//        } catch (e: Throwable){
-//            Log.w("BTMonitoringService", "Error unregistering status receiver: ${e.localizedMessage}")
-//        }
+        try{
+            localBroadcastManager.unregisterReceiver(streetPassReceiver)
+        } catch (e: Throwable){
+            Log.w("BTMonitoringService", "Error unregistering streetpass receiver: ${e.localizedMessage}")
+        }
+
+        try{
+            localBroadcastManager.unregisterReceiver(statusReceiver)
+        } catch (e: Throwable){
+            Log.w("BTMonitoringService", "Error unregistering status receiver: ${e.localizedMessage}")
+        }
         try{
             unregisterReceiver(bluetoothStatusReceiver)
             isRegisteredBluetoothStatus = false
@@ -492,59 +492,59 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         }
     }
 
-    //StreetPassReceiver
-//    inner class StreetPassReceiver : BroadcastReceiver(){
-//        override fun onReceive(context: Context?, intent: Intent) {
-//            if(ACTION_RECEIVED_STREETPASS == intent.action){
-//                var connRecord: ConnectionRecord? = intent.getParcelableExtra(STREET_PASS)
-//                Log.d("BTMonitoringService", "Streetpass received: $connRecord")
-//
-//                //To do - check if connrecord is empty then save to db
-//                if(connRecord?.msg != null){
-//                    var receivedMsg = connRecord.msg
-//                    if(receivedMsg.isNotEmpty()){
-//                        val record = StreetPassRecord(
-//                                v = connRecord.version,
-//                                msg = connRecord.msg,
-//                                modelP = connRecord.peripheral.modelP,
-//                                modelC = connRecord.central.modelC,
-//                                rssi = connRecord.rssi,
-//                                txPower = connRecord.txPower
-//                        )
-//                        launch {
-//                            Log.d("BTMonitoringService", "StreetpassReceiver - Saving record: ${
-//                                Utils.getDate(
-//                                    record.timestamp
-//                                )
-//                            }")
-//                            streetPassRecordStorage.saveRecord(record)
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//
-//    inner class StatusReceiver : BroadcastReceiver(){
-//        override fun onReceive(context: Context, intent: Intent) {
-//
-//            if(ACTION_RECEIVED_STATUS == intent.action){
-//                var statusRecord: Status? = intent.getParcelableExtra(STATUS)
-//                Log.d("BTMonitoringService", "Status received: ${statusRecord?.msg}")
-//
-//                //To do - save to db
-//                if(statusRecord != null){
-//                    val recStatusRecord = StatusRecord(statusRecord.msg)
-//                    if(recStatusRecord.msg.isNotEmpty()){
-//                        launch {
-//                            statusRecordStorage.saveRecord(recStatusRecord)
-//                            Log.d("BTMonitoringService", "Saving status record")
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
+//    StreetPassReceiver
+    inner class StreetPassReceiver : BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent) {
+            if(ACTION_RECEIVED_STREETPASS == intent.action){
+                var connRecord: ConnectionRecord? = intent.getParcelableExtra(STREET_PASS)
+                Log.d("BTMonitoringService", "Streetpass received: $connRecord")
+
+                //To do - check if connrecord is empty then save to db
+                if(connRecord?.msg != null){
+                    var receivedMsg = connRecord.msg
+                    if(receivedMsg.isNotEmpty()){
+                        val record = StreetPassRecord(
+                                v = connRecord.version,
+                                msg = connRecord.msg,
+                                modelP = connRecord.peripheral.modelP,
+                                modelC = connRecord.central.modelC,
+                                rssi = connRecord.rssi,
+                                txPower = connRecord.txPower
+                        )
+                        launch {
+                            Log.d("BTMonitoringService", "StreetpassReceiver - Saving record: ${
+                                Utils.getDate(
+                                    record.timestamp
+                                )
+                            }")
+                            streetPassRecordStorage.saveRecord(record)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    inner class StatusReceiver : BroadcastReceiver(){
+        override fun onReceive(context: Context, intent: Intent) {
+
+            if(ACTION_RECEIVED_STATUS == intent.action){
+                var statusRecord: Status? = intent.getParcelableExtra(STATUS)
+                Log.d("BTMonitoringService", "Status received: ${statusRecord?.msg}")
+
+                //To do - save to db
+                if(statusRecord != null){
+                    val recStatusRecord = StatusRecord(statusRecord.msg)
+                    if(recStatusRecord.msg.isNotEmpty()){
+                        launch {
+                            statusRecordStorage.saveRecord(recStatusRecord)
+                            Log.d("BTMonitoringService", "Saving status record")
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     //to be used by CommandHandler
     enum class Command(val index: Int, val string: String) {

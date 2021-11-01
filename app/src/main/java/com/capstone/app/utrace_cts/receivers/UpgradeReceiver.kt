@@ -1,4 +1,4 @@
-package com.capstone.app.utrace_cts.Receivers
+package com.capstone.app.utrace_cts.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context

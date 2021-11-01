@@ -1,4 +1,4 @@
-package com.capstone.app.utrace_cts.Bluetooth
+package com.capstone.app.utrace_cts.bluetooth
 
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.le.*
