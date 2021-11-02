@@ -11,6 +11,7 @@ import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_BM_UPDATE
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_HEALTH_CHECK_CODE
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_SCAN_REQ_CODE
+import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_PURGE_CODE
 import com.capstone.app.utrace_cts.status.Status
 import com.capstone.app.utrace_cts.streetpass.ACTION_DEVICE_SCANNED
 import java.text.SimpleDateFormat
@@ -94,6 +95,21 @@ object Utils {
             context,
             nextIntent,
             timeInMillis
+        )
+    }
+
+    fun scheduleRepeatingPurge(context: Context, intervalMillis: Long) {
+        val nextIntent = Intent(context, BluetoothMonitoringService::class.java)
+        nextIntent.putExtra(
+            BluetoothMonitoringService.COMMAND_KEY,
+            BluetoothMonitoringService.Command.ACTION_PURGE.index
+        )
+
+        Scheduler.scheduleRepeatingServiceIntent(
+            PENDING_PURGE_CODE,
+            context,
+            nextIntent,
+            intervalMillis
         )
     }
 

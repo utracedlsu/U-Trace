@@ -327,6 +327,18 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         Log.i("BTMonitoringService", "Cycles are set up")
     }
 
+
+    private fun performPurge(){
+        val context = this
+        launch {
+            val before = System.currentTimeMillis() - purgeTTL
+            Log.i("BTMonitoringService", "Performing purge: $before")
+            streetPassRecordStorage.purgeOldRecords(before)
+            statusRecordStorage.purgeOldRecords(before)
+            Preference.putLastPurgeTime(context, System.currentTimeMillis())
+        }
+    }
+
     override fun onStartCommand(intent: Intent?, flags: Int, startID: Int): Int {
         //check for permissions
         if(!isBluetoothEnabled() || !hasLocPermissions()){
@@ -370,7 +382,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
                 setupService()
                 Utils.scheduleNextHealthCheck(this.applicationContext, healthCheckInterval)
                 Utils.scheduleBMUpdateCheck(this.applicationContext, bmCheckInterval)
-                //utils purge interval
+                Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
                 actionStart()
             }
 
@@ -408,7 +420,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
             }
 
             Command.ACTION_PURGE -> {
-                //actionPurge
+                actionPurge()
             }
 
             else -> {
@@ -430,6 +442,11 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         performScan()
     }
 
+    private fun actionPurge(){
+        performPurge()
+    }
+
+
     private fun actionStart(){
         //To do - integrate tempIDManager
         setupCycles()
@@ -443,6 +460,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
     private fun actionHealthCheck(){
         performHealthCheck()
+        Utils.scheduleRepeatingPurge(this.applicationContext, purgeInterval)
     }
 
     private fun stopService(){
