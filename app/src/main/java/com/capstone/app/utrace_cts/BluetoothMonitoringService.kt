@@ -165,14 +165,16 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
     private fun notifyLackingThings(override: Boolean = false){
         if(notificationShown != NOTIFICATION_STATE.LACKING_THINGS || override){
-            //notificationTemplate
+            var notif = NotificationTemplates.lackingThingsNotification(this.applicationContext, CHANNEL_ID)
+            startForeground(NOTIFICATION_ID, notif)
             notificationShown = NOTIFICATION_STATE.LACKING_THINGS
         }
     }
 
     private fun notifyRunning(override: Boolean = false){
         if (notificationShown != NOTIFICATION_STATE.RUNNING || override) {
-            //notificationTemplate
+            var notif = NotificationTemplates.getRunningNotification(this.applicationContext, CHANNEL_ID)
+            startForeground(NOTIFICATION_ID, notif)
             notificationShown = NOTIFICATION_STATE.RUNNING
         }
     }
@@ -220,11 +222,11 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
         if(!isBluetoothEnabled() || !hasLocPermissions()){
             Log.i("BTMonitoringService", "No location permissions")
-            notifyLackingThings()
+            notifyLackingThings(true)
             return
         }
 
-        notifyRunning()
+        notifyRunning(true)
         setupService()
 
         //check if a scan is scheduled
@@ -492,6 +494,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
                     when(state){
                         BluetoothAdapter.STATE_TURNING_OFF -> {
                             Log.d("BTMonitoringService", "STATE_TURNING_OFF")
+                            notifyLackingThings()
                             teardown()
                         }
                         BluetoothAdapter.STATE_OFF -> {
