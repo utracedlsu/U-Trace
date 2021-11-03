@@ -5,6 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -15,6 +19,11 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var et_regPass: EditText
     private lateinit var et_regConfirmPass: EditText
     private lateinit var btn_regConfirm: Button
+
+    //Firebase
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var fStore: FirebaseFirestore
+    //private lateinit var fStore = Fireba
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +38,13 @@ class RegisterActivity : AppCompatActivity() {
         et_regConfirmPass = findViewById(R.id.et_regConfirmPass)
         btn_regConfirm = findViewById(R.id.btn_regConfirm)
 
+        //get firebaseAuth instance
+        mAuth = FirebaseAuth.getInstance()
+        fStore = FirebaseFirestore.getInstance()
+
         // go to OTP Activation activity
         btn_regConfirm.setOnClickListener {
-            val intent = Intent(this, OtpActivationActivity::class.java)
-            startActivity(intent)
+            registerNumberFStore()
         }
     }
 
@@ -79,5 +91,35 @@ class RegisterActivity : AppCompatActivity() {
 
         return true
     }
+
+    private fun registerNumberFStore(){
+        //get values from editTexts
+        val fname = et_regFname.text.toString()
+        val lname = et_regLname.text.toString()
+        val email = et_regEmail.text.toString()
+        val pword = et_regPass.text.toString()
+        val phoneno = et_regMobileNo.text.toString()
+
+        var userDetails = hashMapOf(
+            "firstname" to fname,
+            "lastname" to lname,
+            "email" to email,
+            "pword" to pword,
+            "phone" to phoneno
+        )
+
+
+        if(checkForDiscrepancies()) {
+
+            val otpIntent = Intent(this, OtpActivationActivity::class.java)
+
+            otpIntent.putExtra("USER_DETAILS", userDetails)
+
+            startActivity(otpIntent)
+        } else {
+            Toast.makeText(applicationContext, "lorem ipsum", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
 }
