@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_dataPrivConsent_title" />
 
             <Button
-                android:id="@+id/btn_agreeConfirmUpload"
+                android:id="@+id/btn_agreeConsent"
                 android:layout_width="250dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="15dp"
@@ -66,7 +66,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_agreeConfirmUpload" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_agreeConsent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

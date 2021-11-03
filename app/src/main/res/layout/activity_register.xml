@@ -12,7 +12,7 @@
         android:layout_width="302dp"
         android:layout_height="113dp"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="55dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="175dp"
+        android:layout_marginTop="160dp"
         android:text="Insert tag line here. Lorem ipsum or somethin."
         android:textColor="#FFFEF6"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,19 +60,34 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <EditText
-                    android:id="@+id/et_otpPin"
+                    android:id="@+id/et_regFname"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="25dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="#FDFCF1"
+                    android:ems="10"
+                    android:hint="first name"
+                    android:inputType="textPersonName"
+                    android:paddingStart="10sp"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/et_regLname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
                     android:layout_marginEnd="25dp"
                     android:layout_weight="1"
                     android:background="#FDFCF1"
                     android:ems="10"
-                    android:hint="full name"
+                    android:hint="last name"
                     android:inputType="textPersonName"
                     android:paddingStart="10sp"
-                    android:paddingEnd="10sp"
                     android:textSize="13sp" />
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -86,7 +101,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
                 <EditText
-                    android:id="@+id/et_registerMobileNo"
+                    android:id="@+id/et_regMobileNo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="25dp"
@@ -95,7 +110,7 @@
                     android:background="#FDFCF1"
                     android:ems="10"
                     android:hint="mobile phone number"
-                    android:inputType="number"
+                    android:inputType="phone"
                     android:paddingStart="10sp"
                     android:paddingEnd="10sp"
                     android:textSize="13sp" />
@@ -112,7 +127,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/LinearLayout">
 
                 <EditText
-                    android:id="@+id/et_registerPassword"
+                    android:id="@+id/et_regPass"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="25dp"
@@ -138,7 +153,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearlayout">
 
                 <EditText
-                    android:id="@+id/et_registerConfirmPassword"
+                    android:id="@+id/et_regConfirmPass"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="25dp"
@@ -154,7 +169,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_confirmOTP"
+                android:id="@+id/btn_regConfirm"
                 android:layout_width="150dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="95dp"

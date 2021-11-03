@@ -22,6 +22,12 @@ class UploadDataActivity : AppCompatActivity() {
         // data privacy consent and confirmation popup window
         btn_confirmUploadData.setOnClickListener {
             val confirmUploadDialog = ConfirmUploadDataFragment()
+
+            // add to bundle: source = EnablePermissionsActivity
+            val bundle = Bundle()
+            bundle.putBoolean("source", false)
+            confirmUploadDialog.arguments = bundle
+
             confirmUploadDialog.show(supportFragmentManager, "confirmUploadDialog")
         }
 

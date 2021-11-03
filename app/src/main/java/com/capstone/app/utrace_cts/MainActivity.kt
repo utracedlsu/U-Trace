@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         nav.menu[2].isChecked = true
         replaceFragment(homeFragment)
 
-        // Navigation Bar Logic
+        // Navigation Bar Logic (Try: setOnItemSelectedListener)
         nav.setOnNavigationItemSelectedListener{
             when(it.itemId){
                 R.id.homeFrag -> replaceFragment(homeFragment)
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         Utils.startBluetoothMonitoringService(this)
     }
 
-    // replaceFragment: updates the fragment holder (view) given a fragment
+    // updates the fragment holder (view), given a fragment
     private fun replaceFragment(fragment: Fragment){
         if(fragment != null){
             val transaction = supportFragmentManager.beginTransaction()

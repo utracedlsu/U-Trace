@@ -55,7 +55,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <Button
-                android:id="@+id/btn_confirmOTP"
+                android:id="@+id/btn_enablePerm"
                 android:layout_width="250dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="45dp"
@@ -68,17 +68,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <Button
+                android:id="@+id/btn_skip"
                 android:layout_width="250dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="45dp"
                 android:layout_marginEnd="45dp"
                 android:layout_marginBottom="25dp"
                 android:backgroundTint="#708978"
-                android:text="EXIT / NOT NOW"
+                android:text="NOT NOW"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_confirmOTP" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_enablePerm" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
