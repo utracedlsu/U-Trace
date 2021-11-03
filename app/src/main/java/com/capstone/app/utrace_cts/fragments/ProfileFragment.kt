@@ -1,11 +1,19 @@
 package com.capstone.app.utrace_cts.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.Toast
+import com.capstone.app.utrace_cts.LoginActivity
+import com.capstone.app.utrace_cts.MainActivity
 import com.capstone.app.utrace_cts.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,25 +25,46 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ProfileFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var ll_logout: LinearLayout
+    private lateinit var builder: MaterialAlertDialogBuilder
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // initialize
+        ll_logout = view.findViewById(R.id.ll_logout)
+        initLogoutDialog()
+
+        // logout -- go to login activity
+        ll_logout.setOnClickListener {
+            builder.show()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+    // initialize alert dialog
+    private fun initLogoutDialog() {
+
+        builder = MaterialAlertDialogBuilder(requireContext())
+        builder.setTitle("Logout Confirmation")
+        builder.setMessage("Are you sure you want to logout?")
+
+        // Yes — finish all activities, go to LoginActivity
+        builder.setPositiveButton("Yes") {dialog, which ->
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.putExtra("EXIT", true)
+            startActivity(intent)
+            activity?.finish()
+        }
+
+        // No — do nothing
+        builder.setNegativeButton("Cancel") {dialog, which ->
+            dialog.dismiss()
+        }
     }
 
     companion object {

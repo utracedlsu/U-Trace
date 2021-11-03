@@ -16,8 +16,6 @@ class TestStatusActivity : AppCompatActivity() {
         btn_back_TestStatus = findViewById(R.id.btn_back_TestStatus)
 
         // go back to home
-        btn_back_TestStatus.setOnClickListener {
-            finish()
-        }
+        btn_back_TestStatus.setOnClickListener { finish() }
     }
 }

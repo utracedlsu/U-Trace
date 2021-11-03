@@ -75,7 +75,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2">
 
                 <EditText
-                    android:id="@+id/et_otpPin"
+                    android:id="@+id/et_otp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="25dp"
@@ -83,14 +83,17 @@
                     android:layout_weight="1"
                     android:background="#FDFCF1"
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:gravity="center|center_horizontal"
+                    android:hint="-  -  -  -"
+                    android:inputType="number"
                     android:paddingStart="10sp"
                     android:paddingEnd="10sp"
-                    android:textSize="13sp" />
+                    android:textColor="#428E5C"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_confirmOTP"
+                android:id="@+id/btn_otpConfirm"
                 android:layout_width="250dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="45dp"
@@ -116,7 +119,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_confirmOTP" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_otpConfirm" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -126,11 +129,11 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="556dp"
         android:baselineAlignBottom="false"
+        android:scaleType="fitEnd"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/citybg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
