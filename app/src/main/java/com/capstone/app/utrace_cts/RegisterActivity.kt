@@ -11,6 +11,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var et_regFname: EditText
     private lateinit var et_regLname: EditText
     private lateinit var et_regMobileNo: EditText
+    private lateinit var et_regEmail: EditText
     private lateinit var et_regPass: EditText
     private lateinit var et_regConfirmPass: EditText
     private lateinit var btn_regConfirm: Button
@@ -23,6 +24,7 @@ class RegisterActivity : AppCompatActivity() {
         et_regFname = findViewById(R.id.et_regFname)
         et_regLname = findViewById(R.id.et_regLname)
         et_regMobileNo = findViewById(R.id.et_regMobileNo)
+        et_regEmail = findViewById(R.id.et_regEmail)
         et_regPass = findViewById(R.id.et_regPass)
         et_regConfirmPass = findViewById(R.id.et_regConfirmPass)
         btn_regConfirm = findViewById(R.id.btn_regConfirm)
@@ -50,6 +52,11 @@ class RegisterActivity : AppCompatActivity() {
 
         if (et_regMobileNo.text.isEmpty()) {
             et_regMobileNo.error = "Input your mobile number."
+            return false
+        }
+
+        if (et_regEmail.text.isEmpty()) {
+            et_regEmail.error = "Input your email."
             return false
         }
 
