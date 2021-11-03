@@ -94,6 +94,8 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         streetPassRecordStorage = StreetPassRecordStorage(this.applicationContext)
         statusRecordStorage = StatusRecordStorage(this.applicationContext)
 
+        setupNotifications()
+
         //retrieve temporary id here and save it as broadcast message
     }
 

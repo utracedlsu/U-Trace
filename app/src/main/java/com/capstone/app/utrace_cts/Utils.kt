@@ -6,6 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.capstone.app.utrace_cts.bluetooth.ACTION_DEVICE_PROCESSED
+import com.capstone.app.utrace_cts.bluetooth.ACTION_RECEIVED_STATUS
+import com.capstone.app.utrace_cts.bluetooth.DEVICE_ADDRESS
 import com.capstone.app.utrace_cts.bluetooth.*
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_ADVERTISE_REQ_CODE
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_BM_UPDATE
