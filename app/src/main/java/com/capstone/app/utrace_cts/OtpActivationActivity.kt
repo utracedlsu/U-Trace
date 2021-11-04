@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
@@ -22,14 +23,18 @@ class OtpActivationActivity : AppCompatActivity() {
     private lateinit var phoneNum: String
     private lateinit var signInMap: HashMap<String, Object>
     private lateinit var authCredential: PhoneAuthCredential
+    private lateinit var etOTP: EditText
+
 
     private var callbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
         override fun onVerificationCompleted(credential: PhoneAuthCredential){
-            Log.d("OTPActivation", "onVericationCompleted")
+            Log.d("OTPActivation", "onVerificationCompleted")
 
+            etOTP.setText(credential.smsCode)
             authCredential = credential
+            Log.d("OTPActivation", "SMS Code: ${credential.smsCode}")
             Log.d("OTPActivation", "authCredential: ${authCredential.toString()}")
-            signInWithPhoneCredential(credential)
+            //signInWithPhoneCredential(credential)
         }
 
         override fun onVerificationFailed(fe: FirebaseException) {
@@ -53,7 +58,7 @@ class OtpActivationActivity : AppCompatActivity() {
 
         regMap = intent.getSerializableExtra("USER_DETAILS")
 
-
+        etOTP = findViewById(R.id.et_otp)
         btn_otpConfirm = findViewById(R.id.btn_otpConfirm)
 
         signInMap = regMap as HashMap<String, Object>
@@ -65,6 +70,13 @@ class OtpActivationActivity : AppCompatActivity() {
 
         // go to Enable Permissions activity
         btn_otpConfirm.setOnClickListener {
+            validateOTP()
+        }
+    }
+
+    private fun validateOTP(){
+        val enteredOTP = etOTP.text.toString()
+        if(enteredOTP.equals(authCredential.smsCode)){
             signInWithPhoneCredential(authCredential)
         }
     }
@@ -119,22 +131,6 @@ class OtpActivationActivity : AppCompatActivity() {
                             Log.d("OTPActivation", "Error! ${task.exception?.message}")
                         }
                     }
-                /*
-                fAuth.createUserWithEmailAndPassword(email, pword)
-                    .addOnCompleteListener(OnCompleteListener { task ->
-                        if(task.isSuccessful){
-                            val newUser = fAuth.currentUser
-                            val newUserID = newUser?.uid as String
-
-                            fStore.collection("users").document(newUserID).set(fStoreInsertMap)
-                                .addOnCompleteListener { task ->
-                                    Toast.makeText(applicationContext, "Successfully Added!", Toast.LENGTH_SHORT).show()
-                                }
-                        } else {
-                            Toast.makeText(applicationContext, "Error: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                        }
-                    })
-                 */
             } else {
                 Toast.makeText(applicationContext, "Error! ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 Log.d("OTPActivation", "Error! ${task.exception?.message}")
