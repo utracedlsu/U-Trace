@@ -21,10 +21,12 @@ class OtpActivationActivity : AppCompatActivity() {
     private lateinit var fStore: FirebaseFirestore
     private lateinit var phoneNum: String
     private lateinit var signInMap: HashMap<String, Object>
+    private lateinit var authCredential: PhoneAuthCredential
 
     private var callbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
         override fun onVerificationCompleted(credential: PhoneAuthCredential){
             Log.d("OTPActivation", "onVericationCompleted")
+            authCredential = credential
             signInWithPhoneCredential(credential)
         }
 
@@ -61,9 +63,7 @@ class OtpActivationActivity : AppCompatActivity() {
 
         // go to Enable Permissions activity
         btn_otpConfirm.setOnClickListener {
-
-            val intent = Intent(this, EnablingPermissionsActivity::class.java)
-            startActivity(intent)
+            signInWithPhoneCredential(authCredential)
         }
     }
 
