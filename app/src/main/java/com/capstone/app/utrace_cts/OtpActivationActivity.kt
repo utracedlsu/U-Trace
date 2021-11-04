@@ -90,7 +90,7 @@ class OtpActivationActivity : AppCompatActivity() {
                 val email = signInMap.get("email") as String
                 val pword = signInMap.get("pword") as String
 
-                val fname = signInMap.get("fistname") as String
+                val fname = signInMap.get("firstname") as String
                 val lname = signInMap.get("lastname") as String
 
                 val fStoreInsertMap = hashMapOf(
