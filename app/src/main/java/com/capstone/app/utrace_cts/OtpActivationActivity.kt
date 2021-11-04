@@ -27,6 +27,7 @@ class OtpActivationActivity : AppCompatActivity() {
         override fun onVerificationCompleted(credential: PhoneAuthCredential){
             Log.d("OTPActivation", "onVericationCompleted")
             authCredential = credential
+            Log.d("OTPActivation", "authCredential: ${authCredential.toString()}")
             signInWithPhoneCredential(credential)
         }
 
