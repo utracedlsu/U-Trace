@@ -14,6 +14,7 @@ import com.capstone.app.utrace_cts.LoginActivity
 import com.capstone.app.utrace_cts.MainActivity
 import com.capstone.app.utrace_cts.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,6 +53,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         // Yes — finish all activities, go to LoginActivity
         builder.setPositiveButton("Yes") {dialog, which ->
+            FirebaseAuth.getInstance().signOut()
             val intent = Intent(context, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)

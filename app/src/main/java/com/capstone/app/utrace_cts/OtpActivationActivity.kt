@@ -79,6 +79,7 @@ class OtpActivationActivity : AppCompatActivity() {
     private fun validateOTP(){
         val enteredOTP = etOTP.text.toString()
         if(enteredOTP.equals(authCredential.smsCode)){
+            Preference.putPhoneNumber(applicationContext, "+63${phoneNum}")
             if(intentSource.equals("RegisterActivity")) {
                 signInWithPhoneCredential(authCredential)
             } else if (intentSource.equals("LoginActivity")){
@@ -109,7 +110,7 @@ class OtpActivationActivity : AppCompatActivity() {
 
         fAuth.signInWithCredential(credential).addOnCompleteListener{ task ->
             if(task.isSuccessful) {
-                Toast.makeText(applicationContext, "Successfully logged in!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Successfully logged in! ${Preference.getPhoneNumber(applicationContext)}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else {
@@ -149,7 +150,7 @@ class OtpActivationActivity : AppCompatActivity() {
                         if(task.isSuccessful) {
                             Toast.makeText(
                                 applicationContext,
-                                "Successfully Added!",
+                                "Successfully Added! ${Preference.getPhoneNumber(applicationContext)}",
                                 Toast.LENGTH_SHORT
                             ).show()
                             val intent = Intent(this, MainActivity::class.java)
