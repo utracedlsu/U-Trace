@@ -21,6 +21,7 @@ class OtpActivationActivity : AppCompatActivity() {
     private lateinit var fAuth: FirebaseAuth
     private lateinit var fStore: FirebaseFirestore
     private lateinit var phoneNum: String
+    private lateinit var intentSource: String //should be either Login or Register activities
     private lateinit var signInMap: HashMap<String, Object>
     private lateinit var authCredential: PhoneAuthCredential
     private lateinit var etOTP: EditText
@@ -63,6 +64,7 @@ class OtpActivationActivity : AppCompatActivity() {
 
         signInMap = regMap as HashMap<String, Object>
         phoneNum = signInMap.get("phone") as String
+        intentSource = signInMap.get("activity_source") as String
 
         Log.d("OTPActivity", "+63"+phoneNum)
 
@@ -77,7 +79,15 @@ class OtpActivationActivity : AppCompatActivity() {
     private fun validateOTP(){
         val enteredOTP = etOTP.text.toString()
         if(enteredOTP.equals(authCredential.smsCode)){
-            signInWithPhoneCredential(authCredential)
+            if(intentSource.equals("RegisterActivity")) {
+                signInWithPhoneCredential(authCredential)
+            } else if (intentSource.equals("LoginActivity")){
+                logInWithPhoneCredential(authCredential)
+            } else {
+                Toast.makeText(applicationContext, "Error validating OTP!", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            Toast.makeText(applicationContext, "OTP is incorrect. Please try again.", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -92,6 +102,24 @@ class OtpActivationActivity : AppCompatActivity() {
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
+    //upon LOGGING IN
+    private fun logInWithPhoneCredential(credential: PhoneAuthCredential){
+        Log.d("OTPActivation", "Entering logInWithPhoneCredential")
+        Log.d("OTPActivation", "credential: ${credential.toString()}")
+
+        fAuth.signInWithCredential(credential).addOnCompleteListener{ task ->
+            if(task.isSuccessful) {
+                Toast.makeText(applicationContext, "Successfully logged in!", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(applicationContext, "Error! ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                Log.d("OTPActivation", "Error! ${task.exception?.message}")
+            }
+        }
+    }
+
+    //upon REGISTERING
     private fun signInWithPhoneCredential(credential: PhoneAuthCredential){
         Log.d("OTPActivation", "Entering signInWithPhoneCredential")
         Log.d("OTPActivation", "credential: ${credential.toString()}")

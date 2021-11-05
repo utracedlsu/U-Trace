@@ -101,6 +101,8 @@ class RegisterActivity : AppCompatActivity() {
         val phoneno = et_regMobileNo.text.toString()
 
         var userDetails = hashMapOf(
+            //allows OtpActivationActivity to identify the intent sender
+            "activity_source" to "RegisterActivity",
             "firstname" to fname,
             "lastname" to lname,
             "email" to email,

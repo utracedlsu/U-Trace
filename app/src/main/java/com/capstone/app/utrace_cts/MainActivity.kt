@@ -20,6 +20,7 @@ import com.capstone.app.utrace_cts.fragments.HomeFragment
 import com.capstone.app.utrace_cts.fragments.NotificationsFragment
 import com.capstone.app.utrace_cts.fragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 private const val LOCATION_PERMISSION_REQUEST_CODE = 2
 
@@ -143,6 +144,15 @@ class MainActivity : AppCompatActivity() {
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.fragmentHolder, fragment)
             transaction.commit()
+        }
+    }
+
+    //check if user is already logged in, if not then send to login page
+    override fun onStart() {
+        super.onStart()
+
+        if(FirebaseAuth.getInstance().currentUser == null){
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 }
