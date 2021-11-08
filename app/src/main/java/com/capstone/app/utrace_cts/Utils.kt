@@ -172,4 +172,9 @@ object Utils {
         Scheduler.cancelServiceIntent(PENDING_BM_UPDATE, context, intent)
     }
 
+    fun getDateFromUnix(unix_timestamp: Long): String? {
+        val sdf = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.ENGLISH)
+        val date = sdf.format(unix_timestamp)
+        return date.toString()
+    }
 }

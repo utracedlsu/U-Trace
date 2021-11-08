@@ -26,7 +26,6 @@ private const val LOCATION_PERMISSION_REQUEST_CODE = 2
 
 class MainActivity : AppCompatActivity() {
 
-
     private val homeFragment = HomeFragment()
     private val profileFragment = ProfileFragment()
     private val notificationsFragment = NotificationsFragment()
