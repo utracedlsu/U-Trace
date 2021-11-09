@@ -165,7 +165,7 @@ class GattServer constructor(val context: Context, val serviceUUIDString: String
                     try {
                         device.let {
                             val bluetraceImplementation = Bluetrace.getImplementation(charUUID)
-
+                            //comment
                             val connectionRecord = bluetraceImplementation.peripheral.processWriteRequestDataReceived(data, device.address)
                             connectionRecord?.let {
                                 Utils.broadcastStreetPassReceived(
