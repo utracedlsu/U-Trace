@@ -208,4 +208,9 @@ class ConfirmUploadDataFragment: DialogFragment() {
 
         return uploadTask
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        disposableObj?.dispose()
+    }
 }

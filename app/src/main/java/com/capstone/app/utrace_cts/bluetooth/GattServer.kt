@@ -3,6 +3,7 @@ package com.capstone.app.utrace_cts.bluetooth
 import android.bluetooth.*
 import android.content.Context
 import android.util.Log
+import com.capstone.app.utrace_cts.Utils
 import com.capstone.app.utrace_cts.protocol.Bluetrace
 import java.util.*
 import kotlin.properties.Delegates
@@ -166,6 +167,12 @@ class GattServer constructor(val context: Context, val serviceUUIDString: String
                             val bluetraceImplementation = Bluetrace.getImplementation(charUUID)
 
                             val connectionRecord = bluetraceImplementation.peripheral.processWriteRequestDataReceived(data, device.address)
+                            connectionRecord?.let {
+                                Utils.broadcastStreetPassReceived(
+                                    context,
+                                    connectionRecord
+                                )
+                            }
                             Log.w("GattServerCallback", "Entering device.let")
                             try {
                                 val serializedData = BluetoothWritePayload.fromPayload(data)
