@@ -106,7 +106,7 @@ class ConfirmUploadDataFragment: DialogFragment() {
                             Log.d("UploadFragment", "Records: ${exportedData.recordList}")
                             Log.d("UploadFragment", "${exportedData.statusList}")
 
-                            getUploadToken("a1b2c3").addOnSuccessListener {
+                            getUploadToken("1234").addOnSuccessListener {
                                 val response = it.data as HashMap<String, String>
                                 try {
                                     val uploadToken = response["token"]
