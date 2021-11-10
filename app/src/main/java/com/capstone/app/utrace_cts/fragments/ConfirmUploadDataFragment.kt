@@ -109,10 +109,12 @@ class ConfirmUploadDataFragment: DialogFragment() {
                             getUploadToken("testCode").addOnSuccessListener {
                                 val response = it.data as HashMap<String, String>
                                 try {
+                                    val uploadToken = response["token"]
                                     var task = writeToInternalStorageAndUpload(
                                         requireActivity().applicationContext,
                                         exportedData.recordList,
-                                        exportedData.statusList
+                                        exportedData.statusList,
+                                        uploadToken
                                     )
 
                                     task.addOnSuccessListener {
@@ -152,9 +154,10 @@ class ConfirmUploadDataFragment: DialogFragment() {
     }
 
     private fun writeToInternalStorageAndUpload(context: Context, spRecordsList:
-    List<StreetPassRecord>, statusList: List<StatusRecord>): UploadTask{
+    List<StreetPassRecord>, statusList: List<StatusRecord>,  uploadToken: String?): UploadTask{
         var date = Utils.getDateFromUnix(System.currentTimeMillis())
         var gson = Gson()
+
 
         val manufacturer = Build.MANUFACTURER
         val model = Build.MODEL
@@ -170,6 +173,7 @@ class ConfirmUploadDataFragment: DialogFragment() {
         }
 
         var map: MutableMap<String, Any> = HashMap()
+        map["token"] = uploadToken as Any
         map["records"] = updatedDeviceList as Any
         map["events"] = updatedStatusList as Any
 
