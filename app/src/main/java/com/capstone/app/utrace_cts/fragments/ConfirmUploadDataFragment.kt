@@ -22,6 +22,9 @@ import com.capstone.app.utrace_cts.status.persistence.StatusRecord
 import com.capstone.app.utrace_cts.status.persistence.StatusRecordStorage
 import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecord
 import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecordStorage
+import com.google.android.gms.tasks.Task
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.functions.HttpsCallableResult
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
 import com.google.gson.Gson
@@ -103,25 +106,34 @@ class ConfirmUploadDataFragment: DialogFragment() {
                             Log.d("UploadFragment", "Records: ${exportedData.recordList}")
                             Log.d("UploadFragment", "${exportedData.statusList}")
 
-                            try {
-                                var task = writeToInternalStorageAndUpload(
-                                    requireActivity().applicationContext,
-                                    exportedData.recordList,
-                                    exportedData.statusList
-                                )
+                            //gumagamit pa lang ng random string here
+                            getUploadToken("testCode").addOnCompleteListener { task ->
+                                if(task.isSuccessful){
+                                    try {
+                                        var task = writeToInternalStorageAndUpload(
+                                            requireActivity().applicationContext,
+                                            exportedData.recordList,
+                                            exportedData.statusList
+                                        )
 
-                                task.addOnSuccessListener {
-                                    Log.d("UploadFragment", "Successfully Uploaded Records!")
-                                    Toast.makeText(requireActivity().applicationContext, "Successfully Uploaded Records!", Toast.LENGTH_SHORT).show()
+                                        task.addOnSuccessListener {
+                                            Log.d("UploadFragment", "Successfully Uploaded Records!")
+                                            Toast.makeText(requireActivity().applicationContext, "Successfully Uploaded Records!", Toast.LENGTH_SHORT).show()
+                                        }
+                                        task.addOnFailureListener{
+                                            Log.d("UploadFragment", "Failed to upload records: ${it.message}")
+                                            Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${it.message}", Toast.LENGTH_SHORT).show()
+                                        }
+                                    } catch(e: Exception){
+                                        Log.d("UploadFragment", "Failed to upload records: ${e.message}")
+                                        Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${e.message}", Toast.LENGTH_SHORT).show()
+                                    }
+                                } else {
+                                    Log.d("UploadFragment", "Failed to upload records (Invalid Code): ${task.exception?.message}")
+                                    Toast.makeText(requireActivity().applicationContext, "Failed to upload records (Invalid Code): ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                                 }
-                                task.addOnFailureListener{
-                                    Log.d("UploadFragment", "Failed to upload records: ${it.message}")
-                                    Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${it.message}", Toast.LENGTH_SHORT).show()
-                                }
-                            } catch(e: Exception){
-                                Log.d("UploadFragment", "Failed to upload records: ${e.message}")
-                                Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${e.message}", Toast.LENGTH_SHORT).show()
                             }
+
                         }
             }
         }
@@ -132,6 +144,13 @@ class ConfirmUploadDataFragment: DialogFragment() {
         btn_cancelUploadData.setOnClickListener { dialog?.dismiss() } // close popup window on cancel
 
         return content
+    }
+
+    private fun getUploadToken(uploadCode: String): Task<HttpsCallableResult> {
+        val functions = FirebaseFunctions.getInstance("asia-east2")
+        return functions
+            .getHttpsCallable("getUploadToken")
+            .call(uploadCode)
     }
 
     private fun writeToInternalStorageAndUpload(context: Context, spRecordsList:
@@ -181,6 +200,7 @@ class ConfirmUploadDataFragment: DialogFragment() {
     }
 
     private fun uploadToFirebase(context: Context, fileToUpload: File): UploadTask{
+
         val storage = FirebaseStorage.getInstance("gs://u-trace-upload")
         val storageRef = storage.getReferenceFromUrl("gs://u-trace-upload")
 
