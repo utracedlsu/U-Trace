@@ -106,32 +106,30 @@ class ConfirmUploadDataFragment: DialogFragment() {
                             Log.d("UploadFragment", "Records: ${exportedData.recordList}")
                             Log.d("UploadFragment", "${exportedData.statusList}")
 
-                            //gumagamit pa lang ng random string here
-                            getUploadToken("testCode").addOnCompleteListener { task ->
-                                if(task.isSuccessful){
-                                    try {
-                                        var task = writeToInternalStorageAndUpload(
-                                            requireActivity().applicationContext,
-                                            exportedData.recordList,
-                                            exportedData.statusList
-                                        )
+                            getUploadToken("testCode").addOnSuccessListener {
+                                val response = it.data as HashMap<String, String>
+                                try {
+                                    var task = writeToInternalStorageAndUpload(
+                                        requireActivity().applicationContext,
+                                        exportedData.recordList,
+                                        exportedData.statusList
+                                    )
 
-                                        task.addOnSuccessListener {
-                                            Log.d("UploadFragment", "Successfully Uploaded Records!")
-                                            Toast.makeText(requireActivity().applicationContext, "Successfully Uploaded Records!", Toast.LENGTH_SHORT).show()
-                                        }
-                                        task.addOnFailureListener{
-                                            Log.d("UploadFragment", "Failed to upload records: ${it.message}")
-                                            Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${it.message}", Toast.LENGTH_SHORT).show()
-                                        }
-                                    } catch(e: Exception){
-                                        Log.d("UploadFragment", "Failed to upload records: ${e.message}")
-                                        Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${e.message}", Toast.LENGTH_SHORT).show()
+                                    task.addOnSuccessListener {
+                                        Log.d("UploadFragment", "Successfully Uploaded Records!")
+                                        Toast.makeText(requireActivity().applicationContext, "Successfully Uploaded Records!", Toast.LENGTH_SHORT).show()
                                     }
-                                } else {
-                                    Log.d("UploadFragment", "Failed to upload records (Invalid Code): ${task.exception?.message}")
-                                    Toast.makeText(requireActivity().applicationContext, "Failed to upload records (Invalid Code): ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                                    task.addOnFailureListener{
+                                        Log.d("UploadFragment", "Failed to upload records: ${it.message}")
+                                        Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${it.message}", Toast.LENGTH_SHORT).show()
+                                    }
+                                } catch(e: Exception){
+                                    Log.d("UploadFragment", "Failed to upload records: ${e.message}")
+                                    Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
+                            }.addOnFailureListener {
+                                Log.d("UploadFragment", "Failed to upload records (Invalid Code)")
+                                Toast.makeText(requireActivity().applicationContext, "Failed to upload records (Invalid Code)", Toast.LENGTH_SHORT).show()
                             }
 
                         }
