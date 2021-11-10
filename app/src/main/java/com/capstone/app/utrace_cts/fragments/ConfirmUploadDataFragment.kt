@@ -106,7 +106,7 @@ class ConfirmUploadDataFragment: DialogFragment() {
                             Log.d("UploadFragment", "Records: ${exportedData.recordList}")
                             Log.d("UploadFragment", "${exportedData.statusList}")
 
-                            getUploadToken("testCode").addOnSuccessListener {
+                            getUploadToken("a1b2c3").addOnSuccessListener {
                                 val response = it.data as HashMap<String, String>
                                 try {
                                     val uploadToken = response["token"]
@@ -116,7 +116,6 @@ class ConfirmUploadDataFragment: DialogFragment() {
                                         exportedData.statusList,
                                         uploadToken
                                     )
-
                                     task.addOnSuccessListener {
                                         Log.d("UploadFragment", "Successfully Uploaded Records!")
                                         Toast.makeText(requireActivity().applicationContext, "Successfully Uploaded Records!", Toast.LENGTH_SHORT).show()
@@ -130,8 +129,8 @@ class ConfirmUploadDataFragment: DialogFragment() {
                                     Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
                             }.addOnFailureListener {
-                                Log.d("UploadFragment", "Failed to upload records (Invalid Code)")
-                                Toast.makeText(requireActivity().applicationContext, "Failed to upload records (Invalid Code)", Toast.LENGTH_SHORT).show()
+                                Log.d("UploadFragment", "Failed to upload records (Invalid Code) ${it.message}")
+                                Toast.makeText(requireActivity().applicationContext, "Failed to upload records (Invalid Code ${it.message})", Toast.LENGTH_SHORT).show()
                             }
 
                         }

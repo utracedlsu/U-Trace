@@ -16,6 +16,8 @@ import android.os.PowerManager
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.capstone.app.utrace_cts.bluetooth.*
+import com.capstone.app.utrace_cts.idmanager.TempID
+import com.capstone.app.utrace_cts.idmanager.TempIDManager
 
 import com.capstone.app.utrace_cts.streetpass.StreetPassScanner
 import com.capstone.app.utrace_cts.streetpass.StreetPassServer
@@ -34,6 +36,7 @@ import com.capstone.app.utrace_cts.status.persistence.StatusRecord
 import com.capstone.app.utrace_cts.status.persistence.StatusRecordStorage
 import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecord
 import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecordStorage
+import com.google.firebase.functions.FirebaseFunctions
 import kotlinx.coroutines.launch
 
 class BluetoothMonitoringService: Service(), CoroutineScope{
@@ -66,6 +69,8 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
     private var isRegisteredBluetoothStatus = false
 
+    private lateinit var functions: FirebaseFunctions
+
     override fun onCreate() {
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         setup()
@@ -97,6 +102,8 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         setupNotifications()
 
         //retrieve temporary id here and save it as broadcast message
+        functions = FirebaseFunctions.getInstance("asia-east2")
+        broadcastMessage = TempIDManager.retrieveTemporaryID(this.applicationContext)
     }
 
     fun teardown(){
@@ -437,13 +444,41 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
     //update broadcast message (temporary ID) here
     private fun actionUpdateBM(){
-        broadcastMessage = (0..100).random().toString()
-        //To do - TempIDManager
+        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
+            Log.i("BTMonitoringService", "[TempID] Need to update TemporaryID in actionUpdateBM")
+            TempIDManager.getTemporaryIDs(this, functions)
+                .addOnCompleteListener {
+                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
+                    fetch?.let {
+                        Log.i("BTMonitoringService", "[TempID] Updated Temp ID")
+                        broadcastMessage = it
+                    }
+
+                    if (fetch == null) {
+                        Log.i("BTMonitoringService", "[TempID] Failed to fetch new Temp ID")
+                    }
+                }
+        } else {
+            Log.i("BTMonitoringService", "[TempID] Don't need to update Temp ID in actionUpdateBM")
+        }
     }
 
     private fun actionScan(){
-        //To do - integrate tempIDManager
-        performScan()
+        if (TempIDManager.needToUpdate(this.applicationContext) || broadcastMessage == null) {
+            Log.i("BTMonitoringService", "[TempID] Need to update TemporaryID in actionScan")
+            TempIDManager.getTemporaryIDs(this, functions)
+                .addOnCompleteListener {
+                    var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
+                    fetch?.let {
+                        Log.i("BTMonitoringService", "[actionScan] Updated Temp ID")
+                        broadcastMessage = it
+                        performScan()
+                    }
+                }
+        } else {
+            Log.i("BTMonitoringService", "[actionScan] Don't need to update Temp ID in actionUpdateBM")
+            performScan()
+        }
     }
 
     private fun actionPurge(){
@@ -452,8 +487,14 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
 
     private fun actionStart(){
-        //To do - integrate tempIDManager
-        setupCycles()
+        TempIDManager.getTemporaryIDs(this, functions).addOnCompleteListener {
+            Log.d("BTMonitoringService", "getTemporaryIDs completed")
+            var fetch = TempIDManager.retrieveTemporaryID(this.applicationContext)
+            fetch?.let {
+                broadcastMessage = it
+                setupCycles()
+            }
+        }
     }
 
     private fun actionStop(){
@@ -611,7 +652,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         val PENDING_PURGE_CODE = 12
 
         //var broadcastMessage: TemporaryID? = null
-        var broadcastMessage: String? = null
+        var broadcastMessage: TempID? = null
 
         //Advertising and Scanning Stuffs
         val scanDuration: Long = 8000
