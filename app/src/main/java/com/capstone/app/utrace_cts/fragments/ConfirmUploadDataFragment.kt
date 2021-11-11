@@ -23,6 +23,8 @@ import com.capstone.app.utrace_cts.status.persistence.StatusRecordStorage
 import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecord
 import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecordStorage
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.HttpsCallableResult
 import com.google.firebase.storage.FirebaseStorage
@@ -44,12 +46,20 @@ import kotlin.collections.HashMap
 class ConfirmUploadDataFragment: DialogFragment() {
 
     private var disposableObj: Disposable? = null
+    private lateinit var mAuth: FirebaseAuth
+    private var mUser: FirebaseUser? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // initialize, set bg to transparent
         var content: View = inflater.inflate(R.layout.fragment_confirm_upload_data, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        //initialize firebase users and auth (for testing)
+        mAuth = FirebaseAuth.getInstance()
+        mUser = mAuth.currentUser
+
+        Log.d("UploadFragment", "Current user is ${mUser?.uid}")
 
         // connect
         var tv_dataPrivConsent_content: TextView = content.findViewById(R.id.tv_dataPrivConsent_content)
@@ -121,11 +131,11 @@ class ConfirmUploadDataFragment: DialogFragment() {
                                         Toast.makeText(requireActivity().applicationContext, "Successfully Uploaded Records!", Toast.LENGTH_SHORT).show()
                                     }
                                     task.addOnFailureListener{
-                                        Log.d("UploadFragment", "Failed to upload records: ${it.message}")
+                                        Log.d("UploadFragment", "Failed to upload records (task): ${it.message}")
                                         Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${it.message}", Toast.LENGTH_SHORT).show()
                                     }
                                 } catch(e: Exception){
-                                    Log.d("UploadFragment", "Failed to upload records: ${e.message}")
+                                    Log.d("UploadFragment", "Failed to upload records (try exception): ${e.message}")
                                     Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${e.message}", Toast.LENGTH_SHORT).show()
                                 }
                             }.addOnFailureListener {
