@@ -1,10 +1,13 @@
 package com.capstone.app.utrace_cts.streetpass
 
+import android.Manifest
 import android.bluetooth.*
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -20,6 +23,10 @@ import com.capstone.app.utrace_cts.Utils
 import com.capstone.app.utrace_cts.Work
 import java.util.*
 import java.util.concurrent.PriorityBlockingQueue
+import android.bluetooth.BluetoothAdapter
+
+
+
 
 const val ACTION_DEVICE_SCANNED = "${BuildConfig.APPLICATION_ID}.ACTION_DEVICE_SCANNED"
 
@@ -77,6 +84,10 @@ class StreetPassWorker (val context: Context){
         timeoutHandler = Handler(Looper.getMainLooper())
         queueHandler = Handler(Looper.getMainLooper())
         blacklistHandler = Handler(Looper.getMainLooper())
+
+        //add own MAC address to blacklist
+        var ownMAC = BlacklistEntry(getBluetoothMac(context).toString(), System.currentTimeMillis())
+        blacklist.add(ownMAC)
 
         Log.i("StreetPassWorker", "Finished preparing")
     }
@@ -289,6 +300,7 @@ class StreetPassWorker (val context: Context){
         }
 
         if(work.isCriticalsCompleted()){
+            Log.w("finishWork", "Criticals completed for ${work.device.address}")
             Utils.broadcastDeviceProcessed(context, work.device.address)
         }
 
@@ -451,6 +463,25 @@ class StreetPassWorker (val context: Context){
                 endWorkConnection(gatt)
             }
         }
+    }
+
+    //get own bluetooth MAC address (we want to add it to the blacklist)
+    fun getBluetoothMac (context: Context): String? {
+        var result: String? = null
+        if(context.checkCallingOrSelfPermission(Manifest.permission.BLUETOOTH)
+        == PackageManager.PERMISSION_GRANTED){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                // Hardware ID are restricted in Android 6+
+                // https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
+                // Getting bluetooth mac via reflection for devices with Android 6+
+                result = android.provider.Settings.Secure.getString(context.getContentResolver(),
+                    "bluetooth_address");
+            } else {
+                val bta = BluetoothAdapter.getDefaultAdapter()
+                result = if (bta != null) bta.address else ""
+            }
+        }
+        return result
     }
 
     //ends connections

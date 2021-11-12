@@ -332,6 +332,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
     private fun setupCycles(){
         //setup scan cycle
+        Log.i("BTMonitoringService", "Setting up cycles..")
         commandHandler.scheduleNextScan(0)
         //setup advertising cycle
         commandHandler.scheduleNextAdvertise(0)
@@ -461,6 +462,8 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         } else {
             Log.i("BTMonitoringService", "[TempID] Don't need to update Temp ID in actionUpdateBM")
         }
+        //just log what is the current tempID
+        Log.i("BTMonitoringService", "Current tempID is ${TracerApp.thisDeviceMsg()}")
     }
 
     private fun actionScan(){
@@ -476,9 +479,10 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
                     }
                 }
         } else {
-            Log.i("BTMonitoringService", "[actionScan] Don't need to update Temp ID in actionUpdateBM")
+            Log.i("BTMonitoringService", "[actionScan] Don't need to update Temp ID in actionScan")
             performScan()
         }
+        Log.i("BTMonitoringService", "Current tempID is ${TracerApp.thisDeviceMsg()}")
     }
 
     private fun actionPurge(){
