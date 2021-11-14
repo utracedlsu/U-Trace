@@ -12,7 +12,7 @@
         android:layout_width="302dp"
         android:layout_height="113dp"
         android:layout_marginStart="55dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="55dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="135dp"
         android:text="Insert tag line here. Lorem ipsum or somethin."
         android:textColor="#FFFEF6"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,17 +126,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/LinearLayout">
 
-                <EditText
-                    android:id="@+id/et_regEmail"
-                    android:layout_width="wrap_content"
+                <Spinner
+                    android:id="@+id/sp_province"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="25dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="#FDFCF1"
+                    android:ems="10"
+                    android:paddingStart="10sp"
+                    android:paddingEnd="10sp"
+                    android:textSize="13sp" />
+
+                <Spinner
+                    android:id="@+id/sp_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
                     android:layout_marginEnd="25dp"
                     android:layout_weight="1"
                     android:background="#FDFCF1"
                     android:ems="10"
-                    android:hint="email"
-                    android:inputType="textEmailAddress"
                     android:paddingStart="10sp"
                     android:paddingEnd="10sp"
                     android:textSize="13sp" />
@@ -152,20 +163,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/LinearLayout1">
 
-                <EditText
-                    android:id="@+id/et_regPass"
-                    android:layout_width="wrap_content"
+                <Spinner
+                    android:id="@+id/sp_barangay"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="25dp"
                     android:layout_marginEnd="25dp"
                     android:layout_weight="1"
                     android:background="#FDFCF1"
                     android:ems="10"
-                    android:hint="password"
-                    android:inputType="textPassword"
                     android:paddingStart="10sp"
                     android:paddingEnd="10sp"
                     android:textSize="13sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -179,7 +189,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearlayout">
 
                 <EditText
-                    android:id="@+id/et_regConfirmPass"
+                    android:id="@+id/et_street"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="25dp"
@@ -187,11 +197,11 @@
                     android:layout_weight="1"
                     android:background="#FDFCF1"
                     android:ems="10"
-                    android:hint="confirm password"
-                    android:inputType="textPassword"
+                    android:hint="street"
+                    android:inputType="textPersonName"
                     android:paddingStart="10sp"
-                    android:paddingEnd="10sp"
                     android:textSize="13sp" />
+
             </LinearLayout>
 
             <Button

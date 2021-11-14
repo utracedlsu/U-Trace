@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.capstone.app.utrace_cts.R
 import com.capstone.app.utrace_cts.TestStatusActivity
 import com.capstone.app.utrace_cts.UploadDataActivity
@@ -27,6 +28,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var ivUpload: ImageView
     private lateinit var ivTestStatus : ImageView
+    private var btState = true // TRUE: Bluetooth is ON ; FALSE: Bluetooth is OFF
+    private lateinit var iv_bluetooth: ImageView
+    private lateinit var tv_bluetooth: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,6 +38,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         // connect
         ivUpload = view.findViewById(R.id.iv_upload)
         ivTestStatus = view.findViewById(R.id.iv_testStatus)
+        iv_bluetooth = view.findViewById(R.id.iv_bluetooth)
+        tv_bluetooth = view.findViewById(R.id.tv_bluetooth)
 
         // Go to UploadDataActivity
         ivUpload.setOnClickListener{
@@ -47,7 +53,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             startActivity(intent)
         }
 
+        // Bluetooth button functionality
+        iv_bluetooth.setOnClickListener {
+            if (btState) turnOffBt()
+            else turnOnBt()
+        }
+    }
 
+    private fun turnOnBt(){
+        iv_bluetooth.setImageResource(R.drawable.bton)
+        tv_bluetooth.text = "BLUETOOTH IS RUNNING "
+    }
+
+    private fun turnOffBt(){
+        iv_bluetooth.setImageResource(R.drawable.btoff)
+        tv_bluetooth.text = "BLUETOOTH IS OFF "
     }
 
     // TODO: set override back button confirming to exit app

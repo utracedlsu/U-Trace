@@ -3,9 +3,7 @@ package com.capstone.app.utrace_cts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,9 +13,10 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var et_regFname: EditText
     private lateinit var et_regLname: EditText
     private lateinit var et_regMobileNo: EditText
-    private lateinit var et_regEmail: EditText
-    private lateinit var et_regPass: EditText
-    private lateinit var et_regConfirmPass: EditText
+    private lateinit var sp_province: Spinner
+    private lateinit var sp_city: Spinner
+    private lateinit var sp_barangay: Spinner
+    private lateinit var et_street: EditText
     private lateinit var btn_regConfirm: Button
 
     //Firebase
@@ -33,9 +32,10 @@ class RegisterActivity : AppCompatActivity() {
         et_regFname = findViewById(R.id.et_regFname)
         et_regLname = findViewById(R.id.et_regLname)
         et_regMobileNo = findViewById(R.id.et_regMobileNo)
-        et_regEmail = findViewById(R.id.et_regEmail)
-        et_regPass = findViewById(R.id.et_regPass)
-        et_regConfirmPass = findViewById(R.id.et_regConfirmPass)
+        sp_province = findViewById(R.id.sp_province)
+        sp_city = findViewById(R.id.sp_city)
+        sp_barangay = findViewById(R.id.sp_barangay)
+        et_street = findViewById(R.id.et_street)
         btn_regConfirm = findViewById(R.id.btn_regConfirm)
 
         //get firebaseAuth instance
@@ -46,6 +46,17 @@ class RegisterActivity : AppCompatActivity() {
         btn_regConfirm.setOnClickListener {
             registerNumberFStore()
         }
+
+        // temp spinner values for province, city, barangay
+        val provinces = arrayOf("Select Province", "Province1", "Province2", "Province3")
+        sp_province.adapter = ArrayAdapter(this, R.layout.style_spinner, provinces)
+
+        val cities = arrayOf("Select City", "City1", "City2", "City3")
+        sp_city.adapter = ArrayAdapter(this, R.layout.style_spinner, cities)
+
+        val barangays = arrayOf("Select Barangay", "Barangay1", "Barangay2", "Barangay3")
+        sp_barangay.adapter = ArrayAdapter(this, R.layout.style_spinner, barangays)
+
     }
 
     // validate input details (for testing only)
@@ -67,25 +78,23 @@ class RegisterActivity : AppCompatActivity() {
             return false
         }
 
-        if (et_regEmail.text.isEmpty()) {
-            et_regEmail.error = "Input your email."
+        if (sp_province.selectedItem.toString() == "Select Province"){
+            Toast.makeText(this, "Please select a province.", Toast.LENGTH_LONG).show()
             return false
         }
 
-        if (et_regPass.text.isEmpty()) {
-            et_regPass.error = "Input a password."
+        if (sp_city.selectedItem.toString() == "Select City"){
+            Toast.makeText(this, "Please select a city.", Toast.LENGTH_LONG).show()
             return false
         }
 
-        if (et_regConfirmPass.text.isEmpty()) {
-            et_regConfirmPass.error = "Confirm your password."
+        if (sp_barangay.selectedItem.toString() == "Select Barangay"){
+            Toast.makeText(this, "Please select a barangay.", Toast.LENGTH_LONG).show()
             return false
         }
 
-        // if password and confirm password isn't the same, throw error
-        if (et_regPass.text.toString() != et_regConfirmPass.text.toString()) {
-            et_regPass.error = "Passwords do not match."
-            et_regConfirmPass.error = "Passwords no not match."
+        if (et_street.text.isEmpty()) {
+            et_street.error = "Input your street address."
             return false
         }
 
@@ -96,8 +105,8 @@ class RegisterActivity : AppCompatActivity() {
         //get values from editTexts
         val fname = et_regFname.text.toString()
         val lname = et_regLname.text.toString()
-        val email = et_regEmail.text.toString()
-        val pword = et_regPass.text.toString()
+        //al email = et_regEmail.text.toString()
+        //val pword = et_regPass.text.toString()
         val phoneno = et_regMobileNo.text.toString()
 
         var userDetails = hashMapOf(
@@ -105,8 +114,8 @@ class RegisterActivity : AppCompatActivity() {
             "activity_source" to "RegisterActivity",
             "firstname" to fname,
             "lastname" to lname,
-            "email" to email,
-            "pword" to pword,
+            //"email" to email,
+            //"pword" to pword,
             "phone" to phoneno
         )
 
