@@ -24,6 +24,9 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_contact_tracing.*
 import org.eazegraph.lib.charts.BarChart
 import org.eazegraph.lib.models.BarModel
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -40,6 +43,7 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
     private var disposableObj: Disposable? = null //used to read SQLite Records
     private lateinit var cthChart: BarChart //put cthChart here so that it can be used in different functions
     private var green: Int = 0
+    private var chartVals: ArrayList<Float> = arrayListOf(0f, 0f, 0f, 0f, 0f, 0f, 0f)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,22 +80,57 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
 
                 //Make changes to bar data here?
                 if(exportedData.recordList.size > 0){
-                    // convert long to dateformat
-                    // get day of the week
-
+                    val weekBefore: Long = System.currentTimeMillis() - 604800000
+                    for(i in 0..exportedData.recordList.size) {
+                        //check if record is within past week
+                        if(exportedData.recordList.get(i).timestamp >= weekBefore
+                            && exportedData.recordList.get(i).timestamp <= System.currentTimeMillis()) {
+                            //check day of the week when record was saved
+                            when (getDayOfTheWeek(exportedData.recordList.get(i).timestamp)) {
+                                "Sun" -> chartVals.set(0, (chartVals.get(0) + 1f))
+                                "Mon" -> chartVals.set(1, (chartVals.get(1) + 1f))
+                                "Tue" -> chartVals.set(2, (chartVals.get(2) + 1f))
+                                "Wed" -> chartVals.set(3, (chartVals.get(3) + 1f))
+                                "Thu" -> chartVals.set(4, (chartVals.get(4) + 1f))
+                                "Fri" -> chartVals.set(5, (chartVals.get(5) + 1f))
+                                "Sat" -> chartVals.set(6, (chartVals.get(6) + 1f))
+                            }
+                        }
+                    }
+                    cthChart.addBar(BarModel("S", chartVals.get(0),green))
+                    cthChart.addBar(BarModel("M", chartVals.get(1), green))
+                    cthChart.addBar(BarModel("T", chartVals.get(2),green))
+                    cthChart.addBar(BarModel("W", chartVals.get(3),green))
+                    cthChart.addBar(BarModel("H", chartVals.get(4),green))
+                    cthChart.addBar(BarModel("F", chartVals.get(5),green))
+                    cthChart.addBar(BarModel("S", chartVals.get(6),green))
+                    // start chart animation
+                    cthChart.startAnimation()
                 } else {
                     // sample values
-                    cthChart.addBar(BarModel("S", 1f,green))
-                    cthChart.addBar(BarModel("M", 1f, green))
-                    cthChart.addBar(BarModel("T", 1f,green))
-                    cthChart.addBar(BarModel("W", 1f,green))
-                    cthChart.addBar(BarModel("H", 1f,green))
-                    cthChart.addBar(BarModel("F", 1f,green))
-                    cthChart.addBar(BarModel("S", 1f,green))
+                    cthChart.addBar(BarModel("S", 0f,green))
+                    cthChart.addBar(BarModel("M", 0f, green))
+                    cthChart.addBar(BarModel("T", 0f,green))
+                    cthChart.addBar(BarModel("W", 0f,green))
+                    cthChart.addBar(BarModel("H", 0f,green))
+                    cthChart.addBar(BarModel("F", 0f,green))
+                    cthChart.addBar(BarModel("S", 0f,green))
                     // start chart animation
                     cthChart.startAnimation()
                 }
             }
+    }
+
+    fun convertLongToTime(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("dd.MM.yyyy")
+        return format.format(date)
+    }
+
+    fun getDayOfTheWeek(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("EEE")
+        return format.format(date)
     }
 
     companion object {
