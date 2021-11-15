@@ -105,17 +105,23 @@ class RegisterActivity : AppCompatActivity() {
         //get values from editTexts
         val fname = et_regFname.text.toString()
         val lname = et_regLname.text.toString()
-        //al email = et_regEmail.text.toString()
-        //val pword = et_regPass.text.toString()
+
         val phoneno = et_regMobileNo.text.toString()
+        val province = sp_province.selectedItem.toString()
+        val city = sp_city.selectedItem.toString()
+        val barangay = sp_barangay.selectedItem.toString()
+        val street = et_street.text.toString()
+
 
         var userDetails = hashMapOf(
             //allows OtpActivationActivity to identify the intent sender
             "activity_source" to "RegisterActivity",
             "firstname" to fname,
             "lastname" to lname,
-            //"email" to email,
-            //"pword" to pword,
+            "province" to province,
+            "city" to city,
+            "barangay" to barangay,
+            "street" to street,
             "phone" to phoneno
         )
 

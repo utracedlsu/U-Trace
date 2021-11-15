@@ -3,13 +3,25 @@ package com.capstone.app.utrace_cts.fragments
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import com.capstone.app.utrace_cts.R
 import com.capstone.app.utrace_cts.TestStatusActivity
 import com.capstone.app.utrace_cts.UploadDataActivity
+import com.capstone.app.utrace_cts.status.persistence.StatusRecord
+import com.capstone.app.utrace_cts.status.persistence.StatusRecordStorage
+import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecord
+import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecordStorage
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.functions.BiFunction
+import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_contact_tracing.*
 import org.eazegraph.lib.charts.BarChart
 import org.eazegraph.lib.models.BarModel
 
@@ -25,24 +37,61 @@ private const val ARG_PARAM2 = "param2"
  */
 class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
 
+    private var disposableObj: Disposable? = null //used to read SQLite Records
+    private lateinit var cthChart: BarChart //put cthChart here so that it can be used in different functions
+    private var green: Int = 0
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // initialize, get appropriate color
-        var cthChart: BarChart = view.findViewById(R.id.bc_cthChart)
-        var green: Int = Color.parseColor("#428E5C")
+        cthChart = view.findViewById(R.id.bc_cthChart)
+        green = Color.parseColor("#428E5C")
 
-        // sample values
-        cthChart.addBar(BarModel("S", 3f,green))
-        cthChart.addBar(BarModel("M", 2f, green))
-        cthChart.addBar(BarModel("T", 4f,green))
-        cthChart.addBar(BarModel("W", 8f,green))
-        cthChart.addBar(BarModel("H", 6f,green))
-        cthChart.addBar(BarModel("F", 1f,green))
-        cthChart.addBar(BarModel("S", 2f,green))
+        //retrieve database records here and add bars
+        getReportsFromDB()
 
-        // start chart animation
-        cthChart.startAnimation()
+    }
+
+    //function to get data from database
+    private fun getReportsFromDB(){
+        //Get records here
+        var observableStreetRecords = Observable.create<List<StreetPassRecord>> {
+            val result = StreetPassRecordStorage(requireActivity().applicationContext).getAllRecords()
+            it.onNext(result)
+        }
+        var observableStatusRecords = Observable.create<List<StatusRecord>> {
+            val result = StatusRecordStorage(requireActivity().applicationContext).getAllRecords()
+            it.onNext(result)
+        }
+
+        disposableObj = Observable.zip(observableStreetRecords, observableStatusRecords,
+            BiFunction<List<StreetPassRecord>, List<StatusRecord>, ExportData>{records, status ->
+                ExportData(records, status)
+            }
+        ).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+            .subscribe {    exportedData ->
+                Log.d("ContactTracingActivity", "Records: ${exportedData.recordList}")
+                Log.d("ContactTracingActivity", "${exportedData.statusList}")
+
+                //Make changes to bar data here?
+                if(exportedData.recordList.size > 0){
+                    // convert long to dateformat
+                    // get day of the week
+
+                } else {
+                    // sample values
+                    cthChart.addBar(BarModel("S", 1f,green))
+                    cthChart.addBar(BarModel("M", 1f, green))
+                    cthChart.addBar(BarModel("T", 1f,green))
+                    cthChart.addBar(BarModel("W", 1f,green))
+                    cthChart.addBar(BarModel("H", 1f,green))
+                    cthChart.addBar(BarModel("F", 1f,green))
+                    cthChart.addBar(BarModel("S", 1f,green))
+                    // start chart animation
+                    cthChart.startAnimation()
+                }
+            }
     }
 
     companion object {

@@ -35,7 +35,6 @@ class OtpActivationActivity : AppCompatActivity() {
             authCredential = credential
             Log.d("OTPActivation", "SMS Code: ${credential.smsCode}")
             Log.d("OTPActivation", "authCredential: ${authCredential.toString()}")
-            //signInWithPhoneCredential(credential)
         }
 
         override fun onVerificationFailed(fe: FirebaseException) {
@@ -81,7 +80,7 @@ class OtpActivationActivity : AppCompatActivity() {
         if(enteredOTP.equals(authCredential.smsCode)){
             Preference.putPhoneNumber(applicationContext, "+63${phoneNum}")
             if(intentSource.equals("RegisterActivity")) {
-                signInWithPhoneCredential(authCredential)
+               registerWithPhoneCredential(authCredential)
             } else if (intentSource.equals("LoginActivity")){
                 logInWithPhoneCredential(authCredential)
             } else {
@@ -120,23 +119,28 @@ class OtpActivationActivity : AppCompatActivity() {
         }
     }
 
-    //upon REGISTERING
-    private fun signInWithPhoneCredential(credential: PhoneAuthCredential){
-        Log.d("OTPActivation", "Entering signInWithPhoneCredential")
+    //upon REGISTERING, should be renamed in order to avoid confusion
+    private fun registerWithPhoneCredential(credential: PhoneAuthCredential){
+        Log.d("OTPActivation", "Entering registerWithPhoneCredential")
         Log.d("OTPActivation", "credential: ${credential.toString()}")
 
 
         fAuth.signInWithCredential(credential).addOnCompleteListener{ task ->
             if(task.isSuccessful){
-                val email = signInMap.get("email") as String
-                val pword = signInMap.get("pword") as String
-
                 val fname = signInMap.get("firstname") as String
                 val lname = signInMap.get("lastname") as String
+                val province = signInMap.get("province") as String
+                val city = signInMap.get("city") as String
+                val barangay = signInMap.get("barangay") as String
+                val street = signInMap.get("street") as String
 
                 val fStoreInsertMap = hashMapOf(
                     "firstname" to fname,
                     "lastname" to lname,
+                    "province" to province,
+                    "city" to city,
+                    "barangay" to barangay,
+                    "street" to street,
                     "phone" to phoneNum
                 )
 

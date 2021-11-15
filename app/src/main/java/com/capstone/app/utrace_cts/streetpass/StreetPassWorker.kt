@@ -85,9 +85,9 @@ class StreetPassWorker (val context: Context){
         queueHandler = Handler(Looper.getMainLooper())
         blacklistHandler = Handler(Looper.getMainLooper())
 
-        //add own MAC address to blacklist
-        var ownMAC = BlacklistEntry(getBluetoothMac(context).toString(), System.currentTimeMillis())
-        blacklist.add(ownMAC)
+        //add own MAC address to blacklist (non-functional due to security concerns post android 6.0)
+        //var ownMAC = BlacklistEntry(getBluetoothMac(context).toString(), System.currentTimeMillis())
+        //blacklist.add(ownMAC)
 
         Log.i("StreetPassWorker", "Finished preparing")
     }
@@ -471,16 +471,15 @@ class StreetPassWorker (val context: Context){
         if(context.checkCallingOrSelfPermission(Manifest.permission.BLUETOOTH)
         == PackageManager.PERMISSION_GRANTED){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                // Hardware ID are restricted in Android 6+
-                // https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id
-                // Getting bluetooth mac via reflection for devices with Android 6+
                 result = android.provider.Settings.Secure.getString(context.getContentResolver(),
-                    "bluetooth_address");
+                    "bluetooth_address")
+                Log.i("StreetpassWorker", "Bluetooth MAC Address: ${result}")
             } else {
                 val bta = BluetoothAdapter.getDefaultAdapter()
                 result = if (bta != null) bta.address else ""
             }
         }
+        Log.i("StreetpassWorker", "Bluetooth MAC Address: ${result}")
         return result
     }
 
