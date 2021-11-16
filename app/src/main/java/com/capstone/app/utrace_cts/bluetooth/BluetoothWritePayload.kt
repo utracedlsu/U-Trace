@@ -17,6 +17,9 @@ class BluetoothWritePayload (
     fun getPayload(): ByteArray{
         return gson.toJson(this).toByteArray(Charsets.UTF_8)
     }
+
+    val mc: String = central.modelC
+
     companion object {
         //val gson: Gson
         val gson: Gson = GsonBuilder().disableHtmlEscaping().create()
