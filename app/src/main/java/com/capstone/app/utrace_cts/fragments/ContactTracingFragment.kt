@@ -47,8 +47,8 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
     private lateinit var tvDateRange: TextView
 
     private var green: Int = 0
-    private var chartVals: ArrayList<Float> = arrayListOf(0f, 0f, 0f, 0f, 0f, 0f, 0f)
-    private var daysOfTheWeek: ArrayList<String> = arrayListOf("SU", "MO", "TU", "WE", "TH", "FR", "SA")
+    private var chartVals = mapOf("Sun" to 0f, "Mon" to 0f, "Tue" to 0f,
+        "Wed" to 0f, "Thu" to 0f, "Fri" to 0f, "Sat" to 0f)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -110,6 +110,7 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                     val endTime: Long = filteredRecords.sortedByDescending { it.timestamp }[0].timestamp
 
                     tvDateRange.setText("${convertLongToTime(startTime)} - ${convertLongToTime(endTime)}")
+                    /*
                     for(i in 0..(filteredRecords.size-1)) {
                         when (getDayOfTheWeek(filteredRecords.sortedByDescending{ it.timestamp }[i].timestamp)) {
                             "Sun" -> chartVals.set(0, (chartVals.get(0) + 1f))
@@ -120,14 +121,15 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                             "Fri" -> chartVals.set(5, (chartVals.get(5) + 1f))
                             "Sat" -> chartVals.set(6, (chartVals.get(6) + 1f))
                         }
-                    }
-                    cthChart.addBar(BarModel("S", chartVals.get(0),green))
-                    cthChart.addBar(BarModel("M", chartVals.get(1),green))
-                    cthChart.addBar(BarModel("T", chartVals.get(2),green))
-                    cthChart.addBar(BarModel("W", chartVals.get(3),green))
-                    cthChart.addBar(BarModel("H", chartVals.get(4),green))
-                    cthChart.addBar(BarModel("F", chartVals.get(5),green))
-                    cthChart.addBar(BarModel("S", chartVals.get(6),green))
+                    } */
+                    //use filter method to get size of contacts depending on day of the week
+                    cthChart.addBar(BarModel("S", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Sun") }.size.toFloat(),green))
+                    cthChart.addBar(BarModel("M", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Mon") }.size.toFloat(),green))
+                    cthChart.addBar(BarModel("T", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Tue") }.size.toFloat(),green))
+                    cthChart.addBar(BarModel("W", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Wed") }.size.toFloat(),green))
+                    cthChart.addBar(BarModel("H", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Thu") }.size.toFloat(),green))
+                    cthChart.addBar(BarModel("F", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Fri") }.size.toFloat(),green))
+                    cthChart.addBar(BarModel("S", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Sat") }.size.toFloat(),green))
                     // start chart animation
                     cthChart.startAnimation()
                 } else {
@@ -152,6 +154,7 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
         return format.format(date)
     }
 
+    //gets day of the week in String form (MON, TUE, WED, etc)
     fun getDayOfTheWeek(time: Long): String {
         val date = Date(time)
         val format = SimpleDateFormat("EEE")
