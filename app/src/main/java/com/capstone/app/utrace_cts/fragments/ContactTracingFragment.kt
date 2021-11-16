@@ -89,12 +89,17 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                 val pastDayCount = exportedData.recordList.filter {
                     it.timestamp >= (System.currentTimeMillis() - 86400000) && it.timestamp <= System.currentTimeMillis()
                 }.size
-                tvBTExchanges.setText("You have had ${pastDayCount} Bluetooth exchange(s) in the past 24 hours.")
-
+                //for testing purposes
+                val pastWeekCount = exportedData.recordList.filter {
+                    it.timestamp >= (System.currentTimeMillis() - 604800000) && it.timestamp <= System.currentTimeMillis()
+                }.size
+                //tvBTExchanges.setText("You have had ${pastDayCount} Bluetooth exchange(s) in the past 24 hours.")
+                //for testing purposes
+                tvBTExchanges.setText("You have had ${pastWeekCount} Bluetooth exchange(s) in the past week.")
 
                 //Make changes to bar data here?
                 if(exportedData.recordList.size > 0){
-
+                    cthChart.clearChart()
                     val weekBefore: Long = System.currentTimeMillis() - 604800000
                     //new solution?
                     val filteredRecords = exportedData.recordList.filter {
