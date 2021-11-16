@@ -105,7 +105,7 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                     val endTime: Long = filteredRecords.sortedByDescending { it.timestamp }[0].timestamp
 
                     tvDateRange.setText("${convertLongToTime(startTime)} - ${convertLongToTime(endTime)}")
-                    for(i in 0..filteredRecords.size) {
+                    for(i in 0..(filteredRecords.size-1)) {
                         when (getDayOfTheWeek(filteredRecords.sortedByDescending{ it.timestamp }[i].timestamp)) {
                             "Sun" -> chartVals.set(0, (chartVals.get(0) + 1f))
                             "Mon" -> chartVals.set(1, (chartVals.get(1) + 1f))
