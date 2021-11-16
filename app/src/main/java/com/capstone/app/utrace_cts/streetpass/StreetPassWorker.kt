@@ -24,8 +24,7 @@ import com.capstone.app.utrace_cts.Work
 import java.util.*
 import java.util.concurrent.PriorityBlockingQueue
 import android.bluetooth.BluetoothAdapter
-
-
+import com.capstone.app.utrace_cts.idmanager.TempIDManager
 
 
 const val ACTION_DEVICE_SCANNED = "${BuildConfig.APPLICATION_ID}.ACTION_DEVICE_SCANNED"
@@ -435,18 +434,28 @@ class StreetPassWorker (val context: Context){
             }
             if(Bluetrace.supportsCharUUID(characteristic.uuid)){
                 val bluetraceImplementation = Bluetrace.getImplementation(characteristic.uuid)
-
-                var writeData = bluetraceImplementation.central.prepareWriteRequestData(
+                if (TempIDManager.bmValid(context)) {
+                    var writeData = bluetraceImplementation.central.prepareWriteRequestData(
                         bluetraceImplementation.versionInt,
                         work.connectable.rssi,
                         work.connectable.transmissionPower
-                )
+                    )
 
-                characteristic.value = writeData
-                val writeSuccess = gatt?.writeCharacteristic(characteristic)
-                Log.w("CentralGattCallback", "Attempt to write characteristic to our service on ${gatt.device.address}: $writeSuccess")
+                    characteristic.value = writeData
+                    val writeSuccess = gatt?.writeCharacteristic(characteristic)
+                    Log.i(
+                        "CentralGattCallback",
+                        "Attempt to write characteristic to our service on ${gatt.device.address}: $writeSuccess"
+                    )
+                } else {
+                    Log.i(
+                        "CentralGattCallback",
+                        "Expired BM. Skipping attempt to write characteristic to our service on ${gatt.device.address}"
+                    )
+                    endWorkConnection(gatt)
+                }
             } else{
-                Log.w("CentralGattCallback", "Not writint to ${gatt.device.address}. Characteristic ${characteristic.uuid} is not supported")
+                Log.i("CentralGattCallback", "Not writing to ${gatt.device.address}. Characteristic ${characteristic.uuid} is not supported")
                 endWorkConnection(gatt)
             }
         }

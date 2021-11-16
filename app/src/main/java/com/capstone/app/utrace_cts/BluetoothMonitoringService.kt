@@ -579,13 +579,20 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
                                 rssi = connRecord.rssi,
                                 txPower = connRecord.txPower
                         )
-                        launch {
-                            Log.d("BTMonitoringService", "StreetpassReceiver - Saving record: ${
-                                Utils.getDate(
-                                    record.timestamp
+                        //don't save the record if it comes from user's own device
+                        if(record.msg.equals(TracerApp.thisDeviceMsg()) && record.modelP.equals(record.modelC)){
+                            Log.d("BTMonitoringService", "Own device data was received, not saving")
+                        } else {
+                            launch {
+                                Log.d(
+                                    "BTMonitoringService", "StreetpassReceiver - Saving record: ${
+                                        Utils.getDate(
+                                            record.timestamp
+                                        )
+                                    }"
                                 )
-                            }")
-                            streetPassRecordStorage.saveRecord(record)
+                                streetPassRecordStorage.saveRecord(record)
+                            }
                         }
                     }
                 }

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.view.get
 import com.capstone.app.utrace_cts.R
 import com.capstone.app.utrace_cts.TestStatusActivity
@@ -42,14 +43,20 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
 
     private var disposableObj: Disposable? = null //used to read SQLite Records
     private lateinit var cthChart: BarChart //put cthChart here so that it can be used in different functions
+    private lateinit var tvBTExchanges: TextView
+    private lateinit var tvDateRange: TextView
+
     private var green: Int = 0
     private var chartVals: ArrayList<Float> = arrayListOf(0f, 0f, 0f, 0f, 0f, 0f, 0f)
+    private var daysOfTheWeek: ArrayList<String> = arrayListOf("SU", "MO", "TU", "WE", "TH", "FR", "SA")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // initialize, get appropriate color
         cthChart = view.findViewById(R.id.bc_cthChart)
+        tvBTExchanges = view.findViewById(R.id.tv_btExchanges)
+        tvDateRange = view.findViewById(R.id.tv_dateRange)
         green = Color.parseColor("#428E5C")
 
         //retrieve database records here and add bars
@@ -78,27 +85,39 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                 Log.d("ContactTracingActivity", "Records: ${exportedData.recordList}")
                 Log.d("ContactTracingActivity", "${exportedData.statusList}")
 
+                //set exchanges for the past 24 hours
+                val pastDayCount = exportedData.recordList.filter {
+                    it.timestamp >= (System.currentTimeMillis() - 86400000) && it.timestamp <= System.currentTimeMillis()
+                }.size
+                tvBTExchanges.setText("You have had ${pastDayCount} Bluetooth exchange(s) in the past 24 hours.")
+
+
                 //Make changes to bar data here?
                 if(exportedData.recordList.size > 0){
+
                     val weekBefore: Long = System.currentTimeMillis() - 604800000
-                    for(i in 0..exportedData.recordList.size) {
-                        //check if record is within past week
-                        if(exportedData.recordList.get(i).timestamp >= weekBefore
-                            && exportedData.recordList.get(i).timestamp <= System.currentTimeMillis()) {
-                            //check day of the week when record was saved
-                            when (getDayOfTheWeek(exportedData.recordList.get(i).timestamp)) {
-                                "Sun" -> chartVals.set(0, (chartVals.get(0) + 1f))
-                                "Mon" -> chartVals.set(1, (chartVals.get(1) + 1f))
-                                "Tue" -> chartVals.set(2, (chartVals.get(2) + 1f))
-                                "Wed" -> chartVals.set(3, (chartVals.get(3) + 1f))
-                                "Thu" -> chartVals.set(4, (chartVals.get(4) + 1f))
-                                "Fri" -> chartVals.set(5, (chartVals.get(5) + 1f))
-                                "Sat" -> chartVals.set(6, (chartVals.get(6) + 1f))
-                            }
+                    //new solution?
+                    val filteredRecords = exportedData.recordList.filter {
+                        it.timestamp >= weekBefore && it.timestamp <= System.currentTimeMillis()
+                    }
+                    //starting time and ending times
+                    val startTime: Long = filteredRecords.sortedBy { it.timestamp }[0].timestamp
+                    val endTime: Long = filteredRecords.sortedByDescending { it.timestamp }[0].timestamp
+
+                    tvDateRange.setText("${convertLongToTime(startTime)} - ${convertLongToTime(endTime)}")
+                    for(i in 0..filteredRecords.size) {
+                        when (getDayOfTheWeek(filteredRecords.sortedByDescending{ it.timestamp }[i].timestamp)) {
+                            "Sun" -> chartVals.set(0, (chartVals.get(0) + 1f))
+                            "Mon" -> chartVals.set(1, (chartVals.get(1) + 1f))
+                            "Tue" -> chartVals.set(2, (chartVals.get(2) + 1f))
+                            "Wed" -> chartVals.set(3, (chartVals.get(3) + 1f))
+                            "Thu" -> chartVals.set(4, (chartVals.get(4) + 1f))
+                            "Fri" -> chartVals.set(5, (chartVals.get(5) + 1f))
+                            "Sat" -> chartVals.set(6, (chartVals.get(6) + 1f))
                         }
                     }
                     cthChart.addBar(BarModel("S", chartVals.get(0),green))
-                    cthChart.addBar(BarModel("M", chartVals.get(1), green))
+                    cthChart.addBar(BarModel("M", chartVals.get(1),green))
                     cthChart.addBar(BarModel("T", chartVals.get(2),green))
                     cthChart.addBar(BarModel("W", chartVals.get(3),green))
                     cthChart.addBar(BarModel("H", chartVals.get(4),green))
@@ -107,9 +126,10 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                     // start chart animation
                     cthChart.startAnimation()
                 } else {
+                    tvDateRange.setText("No exchanges have been made in the past week.")
                     // sample values
                     cthChart.addBar(BarModel("S", 0f,green))
-                    cthChart.addBar(BarModel("M", 0f, green))
+                    cthChart.addBar(BarModel("M", 0f,green))
                     cthChart.addBar(BarModel("T", 0f,green))
                     cthChart.addBar(BarModel("W", 0f,green))
                     cthChart.addBar(BarModel("H", 0f,green))
@@ -123,7 +143,7 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
 
     fun convertLongToTime(time: Long): String {
         val date = Date(time)
-        val format = SimpleDateFormat("dd.MM.yyyy")
+        val format = SimpleDateFormat("MMM dd, yyyy")
         return format.format(date)
     }
 

@@ -4,6 +4,7 @@ import android.bluetooth.*
 import android.content.Context
 import android.util.Log
 import com.capstone.app.utrace_cts.Utils
+import com.capstone.app.utrace_cts.idmanager.TempIDManager
 import com.capstone.app.utrace_cts.protocol.Bluetrace
 import java.util.*
 import kotlin.properties.Delegates
@@ -64,15 +65,35 @@ class GattServer constructor(val context: Context, val serviceUUIDString: String
                     //this is where we put the data to be sent to the client/central
                     characteristic?.uuid.let { charUUID ->
                         val devAddress = device?.address
-                        val base = readPayloadMap.getOrPut(devAddress.toString(),
-                                {bluetraceImplementation.peripheral.prepareReadRequestData(
+                        if(TempIDManager.bmValid(context)) {
+                            val base = readPayloadMap.getOrPut(devAddress.toString(),
+                                {
+                                    bluetraceImplementation.peripheral.prepareReadRequestData(
                                         bluetraceImplementation.versionInt
-                                )
+                                    )
                                 })
-                        Log.w("GattServerCallback", "Payload: " + readPayloadMap.toString())
-                        val sentVal = base.copyOfRange(offset, base.size)
-                        Log.w("GattServerCallback", "onCharacteristicReadRequest from ${device.address} - $requestId - $offset - ${String(sentVal, Charsets.UTF_8)}")
-                        bluetoothGattServer?.sendResponse(device, requestId, BluetoothGatt.GATT_SUCCESS, 0, sentVal)
+                            Log.w("GattServerCallback", "Payload: " + readPayloadMap.toString())
+                            val sentVal = base.copyOfRange(offset, base.size)
+                            Log.w(
+                                "GattServerCallback",
+                                "onCharacteristicReadRequest from ${device.address} - $requestId - $offset - ${
+                                    String(
+                                        sentVal,
+                                        Charsets.UTF_8
+                                    )
+                                }"
+                            )
+                            bluetoothGattServer?.sendResponse(
+                                device,
+                                requestId,
+                                BluetoothGatt.GATT_SUCCESS,
+                                0,
+                                sentVal
+                            )
+                        } else {
+                            Log.i("GattServerCallback", "onCharacteristicReadRequest from ${device.address} - $requestId- $offset - BM Expired")
+                            bluetoothGattServer?.sendResponse(device, requestId, BluetoothGatt.GATT_FAILURE, 0, null)
+                        }
                     }
                 }else{
                     Log.w("GattServerCallback", "Unsupported characteristic from ${device.address}")
