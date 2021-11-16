@@ -204,7 +204,14 @@ class StreetPassWorker (val context: Context){
                         + " - finished: ${currentWork?.finished ?: false}, timedout: $timedOut")
 
                 //add extra condition before doing dowork()
-                doWork()
+                if (currentWork != null) {
+                    if (bluetoothManager.getConnectedDevices(BluetoothProfile.GATT).contains(currentWork?.device)){
+                        Log.w("doWork", "Disconnecting dangling connection to ${currentWork?.device?.address}")
+                        currentWork?.gatt?.disconnect()
+                    }
+                } else {
+                    doWork()
+                }
             }
 
             return
