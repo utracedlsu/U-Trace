@@ -26,7 +26,8 @@ class BLEAdvertiser constructor(val serviceUUID: String) {
     private var callback: AdvertiseCallback = object: AdvertiseCallback(){
             override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
             super.onStartSuccess(settingsInEffect)
-            Log.d("BLEAdvertiser", "Advertising successful")
+            Log.d("BLEAdvertiser", "Advertising - onStartSuccess")
+            Log.d("BLEAdvertiser", "Settings in effect: ${settingsInEffect.toString()}")
             isAdvertising = true
         }
         override fun onStartFailure(errorCode: Int) {
@@ -80,7 +81,6 @@ class BLEAdvertiser constructor(val serviceUUID: String) {
     val pUuid = ParcelUuid(UUID.fromString(serviceUUID))
 
     var data: AdvertiseData? = null
-    var scanResponseData: AdvertiseData? = null
 
     fun startAdvertisingLegacy(timeoutInMillis: Long){
         val randomUUID = UUID.randomUUID().toString()
@@ -93,7 +93,6 @@ class BLEAdvertiser constructor(val serviceUUID: String) {
                 .addServiceUuid(pUuid)
                 .addManufacturerData(1023, serviceDataByteArray)
                 .build()
-        scanResponseData = AdvertiseData.Builder().addServiceUuid(pUuid).build()
         try {
             Log.d("BLEAdvertiser", "Start advertising")
             advertiser = advertiser ?: BluetoothAdapter.getDefaultAdapter().bluetoothLeAdvertiser

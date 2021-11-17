@@ -8,8 +8,11 @@ import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PowerManager
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,6 +26,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
 private const val LOCATION_PERMISSION_REQUEST_CODE = 2
+private const val REQUEST_ENABLE_BT = 123
+private const val BATTERY_OPTIMISER = 789
 
 class MainActivity : AppCompatActivity() {
 
@@ -103,7 +108,9 @@ class MainActivity : AppCompatActivity() {
             LOCATION_PERMISSION_REQUEST_CODE -> {
                 if (grantResults.firstOrNull() == PackageManager.PERMISSION_DENIED) {
                     requestLocationPermission()
+                    excludeFromBatteryOptimization()
                 } else {
+                    excludeFromBatteryOptimization() //tentative location
                     Utils.startBluetoothMonitoringService(this)
                 }
             }
@@ -131,6 +138,34 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun excludeFromBatteryOptimization() {
+        Log.d("MainActivityLog", "[excludeFromBatteryOptimization] ")
+        val powerManager =
+            this.getSystemService(AppCompatActivity.POWER_SERVICE) as PowerManager
+        val packageName = this.packageName
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val intent =
+                Utils.getBatteryOptimizerExemptionIntent(
+                    packageName
+                )
+
+            if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
+                Log.d("MainActivityLog", "Not on Battery Optimization whitelist")
+                //check if there's any activity that can handle this
+                if (Utils.canHandleIntent(
+                        intent,
+                        packageManager
+                    )
+                ) {
+                    getResult.launch(intent)
+                } else {
+                    Log.d("MainActivityLog", "No way of handling optimizer")
+                }
+            } else {
+                Log.d("MainActivityLog", "On Battery Optimization whitelist")
+            }
+        }
+    }
 
     private val bluetoothAdapter: BluetoothAdapter by lazy {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager

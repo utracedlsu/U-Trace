@@ -110,18 +110,6 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                     val endTime: Long = filteredRecords.sortedByDescending { it.timestamp }[0].timestamp
 
                     tvDateRange.setText("${convertLongToTime(startTime)} - ${convertLongToTime(endTime)}")
-                    /*
-                    for(i in 0..(filteredRecords.size-1)) {
-                        when (getDayOfTheWeek(filteredRecords.sortedByDescending{ it.timestamp }[i].timestamp)) {
-                            "Sun" -> chartVals.set(0, (chartVals.get(0) + 1f))
-                            "Mon" -> chartVals.set(1, (chartVals.get(1) + 1f))
-                            "Tue" -> chartVals.set(2, (chartVals.get(2) + 1f))
-                            "Wed" -> chartVals.set(3, (chartVals.get(3) + 1f))
-                            "Thu" -> chartVals.set(4, (chartVals.get(4) + 1f))
-                            "Fri" -> chartVals.set(5, (chartVals.get(5) + 1f))
-                            "Sat" -> chartVals.set(6, (chartVals.get(6) + 1f))
-                        }
-                    } */
                     //use filter method to get size of contacts depending on day of the week
                     cthChart.addBar(BarModel("S", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Sun") }.size.toFloat(),green))
                     cthChart.addBar(BarModel("M", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Mon") }.size.toFloat(),green))

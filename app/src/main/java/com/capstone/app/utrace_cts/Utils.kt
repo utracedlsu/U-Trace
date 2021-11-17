@@ -4,6 +4,9 @@ import android.Manifest
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.Settings
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.capstone.app.utrace_cts.bluetooth.ACTION_DEVICE_PROCESSED
@@ -24,6 +27,20 @@ object Utils {
 
     fun getRequiredPermissions(): Array<String>{
         return arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+    }
+
+    fun getBatteryOptimizerExemptionIntent(packageName: String): Intent {
+        val intent = Intent()
+        intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+        intent.data = Uri.parse("package:$packageName")
+        return intent
+    }
+
+    fun canHandleIntent(batteryExemptionIntent: Intent, packageManager: PackageManager?): Boolean {
+        packageManager?.let {
+            return batteryExemptionIntent.resolveActivity(packageManager) != null
+        }
+        return false
     }
 
     fun startBluetoothMonitoringService(context: Context) {
