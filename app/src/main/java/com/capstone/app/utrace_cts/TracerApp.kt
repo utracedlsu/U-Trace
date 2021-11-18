@@ -9,7 +9,7 @@ import com.capstone.app.utrace_cts.idmanager.TempIDManager
 class TracerApp: Application() {
     override fun onCreate() {
         super.onCreate()
-
+        AppContext = applicationContext
     }
     companion object {
 
