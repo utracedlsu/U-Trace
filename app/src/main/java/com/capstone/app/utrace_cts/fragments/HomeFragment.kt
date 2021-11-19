@@ -1,13 +1,20 @@
 package com.capstone.app.utrace_cts.fragments
 
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.capstone.app.utrace_cts.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -30,9 +37,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var tv_bluetooth: TextView
     private lateinit var tvTest: TextView
     private lateinit var tvVax: TextView
+    private val btReceiver = BluetoothBroadcastReceiver()
+    private lateinit var localBroadcastManager: LocalBroadcastManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //localBroadcastManager = LocalBroadcastManager.getInstance(requireActivity().applicationContext)
+
+        val btFilter = IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED)
+        requireActivity().registerReceiver(btReceiver, btFilter)
+        Log.d("HomeFragment", "Receiver Registered")
 
         // connect
         ivUpload = view.findViewById(R.id.iv_upload)
@@ -50,16 +65,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         ivTestStatus.setOnClickListener {
             val intent = Intent(activity, TestStatusActivity::class.java)
             startActivity(intent)
-        }
-
-        // set Bluetooth button state
-        if (btState) turnOffBt()
-        else turnOnBt()
-
-        // Bluetooth button functionality
-        iv_bluetooth.setOnClickListener {
-            if (btState) turnOffBt()
-            else turnOnBt()
         }
 
         //Retrieve vaccination and test status from preferences
@@ -87,14 +92,36 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun turnOnBt() {
-        iv_bluetooth.setImageResource(R.drawable.bton)
-        tv_bluetooth.text = "BLUETOOTH IS RUNNING "
+    inner class BluetoothBroadcastReceiver: BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent) {
+            val action = intent.action
+            Log.d("HomeFragment", "Entered Receiver")
+            if(action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)){
+                val state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR)
+                when (state){
+                    BluetoothAdapter.STATE_OFF -> {
+                        Log.d("HomeFragment", "BT is OFF")
+                        iv_bluetooth.setImageResource(R.drawable.btoff)
+                        tv_bluetooth.text = "BLUETOOTH IS OFF "
+                    }
+                    BluetoothAdapter.STATE_ON -> {
+                        Log.d("HomeFragment", "BT is ON")
+                        iv_bluetooth.setImageResource(R.drawable.bton)
+                        tv_bluetooth.text = "BLUETOOTH IS RUNNING "
+                    }
+                    BluetoothAdapter.ERROR -> {
+                        iv_bluetooth.setImageResource(R.drawable.btoff)
+                        tv_bluetooth.text = "UNABLE TO GET BLUETOOTH STATUS "
+                    }
+                }
+            }
+        }
     }
 
-    private fun turnOffBt() {
-        iv_bluetooth.setImageResource(R.drawable.btoff)
-        tv_bluetooth.text = "BLUETOOTH IS OFF "
+    override fun onDestroy() {
+        super.onDestroy()
+        //localBroadcastManager.unregisterReceiver(btReceiver)
+        requireActivity().unregisterReceiver(btReceiver)
     }
 
     // TODO: set override back button confirming to exit app
