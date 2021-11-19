@@ -482,7 +482,8 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
             Log.i("BTMonitoringService", "[actionScan] Don't need to update Temp ID in actionScan")
             performScan()
         }
-        Log.i("BTMonitoringService", "Current tempID is ${TracerApp.thisDeviceMsg()}")
+        //commented out due to error after 30 min
+        //Log.i("BTMonitoringService", "Current tempID is ${TracerApp.thisDeviceMsg()}")
     }
 
     private fun actionPurge(){

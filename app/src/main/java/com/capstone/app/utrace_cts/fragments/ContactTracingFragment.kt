@@ -105,21 +105,25 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                     val filteredRecords = exportedData.recordList.filter {
                         it.timestamp >= weekBefore && it.timestamp <= System.currentTimeMillis()
                     }
-                    //starting time and ending times
-                    val startTime: Long = filteredRecords.sortedBy { it.timestamp }[0].timestamp
-                    val endTime: Long = filteredRecords.sortedByDescending { it.timestamp }[0].timestamp
 
-                    tvDateRange.setText("${convertLongToTime(startTime)} - ${convertLongToTime(endTime)}")
-                    //use filter method to get size of contacts depending on day of the week
-                    cthChart.addBar(BarModel("S", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Sun") }.size.toFloat(),green))
-                    cthChart.addBar(BarModel("M", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Mon") }.size.toFloat(),green))
-                    cthChart.addBar(BarModel("T", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Tue") }.size.toFloat(),green))
-                    cthChart.addBar(BarModel("W", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Wed") }.size.toFloat(),green))
-                    cthChart.addBar(BarModel("H", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Thu") }.size.toFloat(),green))
-                    cthChart.addBar(BarModel("F", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Fri") }.size.toFloat(),green))
-                    cthChart.addBar(BarModel("S", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Sat") }.size.toFloat(),green))
-                    // start chart animation
-                    cthChart.startAnimation()
+                    //validate filteredRecord's size to prevent index out of bounds 0 exception
+                    if(filteredRecords.size > 0) {
+                        //starting time and ending times
+                        val startTime: Long = filteredRecords.sortedBy { it.timestamp }[0].timestamp
+                        val endTime: Long = filteredRecords.sortedByDescending { it.timestamp }[0].timestamp
+
+                        tvDateRange.setText("${convertLongToTime(startTime)} - ${convertLongToTime(endTime)}")
+                        //use filter method to get size of contacts depending on day of the week
+                        cthChart.addBar(BarModel("S", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Sun") }.size.toFloat(),green))
+                        cthChart.addBar(BarModel("M", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Mon") }.size.toFloat(),green))
+                        cthChart.addBar(BarModel("T", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Tue") }.size.toFloat(),green))
+                        cthChart.addBar(BarModel("W", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Wed") }.size.toFloat(),green))
+                        cthChart.addBar(BarModel("H", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Thu") }.size.toFloat(),green))
+                        cthChart.addBar(BarModel("F", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Fri") }.size.toFloat(),green))
+                        cthChart.addBar(BarModel("S", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Sat") }.size.toFloat(),green))
+                        // start chart animation
+                        cthChart.startAnimation()
+                    }
                 } else {
                     tvDateRange.setText("No exchanges have been made in the past week.")
                     // sample values
