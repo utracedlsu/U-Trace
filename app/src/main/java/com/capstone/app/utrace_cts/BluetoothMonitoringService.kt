@@ -95,7 +95,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         }
         registerReceivers()
 
-//        //persistence
+//      //persistence
         streetPassRecordStorage = StreetPassRecordStorage(this.applicationContext)
         statusRecordStorage = StatusRecordStorage(this.applicationContext)
 

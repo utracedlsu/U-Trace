@@ -42,16 +42,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         tv_bluetooth = view.findViewById(R.id.tv_bluetooth)
 
         // Go to UploadDataActivity
-        ivUpload.setOnClickListener{
+        ivUpload.setOnClickListener {
             val intent = Intent(activity, UploadDataActivity::class.java)
             startActivity(intent)
         }
 
         // Go to TestStatusActivity
-        ivTestStatus.setOnClickListener{
+        ivTestStatus.setOnClickListener {
             val intent = Intent(activity, TestStatusActivity::class.java)
             startActivity(intent)
         }
+
+        // set Bluetooth button state
+        if (btState) turnOffBt()
+        else turnOnBt()
 
         // Bluetooth button functionality
         iv_bluetooth.setOnClickListener {
@@ -60,12 +64,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    private fun turnOnBt(){
+    private fun turnOnBt() {
         iv_bluetooth.setImageResource(R.drawable.bton)
         tv_bluetooth.text = "BLUETOOTH IS RUNNING "
     }
 
-    private fun turnOffBt(){
+    private fun turnOffBt() {
         iv_bluetooth.setImageResource(R.drawable.btoff)
         tv_bluetooth.text = "BLUETOOTH IS OFF "
     }
