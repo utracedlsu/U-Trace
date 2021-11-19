@@ -141,7 +141,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_details_testID"
+                        android:id="@+id/tv_profile_fullname"
                         android:layout_width="340dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -173,7 +173,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tv_details_dateOfTest"
+                        android:id="@+id/tv_profile_address"
                         android:layout_width="340dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

@@ -9,12 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.capstone.app.utrace_cts.LoginActivity
 import com.capstone.app.utrace_cts.MainActivity
+import com.capstone.app.utrace_cts.Preference
 import com.capstone.app.utrace_cts.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
+import org.w3c.dom.Text
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +33,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private lateinit var ll_logout: LinearLayout
     private lateinit var builder: MaterialAlertDialogBuilder
+    private lateinit var tvProfileName: TextView
+    private lateinit var tvProfileAddress: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,6 +47,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         ll_logout.setOnClickListener {
             builder.show()
         }
+
+        tvProfileName = view.findViewById(R.id.tv_profile_fullname)
+        tvProfileAddress = view.findViewById(R.id.tv_profile_address)
+
+        tvProfileName.setText(Preference.getFullName(requireContext()))
+        tvProfileAddress.setText(Preference.getFullAddress(requireContext()))
     }
 
     // initialize alert dialog

@@ -8,6 +8,12 @@ object Preference {
     private const val PREF_ID = "Tracer_pref"
     private const val IS_ONBOARDED = "IS_ONBOARDED"
     private const val PHONE_NUMBER = "PHONE_NUMBER"
+    private const val FULL_NAME = "FULL_NAME"
+    private const val FULL_ADDRESS = "FULL_ADDRESS"
+    private const val VAX_ID = "VAX_ID"
+    private const val VAX_COUNT = "VAX_COUNT"
+    private const val LATEST_TESTSTATUS = "LATEST_TESTSTATUS"
+    private const val VERIFICATION = "VERIFICATION"
     private const val CHECK_POINT = "CHECK_POINT"
     private const val HANDSHAKE_PIN = "HANDSHAKE_PIN"
 
@@ -37,6 +43,66 @@ object Preference {
     fun isOnBoarded(context: Context): Boolean {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
                 .getBoolean(IS_ONBOARDED, false)
+    }
+
+    fun putFullName(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(FULL_NAME, value).apply()
+    }
+
+    fun getFullName(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(FULL_NAME, "") ?: ""
+    }
+
+    fun putFullAddress(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(FULL_ADDRESS, value).apply()
+    }
+
+    fun getFullAddress(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(FULL_ADDRESS, "") ?: ""
+    }
+
+    fun putVaxID(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(VAX_ID, value).apply()
+    }
+
+    fun getVaxID(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(VAX_ID, "") ?: ""
+    }
+
+    fun putVaxCount(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(VAX_COUNT, value).apply()
+    }
+
+    fun getVaxCount(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(VAX_COUNT, "0") ?: ""
+    }
+
+    fun putTestStatus(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(LATEST_TESTSTATUS, value).apply()
+    }
+
+    fun getTestStatus(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(LATEST_TESTSTATUS, "") ?: ""
+    }
+
+    fun putVerification(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(VERIFICATION, value).apply()
+    }
+
+    fun getVerification(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(VERIFICATION, "") ?: ""
     }
 
     fun putPhoneNumber(context: Context, value: String) {

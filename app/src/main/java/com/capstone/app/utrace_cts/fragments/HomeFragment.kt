@@ -8,10 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.capstone.app.utrace_cts.R
-import com.capstone.app.utrace_cts.TestStatusActivity
-import com.capstone.app.utrace_cts.UploadDataActivity
-import com.capstone.app.utrace_cts.Utils
+import com.capstone.app.utrace_cts.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,6 +28,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var btState = true // TRUE: Bluetooth is ON ; FALSE: Bluetooth is OFF
     private lateinit var iv_bluetooth: ImageView
     private lateinit var tv_bluetooth: TextView
+    private lateinit var tvTest: TextView
+    private lateinit var tvVax: TextView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,6 +56,30 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         iv_bluetooth.setOnClickListener {
             if (btState) turnOffBt()
             else turnOnBt()
+        }
+
+        //Retrieve vaccination and test status from preferences
+        tvTest = view.findViewById(R.id.tv_test)
+        tvVax = view.findViewById(R.id.tv_vaccination)
+
+        //change up na lang yung captions here
+        val testStatus = Preference.getTestStatus(requireContext())
+
+        //either empty string, positive or negative
+        if(testStatus.equals("")){
+            tvTest.setText("Your test status has not been set.")
+        } else if (testStatus.equals("POSITIVE")) {
+            tvTest.setText("You have tested positive for COVID-19. Blah blah blah etc")
+        } else {
+            tvTest.setText("You have tested negative for COVID-19. Blah blah blah etc")
+        }
+
+        val vaxID = Preference.getVaxID(requireContext())
+        if(vaxID.equals("")){
+            tvVax.setText("Your vaccination status has not yet been set.")
+        } else {
+            val vaxCount = Preference.getVaxCount(requireContext())
+            tvVax.setText("You have been vaccinated $vaxCount times.")
         }
     }
 

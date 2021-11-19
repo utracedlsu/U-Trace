@@ -101,6 +101,7 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                 if(exportedData.recordList.size > 0){
                     cthChart.clearChart()
                     val weekBefore: Long = System.currentTimeMillis() - 604800000
+
                     //new solution?
                     val filteredRecords = exportedData.recordList.filter {
                         it.timestamp >= weekBefore && it.timestamp <= System.currentTimeMillis()

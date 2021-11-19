@@ -131,6 +131,7 @@ class ConfirmUploadDataFragment: DialogFragment() {
                                     task.addOnSuccessListener {
                                         Log.d("UploadFragment", "Successfully Uploaded Records!")
                                         Toast.makeText(requireActivity().applicationContext, "Successfully Uploaded Records!", Toast.LENGTH_SHORT).show()
+                                        dialog?.dismiss()
                                     }
                                     task.addOnFailureListener{
                                         Log.d("UploadFragment", "Failed to upload records (task): ${it.message}")

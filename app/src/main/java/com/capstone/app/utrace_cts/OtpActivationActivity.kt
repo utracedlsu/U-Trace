@@ -133,6 +133,12 @@ class OtpActivationActivity : AppCompatActivity() {
                 val city = signInMap.get("city") as String
                 val barangay = signInMap.get("barangay") as String
                 val street = signInMap.get("street") as String
+                val vaxID = ""
+                val vax1stDose = ""
+                val vax2ndDose = ""
+                val lastTestDate = ""
+                val isPositive = false
+                val isVerified = false
 
                 val fStoreInsertMap = hashMapOf(
                     "firstname" to fname,
@@ -141,7 +147,13 @@ class OtpActivationActivity : AppCompatActivity() {
                     "city" to city,
                     "barangay" to barangay,
                     "street" to street,
-                    "phone" to phoneNum
+                    "phone" to phoneNum,
+                    "vax_ID" to vaxID,
+                    "vax_1stdose" to vax1stDose,
+                    "vax_2nddose" to vax2ndDose,
+                    "last_testdate" to lastTestDate,
+                    "covid_positive" to isPositive,
+                    "verification" to isVerified
                 )
 
                 Log.d("OTPActivation", "{$fname, $lname, $phoneNum")
@@ -152,6 +164,8 @@ class OtpActivationActivity : AppCompatActivity() {
                 fStore.collection("users").document(newUserID).set(fStoreInsertMap)
                     .addOnCompleteListener { task ->
                         if(task.isSuccessful) {
+                            Preference.putFullName(applicationContext, "$fname $lname")
+                            Preference.putFullAddress(applicationContext,"$street, $barangay, $city, $province")
                             Toast.makeText(
                                 applicationContext,
                                 "Successfully Added! ${Preference.getPhoneNumber(applicationContext)}",
