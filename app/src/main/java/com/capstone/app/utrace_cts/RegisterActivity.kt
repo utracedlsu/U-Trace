@@ -7,12 +7,14 @@ import android.widget.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var et_regFname: EditText
     private lateinit var et_regLname: EditText
     private lateinit var et_regMobileNo: EditText
+    private lateinit var sp_region: Spinner
     private lateinit var sp_province: Spinner
     private lateinit var sp_city: Spinner
     private lateinit var sp_barangay: Spinner
@@ -32,6 +34,7 @@ class RegisterActivity : AppCompatActivity() {
         et_regFname = findViewById(R.id.et_regFname)
         et_regLname = findViewById(R.id.et_regLname)
         et_regMobileNo = findViewById(R.id.et_regMobileNo)
+        sp_region = findViewById(R.id.sp_region)
         sp_province = findViewById(R.id.sp_province)
         sp_city = findViewById(R.id.sp_city)
         sp_barangay = findViewById(R.id.sp_barangay)
@@ -47,7 +50,10 @@ class RegisterActivity : AppCompatActivity() {
             registerNumberFStore()
         }
 
-        // temp spinner values for province, city, barangay
+        // temp spinner values for region, province, city, barangay
+        val regions = arrayOf("Select Region", "Region1", "Region2", "Region3")
+        sp_region.adapter = ArrayAdapter(this, R.layout.style_spinner, regions)
+
         val provinces = arrayOf("Select Province", "Province1", "Province2", "Province3")
         sp_province.adapter = ArrayAdapter(this, R.layout.style_spinner, provinces)
 
@@ -78,6 +84,11 @@ class RegisterActivity : AppCompatActivity() {
             return false
         }
 
+        if (sp_region.selectedItem.toString() == "Select Region"){
+            Toast.makeText(this, "Please select a Region.", Toast.LENGTH_LONG).show()
+            return false
+        }
+
         if (sp_province.selectedItem.toString() == "Select Province"){
             Toast.makeText(this, "Please select a province.", Toast.LENGTH_LONG).show()
             return false
@@ -105,19 +116,19 @@ class RegisterActivity : AppCompatActivity() {
         //get values from editTexts
         val fname = et_regFname.text.toString()
         val lname = et_regLname.text.toString()
-
         val phoneno = et_regMobileNo.text.toString()
+        val region = sp_region.selectedItem.toString()
         val province = sp_province.selectedItem.toString()
         val city = sp_city.selectedItem.toString()
         val barangay = sp_barangay.selectedItem.toString()
         val street = et_street.text.toString()
-
 
         var userDetails = hashMapOf(
             //allows OtpActivationActivity to identify the intent sender
             "activity_source" to "RegisterActivity",
             "firstname" to fname,
             "lastname" to lname,
+            "region" to region,
             "province" to province,
             "city" to city,
             "barangay" to barangay,
@@ -125,14 +136,12 @@ class RegisterActivity : AppCompatActivity() {
             "phone" to phoneno
         )
 
-
         if(checkForDiscrepancies()) {
 
             val otpIntent = Intent(this, OtpActivationActivity::class.java)
-
             otpIntent.putExtra("USER_DETAILS", userDetails)
-
             startActivity(otpIntent)
+
         } else {
             Toast.makeText(applicationContext, "lorem ipsum", Toast.LENGTH_SHORT).show()
         }
