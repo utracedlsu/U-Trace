@@ -43,9 +43,9 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_actions"
         android:layout_width="374dp"
-        android:layout_height="158dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="20dp"
         app:cardBackgroundColor="#FFFEF6"
         app:cardCornerRadius="10dp"
@@ -78,96 +78,16 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/iv_bluetooth"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_actionBanner"
-                app:srcCompat="@drawable/btoff" />
-
-            <TextView
-                android:id="@+id/tv_bluetooth"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_horizontal"
-                android:text="BLUETOOTH IS OFF"
-                android:textColor="#7B7B7B"
-                android:textSize="10sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_bluetooth" />
-
-            <ImageView
-                android:id="@+id/iv_qr"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="31dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintStart_toEndOf="@+id/iv_bluetooth"
-                app:layout_constraintTop_toBottomOf="@+id/ll_actionBanner"
-                app:srcCompat="@drawable/qr" />
-
-            <TextView
-                android:id="@+id/tv_qr"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="31dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_horizontal"
-                android:text="SCAN FOR QR ENTRY"
-                android:textColor="#428E5C"
-                android:textSize="10sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_bluetooth"
-                app:layout_constraintTop_toBottomOf="@+id/iv_qr" />
-
-            <ImageView
-                android:id="@+id/iv_ct"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="31dp"
-                app:layout_constraintEnd_toStartOf="@+id/iv_upload"
-                app:layout_constraintTop_toBottomOf="@+id/ll_actionBanner"
-                app:srcCompat="@drawable/contacttracing" />
-
-            <TextView
-                android:id="@+id/tv_ct"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="31dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_horizontal"
-                android:text="CONTACT TRACING"
-                android:textColor="#428E5C"
-                android:textSize="10dp"
-                app:layout_constraintStart_toEndOf="@+id/tv_qr"
-                app:layout_constraintTop_toBottomOf="@+id/iv_ct" />
-
-            <ImageView
                 android:id="@+id/iv_upload"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="20dp"
+                android:layout_width="339dp"
+                android:layout_height="86dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ll_actionBanner"
-                app:srcCompat="@drawable/uploadinfo" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="60dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="31dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_horizontal"
-                android:text="UPLOAD INFO"
-                android:textColor="#428E5C"
-                android:textSize="10sp"
-                app:layout_constraintStart_toEndOf="@+id/tv_ct"
-                app:layout_constraintTop_toBottomOf="@+id/iv_upload" />
+                app:srcCompat="@drawable/uploadrecords" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
@@ -175,7 +95,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cv_status"
         android:layout_width="374dp"
-        android:layout_height="220dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         app:cardBackgroundColor="#FFFEF6"
         app:cardCornerRadius="10dp"
@@ -208,27 +128,50 @@
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/iv_vaccination"
+                android:id="@+id/iv_bluetooth"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ll_statusBanner"
+                app:srcCompat="@drawable/bt_base" />
+
+            <TextView
+                android:id="@+id/tv_bluetooth"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_vertical"
+                android:text="Bluetooth is not running. Please turn on your Bluetooth."
+                android:textColor="#7B7B7B"
+                android:textSize="11dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ll_statusBanner" />
+
+            <ImageView
+                android:id="@+id/iv_vaccination"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_bluetooth"
                 app:srcCompat="@drawable/vax_base" />
 
             <TextView
                 android:id="@+id/tv_vaccination"
                 android:layout_width="250dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="center_vertical"
                 android:text="Your vaccination status has not been set. Set your vaccination status by clicking the button on the left."
                 android:textColor="#7B7B7B"
                 android:textSize="11dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ll_statusBanner" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_bluetooth" />
 
             <ImageView
                 android:id="@+id/iv_testStatus"
@@ -252,6 +195,31 @@
                 android:textSize="11sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_vaccination" />
+
+            <ImageView
+                android:id="@+id/iv_verified"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_testStatus"
+                app:srcCompat="@drawable/verified_base" />
+
+            <TextView
+                android:id="@+id/tv_verified"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_vertical"
+                android:text="Your account has not been verified."
+                android:textColor="#7B7B7B"
+                android:textSize="11sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_test" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

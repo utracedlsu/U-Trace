@@ -48,8 +48,8 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_testStatusInfo"
             android:layout_width="374dp"
-            android:layout_height="260dp"
-            android:layout_marginTop="25dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
             app:cardBackgroundColor="#FFFEF6"
             app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,53 +81,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_dpBanner"
-                    android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:background="@drawable/profilegradientbg"
-                    android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@+id/ll_profileInfoBanner">
-
-                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/iv_banner_profilePic"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginEnd="20dp"
-                        android:src="@drawable/defaultdp"
-                        app:civ_border_color="#21C95A"
-                        app:civ_border_width="3dp" />
-
-                    <TextView
-                        android:id="@+id/tv_banner_fullName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:text="Firstname M.I. Lastname"
-                        android:textColor="#428E5C"
-                        android:textSize="17sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ll_divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="6dp"
-                    android:background="#E9E7D9"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ll_dpBanner"></LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/ll_fullName"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ll_divider">
+                    app:layout_constraintTop_toBottomOf="@+id/ll_profileInfoBanner">
 
                     <TextView
                         android:id="@+id/textView3"
