@@ -129,6 +129,7 @@ class OtpActivationActivity : AppCompatActivity() {
             if(task.isSuccessful){
                 val fname = signInMap.get("firstname") as String
                 val lname = signInMap.get("lastname") as String
+                val region = signInMap.get("region") as String
                 val province = signInMap.get("province") as String
                 val city = signInMap.get("city") as String
                 val barangay = signInMap.get("barangay") as String
@@ -143,6 +144,7 @@ class OtpActivationActivity : AppCompatActivity() {
                 val fStoreInsertMap = hashMapOf(
                     "firstname" to fname,
                     "lastname" to lname,
+                    "region" to region,
                     "province" to province,
                     "city" to city,
                     "barangay" to barangay,

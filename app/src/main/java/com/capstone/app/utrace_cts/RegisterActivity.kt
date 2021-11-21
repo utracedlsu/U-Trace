@@ -3,10 +3,13 @@ package com.capstone.app.utrace_cts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {
@@ -25,6 +28,18 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var fStore: FirebaseFirestore
     //private lateinit var fStore = Fireba
+
+    //String arraylists for spinner NAMES
+    private lateinit var regionsNamesArray: ArrayList<String>
+    private lateinit var provincesNamesArray: ArrayList<String>
+    private lateinit var citiesNamesArray: ArrayList<String>
+    private lateinit var barangaysNamesArray: ArrayList<String>
+
+    //String arraylists for spinner IDs
+    private lateinit var regionsIDsArray: ArrayList<String>
+    private lateinit var provincesIDsArray: ArrayList<String>
+    private lateinit var citiesIDsArray: ArrayList<String>
+    private lateinit var barangaysIDsArray: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,20 +65,161 @@ class RegisterActivity : AppCompatActivity() {
             registerNumberFStore()
         }
 
-        // temp spinner values for region, province, city, barangay
-        val regions = arrayOf("Select Region", "Region1", "Region2", "Region3")
-        sp_region.adapter = ArrayAdapter(this, R.layout.style_spinner, regions)
+        //init spinner data of region first
+        initSpinnerDataRegion()
 
-        val provinces = arrayOf("Select Province", "Province1", "Province2", "Province3")
+        val provinces = arrayOf("Select Province")
         sp_province.adapter = ArrayAdapter(this, R.layout.style_spinner, provinces)
+        sp_province.setEnabled(false)
 
-        val cities = arrayOf("Select City", "City1", "City2", "City3")
+        val cities = arrayOf("Select City")
         sp_city.adapter = ArrayAdapter(this, R.layout.style_spinner, cities)
+        sp_city.setEnabled(false)
 
-        val barangays = arrayOf("Select Barangay", "Barangay1", "Barangay2", "Barangay3")
+        val barangays = arrayOf("Select Barangay")
         sp_barangay.adapter = ArrayAdapter(this, R.layout.style_spinner, barangays)
+        sp_barangay.setEnabled(false)
 
     }
+
+    //initialize spinner data for region
+    private fun initSpinnerDataRegion(){
+        var spinnerNamesData = ArrayList<String>()
+        var spinnerIDsData = ArrayList<String>()
+
+        spinnerNamesData.add("Select Region")
+        spinnerIDsData.add("PLACEHOLDER")
+
+        fStore.collection("regions").get().addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                val result = task.getResult()
+                result?.let{
+                    for (documentSnapshot: QueryDocumentSnapshot in it){
+                        spinnerNamesData.add(documentSnapshot.getString("name").toString())
+                        spinnerIDsData.add(documentSnapshot.getString("id").toString())
+                    }
+                    regionsNamesArray = spinnerNamesData
+                    regionsIDsArray = spinnerIDsData
+                    sp_region.adapter = ArrayAdapter(this, R.layout.style_spinner, regionsNamesArray)
+                    sp_region.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                            //do nothing if nothing is selected, leave this as is?
+                        }
+                        override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                            if(regionsNamesArray.get(position).equals("Select Region")){
+                                //disable spinners if no item is selected
+                                sp_province.setEnabled(false)
+                                sp_city.setEnabled(false)
+                                sp_barangay.setEnabled(false)
+                            } else {
+                                //initialize spinner data for province
+                                initSpinnerDataExtra("provinces", regionsIDsArray.get(position))
+                            }
+                        }
+                    }
+                }
+            } else {
+                Toast.makeText(applicationContext, "Unable to retrieve records at this time. ${task.exception?.message}",
+                    Toast.LENGTH_SHORT).show()
+                Log.d("RegisterActivityLog", "Unable to retrieve records at this time. ${task.exception?.message}")
+            }
+        }
+    }
+
+    //initialize spinner data after province, city, or barangay
+    private fun initSpinnerDataExtra(collection: String, selectedItem: String){
+        var spinnerNamesData = ArrayList<String>()
+        var spinnerIDsData = ArrayList<String>()
+        var codeString = "" //used for firebase equality condition
+
+        Log.d("RegisterActivityLog", "Collection - $collection, Selected Item - $selectedItem")
+
+        //modify code string to be used as equality condition depending on collection to be retrieved
+        when(collection){
+            "provinces" -> {
+                codeString = "region_code"
+                spinnerNamesData.add("Select Province")
+                spinnerIDsData.add("PLACEHOLDER") //placeholder to match with displayed item
+            }
+            "cities" -> {
+                codeString = "province_code"
+                spinnerNamesData.add("Select City")
+                spinnerIDsData.add("PLACEHOLDER")
+            }
+            "barangays" -> {
+                codeString = "city_code"
+                spinnerNamesData.add("Select Barangay")
+                spinnerIDsData.add("PLACEHOLDER")
+            }
+        }
+
+        fStore.collection(collection).whereEqualTo(codeString, selectedItem).get().addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                val result = task.getResult()
+                result?.let {
+                    for (documentSnapshot: QueryDocumentSnapshot in it){
+                        spinnerNamesData.add(documentSnapshot.getString("name").toString())
+                        spinnerIDsData.add(documentSnapshot.getString("id").toString())
+                    }
+
+                    when(collection){
+                        "provinces" -> {
+                            provincesNamesArray = spinnerNamesData
+                            provincesIDsArray = spinnerIDsData
+                            sp_province.adapter = ArrayAdapter(this, R.layout.style_spinner, provincesNamesArray)
+                            sp_province.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                                override fun onNothingSelected(parent: AdapterView<*>?) {
+                                    //do nothing if nothing is selected, leave this as is?
+                                }
+                                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                                    if(provincesNamesArray.get(position).equals("Select Province")){
+                                        //disable spinners if no item is selected
+                                        sp_city.setEnabled(false)
+                                        sp_barangay.setEnabled(false)
+                                    } else {
+                                        //initialize spinner data for cities from selected province
+                                        initSpinnerDataExtra("cities", provincesIDsArray.get(position))
+                                    }
+                                }
+                            }
+                            sp_province.setEnabled(true)
+                        }
+                        "cities" -> {
+                            citiesNamesArray = spinnerNamesData
+                            citiesIDsArray = spinnerIDsData
+                            sp_city.adapter = ArrayAdapter(this, R.layout.style_spinner, citiesNamesArray)
+                            sp_city.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                                override fun onNothingSelected(parent: AdapterView<*>?) {
+                                    //do nothing if nothing is selected, leave this as is?
+                                }
+                                override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                                    if(citiesNamesArray.get(position).equals("Select City")){
+                                        //disable spinner if no item is selected
+                                        sp_barangay.setEnabled(false)
+                                    } else {
+                                        //initialize spinner data for barangays from selected city
+                                        initSpinnerDataExtra("barangays", citiesIDsArray.get(position))
+                                    }
+                                }
+                            }
+                            sp_city.setEnabled(true)
+                        }
+                        "barangays" -> {
+                            barangaysNamesArray = spinnerNamesData
+                            barangaysIDsArray = spinnerIDsData
+                            sp_barangay.adapter = ArrayAdapter(this, R.layout.style_spinner, barangaysNamesArray)
+                            sp_barangay.setEnabled(true)
+                        }
+                    }
+                }
+            } else {
+                Toast.makeText(applicationContext, "Unable to retrieve records at this time. ${task.exception?.message}",
+                    Toast.LENGTH_SHORT).show()
+                Log.d("RegisterActivityLog", "Unable to retrieve records at this time. ${task.exception?.message}")
+            }
+        }
+    }
+
 
     // validate input details (for testing only)
     private fun checkForDiscrepancies(): Boolean {
