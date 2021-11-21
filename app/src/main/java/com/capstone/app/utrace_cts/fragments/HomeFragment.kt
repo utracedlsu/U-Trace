@@ -67,14 +67,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             startActivity(intent)
         }
 
-        //Retrieve vaccination and test status from preferences
+        // Retrieve vaccination and test status from preferences
         tvTest = view.findViewById(R.id.tv_test)
         tvVax = view.findViewById(R.id.tv_vaccination)
 
-        //change up na lang yung captions here
+        // change up na lang yung captions here
         val testStatus = Preference.getTestStatus(requireContext())
 
-        //either empty string, positive or negative
+        // either empty string, positive or negative
         if(testStatus.equals("")){
             tvTest.setText("Your test status has not been set.")
         } else if (testStatus.equals("POSITIVE")) {
@@ -101,17 +101,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 when (state){
                     BluetoothAdapter.STATE_OFF -> {
                         Log.d("HomeFragment", "BT is OFF")
-                        iv_bluetooth.setImageResource(R.drawable.btoff)
-                        tv_bluetooth.text = "BLUETOOTH IS OFF "
+                        iv_bluetooth.setImageResource(R.drawable.bt_base)
+                        tv_bluetooth.text = "Bluetooth is off. Turn Bluetooth on to enable contact tracing."
                     }
                     BluetoothAdapter.STATE_ON -> {
                         Log.d("HomeFragment", "BT is ON")
-                        iv_bluetooth.setImageResource(R.drawable.bton)
-                        tv_bluetooth.text = "BLUETOOTH IS RUNNING "
+                        iv_bluetooth.setImageResource(R.drawable.bt)
+                        tv_bluetooth.text = "Bluetooth is up and running! Remember to leave it on when you're outside."
                     }
                     BluetoothAdapter.ERROR -> {
-                        iv_bluetooth.setImageResource(R.drawable.btoff)
-                        tv_bluetooth.text = "UNABLE TO GET BLUETOOTH STATUS "
+                        iv_bluetooth.setImageResource(R.drawable.bt_base)
+                        tv_bluetooth.text = "Unable to get Bluetooth status at this time. "
                     }
                 }
             }
