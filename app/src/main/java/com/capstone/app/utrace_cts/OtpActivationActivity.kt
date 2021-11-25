@@ -135,6 +135,7 @@ class OtpActivationActivity : AppCompatActivity() {
                 val barangay = signInMap.get("barangay") as String
                 val street = signInMap.get("street") as String
                 val vaxID = ""
+                val vaxManufacturer = ""
                 val vax1stDose = ""
                 val vax2ndDose = ""
                 val lastTestDate = ""
@@ -151,6 +152,7 @@ class OtpActivationActivity : AppCompatActivity() {
                     "street" to street,
                     "phone" to phoneNum,
                     "vax_ID" to vaxID,
+                    "vax_manufacturer" to vaxManufacturer,
                     "vax_1stdose" to vax1stDose,
                     "vax_2nddose" to vax2ndDose,
                     "last_testdate" to lastTestDate,
