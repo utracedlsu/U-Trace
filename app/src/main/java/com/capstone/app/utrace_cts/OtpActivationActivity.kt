@@ -139,7 +139,7 @@ class OtpActivationActivity : AppCompatActivity() {
                 val vax1stDose = ""
                 val vax2ndDose = ""
                 val lastTestDate = ""
-                val isPositive = false
+                val isPositive = "" //should be positive, negative, or empty
                 val isVerified = false
 
                 val fStoreInsertMap = hashMapOf(
