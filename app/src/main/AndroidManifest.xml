@@ -57,6 +57,13 @@
             android:name=".permissions.RequestFileWritePermission"></activity>
         <service android:name=".BluetoothMonitoringService"
             android:foregroundServiceType="location"/>
+        <service android:name=".FirebasePushNotifService"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+            </intent-filter>
+        </service>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
