@@ -138,6 +138,7 @@ class OtpActivationActivity : AppCompatActivity() {
                 val vaxManufacturer = ""
                 val vax1stDose = ""
                 val vax2ndDose = ""
+                val covidTestsArray = ArrayList<String>() //array that should contain test result and test date
                 val lastTestDate = ""
                 val isPositive = "" //should be positive, negative, or empty
                 val isVerified = false
@@ -155,8 +156,9 @@ class OtpActivationActivity : AppCompatActivity() {
                     "vax_manufacturer" to vaxManufacturer,
                     "vax_1stdose" to vax1stDose,
                     "vax_2nddose" to vax2ndDose,
-                    "last_testdate" to lastTestDate,
-                    "covid_positive" to isPositive,
+                    "covid_tests" to covidTestsArray,
+                    //"last_testdate" to lastTestDate,
+                    //"covid_positive" to isPositive,
                     "verification" to isVerified
                 )
 
