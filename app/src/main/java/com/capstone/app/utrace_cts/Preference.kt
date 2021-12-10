@@ -16,6 +16,7 @@ object Preference {
     private const val VERIFICATION = "VERIFICATION"
     private const val CHECK_POINT = "CHECK_POINT"
     private const val HANDSHAKE_PIN = "HANDSHAKE_PIN"
+    private const val FCM_TOKEN = "FCM_TOKEN"
 
     private const val NEXT_FETCH_TIME = "NEXT_FETCH_TIME"
     private const val EXPIRY_TIME = "EXPIRY_TIME"
@@ -83,6 +84,16 @@ object Preference {
     fun getVaxCount(context: Context): String {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getString(VAX_COUNT, "0") ?: ""
+    }
+
+    fun putCloudMessagingToken(context: Context, value: String){
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(FCM_TOKEN, value).apply()
+    }
+
+    fun getCloudMessagingToken(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(FCM_TOKEN, "") ?: ""
     }
 
     fun putTestStatus(context: Context, value: String) {

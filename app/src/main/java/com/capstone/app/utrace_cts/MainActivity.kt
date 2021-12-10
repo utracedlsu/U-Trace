@@ -24,6 +24,8 @@ import com.capstone.app.utrace_cts.fragments.NotificationsFragment
 import com.capstone.app.utrace_cts.fragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 
 private const val LOCATION_PERMISSION_REQUEST_CODE = 2
 private const val REQUEST_ENABLE_BT = 123
@@ -58,11 +60,14 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
         if(!isLocationPermissionGranted){
             requestLocationPermission()
         } else {
             Utils.startBluetoothMonitoringService(this)
         }
+
+        //check if token is empty
     }
 
     // Check if permissions are granted
@@ -187,6 +192,34 @@ class MainActivity : AppCompatActivity() {
 
         if(FirebaseAuth.getInstance().currentUser == null){
             startActivity(Intent(this, LoginActivity::class.java))
+        }
+
+        //check if token is empty
+        if(Preference.getCloudMessagingToken(applicationContext).equals("")){
+            Log.i("FirebaseNotifications", "No FCM Token, retrieving from server")
+
+            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    val newToken = task.result
+                    val fUserId = FirebaseAuth.getInstance().currentUser?.uid
+                    Log.i("FirebaseNotifications", "User ID: $fUserId")
+                    Log.i("FirebaseNotifications", "New FCM Token: $newToken")
+                    Preference.putCloudMessagingToken(applicationContext, newToken.toString())
+
+                    FirebaseFirestore.getInstance().collection("users")
+                        .document(fUserId.toString()).update("fcm_token", newToken.toString()).addOnCompleteListener { task ->
+                            if(task.isSuccessful){
+                                Log.i("FirebaseNotifications", "Successfully sent token to server")
+                            } else {
+                                Log.i("FirebaseNotifications", "Unable to send token to server: ${task.exception?.message}")
+                            }
+                        }
+                } else {
+                    Log.i("FirebaseNotifications", "Unable to retrieve FCM Token, ${task.exception?.message}")
+                }
+            }
+        } else {
+            Log.i("FirebaseNotifications", "FCM Token: ${Preference.getCloudMessagingToken(applicationContext)}")
         }
     }
 }

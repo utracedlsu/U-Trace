@@ -109,6 +109,12 @@ class OtpActivationActivity : AppCompatActivity() {
 
         fAuth.signInWithCredential(credential).addOnCompleteListener{ task ->
             if(task.isSuccessful) {
+                //check if user has an fcm token
+                /*
+                if(Preference.getCloudMessagingToken(applicationContext).equals("")){
+                    Log.d("OTPActivation", "No FCM Token, retrieving from server")
+
+                } */
                 Toast.makeText(applicationContext, "Successfully logged in! ${Preference.getPhoneNumber(applicationContext)}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -157,9 +163,8 @@ class OtpActivationActivity : AppCompatActivity() {
                     "vax_1stdose" to vax1stDose,
                     "vax_2nddose" to vax2ndDose,
                     "covid_tests" to covidTestsArray,
-                    //"last_testdate" to lastTestDate,
-                    //"covid_positive" to isPositive,
-                    "verification" to isVerified
+                    "verification" to isVerified,
+                    "fcm_token" to Preference.getCloudMessagingToken(applicationContext)
                 )
 
                 Log.d("OTPActivation", "{$fname, $lname, $phoneNum")
