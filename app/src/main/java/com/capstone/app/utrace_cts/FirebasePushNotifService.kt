@@ -15,6 +15,8 @@ class FirebasePushNotifService: FirebaseMessagingService() {
         var title: String? = p0.notification?.title
         var content: String? = p0.notification?.body
         var timeReceived = System.currentTimeMillis()
+
+        Log.i("FirebaseNotifications", "New message received: ${title} - ${content}")
         //TODO: Save the received message somewhere
     }
 
