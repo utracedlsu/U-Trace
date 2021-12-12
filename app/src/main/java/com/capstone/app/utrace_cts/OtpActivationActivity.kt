@@ -163,6 +163,8 @@ class OtpActivationActivity : AppCompatActivity() {
                     "vax_1stdose" to vax1stDose,
                     "vax_2nddose" to vax2ndDose,
                     "covid_tests" to covidTestsArray,
+                    "covid_positive" to "",
+                    "last_testdate" to "",
                     "verification" to isVerified,
                     "fcm_token" to Preference.getCloudMessagingToken(applicationContext)
                 )
