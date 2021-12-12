@@ -1,6 +1,8 @@
 package com.capstone.app.utrace_cts
 
 import android.util.Log
+import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecord
+import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecordStorage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -9,15 +11,32 @@ import java.util.*
 import kotlin.collections.HashMap
 
 class FirebasePushNotifService: FirebaseMessagingService() {
+    private lateinit var notificationRecordStorage: NotificationRecordStorage
+
+    override fun onCreate() {
+        super.onCreate()
+        Log.i("FirebaseNotifications", "OnCreate - FirebaseNotifications")
+        setup()
+    }
+
+    fun setup(){
+        notificationRecordStorage = NotificationRecordStorage(this.applicationContext)
+        Log.i("FirebaseNotifications", "setup() - FirebaseNotifications")
+    }
+
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
 
-        var title: String? = p0.notification?.title
-        var content: String? = p0.notification?.body
-        var timeReceived = System.currentTimeMillis()
+        var recTitle: String? = p0.notification?.title
+        var recContent: String? = p0.notification?.body
 
-        Log.i("FirebaseNotifications", "New message received: ${title} - ${content}")
-        //TODO: Save the received message somewhere
+        Log.i("FirebaseNotifications", "New message received: ${recTitle} - ${recContent}")
+        Log.i("FirebaseNotifications", "Saving notif to db")
+        val notifRecord = NotificationRecord(
+            title = recTitle.toString(),
+            body = recContent.toString()
+        )
+        notificationRecordStorage.saveNotif(notifRecord)
     }
 
     //Activates when the app is first installed (?)
