@@ -20,7 +20,7 @@ class TestStatusActivity : AppCompatActivity() {
         tvTestStatus = findViewById(R.id.tv_covidTestStatus)
         tvTestDateHeader = findViewById(R.id.tv_testDateHeader)
         tvTestDate = findViewById(R.id.tv_details_dateOfTest)
-
+        //another random comment
         if(!Preference.getTestStatus(applicationContext).equals("")){
             val testDate = Preference.getLastTestDate(applicationContext)
             tvTestDateHeader.setText("As of $testDate")

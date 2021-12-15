@@ -124,7 +124,7 @@ object Preference {
         context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .edit().putString(LAST_TESTDATE, value).apply()
     }
-
+    //a random comment to repush this
     fun getLastTestDate(context: Context): String {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getString(LAST_TESTDATE, "") ?: ""

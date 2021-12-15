@@ -73,7 +73,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // change up na lang yung captions here
         val testStatus = Preference.getTestStatus(requireContext())
-
+        //another random comment
         // either empty string, positive or negative
         if(testStatus.equals("")){
             tvTest.setText("Your test status has not been set.")

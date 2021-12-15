@@ -164,7 +164,7 @@ class OtpActivationActivity : AppCompatActivity() {
                     "verification" to isVerified,
                     "fcm_token" to Preference.getCloudMessagingToken(applicationContext)
                 )
-
+                //another random comment
                 Log.d("OTPActivation", "{$fname, $lname, $phoneNum")
 
                 val newUser = fAuth.currentUser

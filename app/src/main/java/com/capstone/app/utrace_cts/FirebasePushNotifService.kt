@@ -59,7 +59,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             val snapshot = task.result
                             val latestTestResult = snapshot?.getBoolean("covid_positive")
                             val latestTestDate = snapshot?.getString("last_testdate")
-
+                            //comment
                             //save latest test data to preferences
                             Preference.putTestStatus(applicationContext, latestTestResult.toString())
                             Preference.putLastTestDate(applicationContext, latestTestDate.toString())
