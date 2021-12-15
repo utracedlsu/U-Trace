@@ -8,11 +8,15 @@ object Preference {
     private const val PREF_ID = "Tracer_pref"
     private const val IS_ONBOARDED = "IS_ONBOARDED"
     private const val PHONE_NUMBER = "PHONE_NUMBER"
+    private const val FIREBASE_ID = "FIREBASE_ID"
     private const val FULL_NAME = "FULL_NAME"
     private const val FULL_ADDRESS = "FULL_ADDRESS"
     private const val VAX_ID = "VAX_ID"
     private const val VAX_COUNT = "VAX_COUNT"
+
     private const val LATEST_TESTSTATUS = "LATEST_TESTSTATUS"
+    private const val LAST_TESTDATE = "LAST_TESTDATE"
+
     private const val VERIFICATION = "VERIFICATION"
     private const val CHECK_POINT = "CHECK_POINT"
     private const val HANDSHAKE_PIN = "HANDSHAKE_PIN"
@@ -44,6 +48,16 @@ object Preference {
     fun isOnBoarded(context: Context): Boolean {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
                 .getBoolean(IS_ONBOARDED, false)
+    }
+
+    fun putFirebaseId(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(FIREBASE_ID, value).apply()
+    }
+
+    fun getFirebaseId(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(FIREBASE_ID, "") ?: ""
     }
 
     fun putFullName(context: Context, value: String) {
@@ -104,6 +118,16 @@ object Preference {
     fun getTestStatus(context: Context): String {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getString(LATEST_TESTSTATUS, "") ?: ""
+    }
+
+    fun putLastTestDate(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(LAST_TESTDATE, value).apply()
+    }
+
+    fun getLastTestDate(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(LAST_TESTDATE, "") ?: ""
     }
 
     fun putVerification(context: Context, value: String) {

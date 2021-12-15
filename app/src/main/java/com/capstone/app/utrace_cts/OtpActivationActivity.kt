@@ -109,12 +109,9 @@ class OtpActivationActivity : AppCompatActivity() {
 
         fAuth.signInWithCredential(credential).addOnCompleteListener{ task ->
             if(task.isSuccessful) {
-                //check if user has an fcm token
-                /*
-                if(Preference.getCloudMessagingToken(applicationContext).equals("")){
-                    Log.d("OTPActivation", "No FCM Token, retrieving from server")
-
-                } */
+                val loggedUser = fAuth.currentUser
+                val loggedUserId = loggedUser?.uid as String
+                Preference.putFirebaseId(applicationContext, loggedUserId)
                 Toast.makeText(applicationContext, "Successfully logged in! ${Preference.getPhoneNumber(applicationContext)}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -145,8 +142,6 @@ class OtpActivationActivity : AppCompatActivity() {
                 val vax1stDose = ""
                 val vax2ndDose = ""
                 val covidTestsArray = ArrayList<String>() //array that should contain test result and test date
-                val lastTestDate = ""
-                val isPositive = "" //should be positive, negative, or empty
                 val isVerified = false
 
                 val fStoreInsertMap = hashMapOf(
@@ -162,6 +157,7 @@ class OtpActivationActivity : AppCompatActivity() {
                     "vax_manufacturer" to vaxManufacturer,
                     "vax_1stdose" to vax1stDose,
                     "vax_2nddose" to vax2ndDose,
+                    "vax_booster" to covidTestsArray, //just an empty array, so use the same var
                     "covid_tests" to covidTestsArray,
                     "covid_positive" to "",
                     "last_testdate" to "",
@@ -177,6 +173,7 @@ class OtpActivationActivity : AppCompatActivity() {
                 fStore.collection("users").document(newUserID).set(fStoreInsertMap)
                     .addOnCompleteListener { task ->
                         if(task.isSuccessful) {
+                            Preference.putFirebaseId(applicationContext, newUserID)
                             Preference.putFullName(applicationContext, "$fname $lname")
                             Preference.putFullAddress(applicationContext,"$street, $barangay, $city, $province")
                             Toast.makeText(

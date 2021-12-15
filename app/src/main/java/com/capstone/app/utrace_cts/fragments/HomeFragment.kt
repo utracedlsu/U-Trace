@@ -77,7 +77,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         // either empty string, positive or negative
         if(testStatus.equals("")){
             tvTest.setText("Your test status has not been set.")
-        } else if (testStatus.equals("POSITIVE")) {
+        } else if (testStatus.equals("true")) {
             tvTest.setText("You have tested positive for COVID-19. Blah blah blah etc")
         } else {
             tvTest.setText("You have tested negative for COVID-19. Blah blah blah etc")
