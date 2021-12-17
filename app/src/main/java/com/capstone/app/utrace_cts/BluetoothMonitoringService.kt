@@ -646,7 +646,8 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         private val CHANNEL_ID = "U-Trace Updates"
         val CHANNEL_SERVICE = "U-Trace Foreground Service"
 
-        val PUSH_NOTIFICATION_ID = 771578
+        public val PUSH_NOTIFICATION_CHANNEL_NAME = "U-Trace Server Notifications"
+        public val PUSH_NOTIFICATION_ID = 771578
 
         val COMMAND_KEY = "${BuildConfig.APPLICATION_ID}_CMD"
 

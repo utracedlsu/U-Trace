@@ -4,13 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Denver/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_register.xml" value="0.10597826086956522" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_otp_activation.xml" value="0.1141552511415525" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_test_status.xml" value="0.25" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_contact_tracing.xml" value="0.33" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_notifications.xml" value="0.11666666666666667" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_profile.xml" value="0.11666666666666667" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/notif_child.xml" value="0.12864583333333332" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/notif_parent.xml" value="0.12864583333333332" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/homenav.xml" value="0.2703125" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/nav_contacttracing.xml" value="0.2703125" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/nav_home.xml" value="0.2703125" />

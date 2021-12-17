@@ -1,6 +1,13 @@
 package com.capstone.app.utrace_cts
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecord
 import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecordStorage
 import com.google.firebase.auth.FirebaseAuth
@@ -9,6 +16,10 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import java.util.*
 import kotlin.collections.HashMap
+
+/*
+    A service for receiving firebase cloud messaging notifications
+*/
 
 class FirebasePushNotifService: FirebaseMessagingService() {
     private lateinit var notificationRecordStorage: NotificationRecordStorage
@@ -27,20 +38,25 @@ class FirebasePushNotifService: FirebaseMessagingService() {
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
 
-        var recTitle: String? = p0.notification?.title
-        var recContent: String? = p0.notification?.body
+        //var recTitle: String? = p0.notification?.title
+        //var recContent: String? = p0.notification?.body
+
+        //do not use notifications key for now, instead put everything at data key
+        var dataNotifTitle = p0.data["title"]
+        var dataNotifContent = p0.data["body"]
         var notifFlag = p0.data["notif_flag"]
 
-        Log.i("FirebaseNotifications", "New message received: ${recTitle} - ${recContent}")
+        Log.i("FirebaseNotifications", "New message received: ${dataNotifTitle} - ${dataNotifContent}")
         Log.i("FirebaseNotifications", "Notification flag: $notifFlag")
         Log.i("FirebaseNotifications", "Saving notif to db")
         val notifRecord = NotificationRecord(
-            title = recTitle.toString(),
-            body = recContent.toString()
+            title = dataNotifTitle.toString(),
+            body = dataNotifContent.toString()
         )
 
         //TODO: check flag of notification
         /*
+            Based on the notification flag, we will retrieve certain user data and save it to the device's preferences
             1 - Covid Test Result (Save in prefs)
             2 - Close Contact
             3 - Vaccine Status Update (1st Dose) (Save in prefs)
@@ -59,7 +75,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             val snapshot = task.result
                             val latestTestResult = snapshot?.getBoolean("covid_positive")
                             val latestTestDate = snapshot?.getString("last_testdate")
-                            //comment
+
                             //save latest test data to preferences
                             Preference.putTestStatus(applicationContext, latestTestResult.toString())
                             Preference.putLastTestDate(applicationContext, latestTestDate.toString())
@@ -70,8 +86,55 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                         }
                     }
             }
+            "2" -> {
+
+            }
+            "3" -> {
+                Log.i("FirebaseNotifications", "Attempting to retrieve first dose data...")
+                FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
+                    .get().addOnCompleteListener { task ->
+                        if(task.isSuccessful){
+                            Log.i("FirebaseNotifications", "Task successful, saving to preferences")
+                            val snapshot = task.result
+
+                            val vaxID = snapshot?.getString("vax_ID")
+                            val vax1stDose = snapshot?.getString("vax_1stdose")
+                            val vaxManufacturer = snapshot?.getString("vax_manufacturer")
+
+                            //save latest vax data to preferences
+                            Preference.putVaxID(applicationContext, vaxID.toString())
+                            Preference.putVaxDose(applicationContext, vax1stDose.toString(), 1)
+                            Preference.putVaxManufacturer(applicationContext, vaxManufacturer.toString())
+                            Log.i("FirebaseNotifications", "Vaccination data has been updated (first dose)")
+
+                        } else {
+                            Log.e("FirebaseNotifications", "Failed to get first dose data: ${task.exception?.message}")
+                        }
+                    }
+            }
+            "4" -> {
+                Log.i("FirebaseNotifications", "Attempting to retrieve second dose data...")
+                FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
+                    .get().addOnCompleteListener { task ->
+                        if(task.isSuccessful){
+                            Log.i("FirebaseNotifications", "Task successful, saving to preferences")
+                            val snapshot = task.result
+
+                            val vax2ndDose = snapshot?.getString("vax_2nddose")
+
+                            //save latest vax data to preferences
+                            Preference.putVaxDose(applicationContext, vax2ndDose.toString(), 2)
+                            Log.i("FirebaseNotifications", "Vaccination data has been updated (second dose)")
+
+                        } else {
+                            Log.e("FirebaseNotifications", "Failed to get second dose data: ${task.exception?.message}")
+                        }
+                    }
+            }
         }
 
+        //notify user
+        sendNotification(dataNotifTitle.toString(), dataNotifContent.toString())
 
         //save notification to local database
         notificationRecordStorage.saveNotif(notifRecord)
@@ -84,5 +147,41 @@ class FirebasePushNotifService: FirebaseMessagingService() {
 
         Log.i("FirebaseNotifications", "New cloud messaging token: $p0")
         Preference.putCloudMessagingToken(applicationContext, p0)
+    }
+
+    //instead of using the 'notifications' JSON key, we will build the notification in the app side instead
+    private fun sendNotification(title: String, body: String){
+        Log.i("FirebaseNotifications", "Building Notifications...")
+        val intent = Intent(this, MainActivity::class.java)
+
+        val activityPendingIntent = PendingIntent.getActivity(
+            this, 0,
+            intent, PendingIntent.FLAG_ONE_SHOT
+        )
+
+        //set up notifs n stuff
+        val mNotifManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val mChannel = NotificationChannel(BluetoothMonitoringService.PUSH_NOTIFICATION_CHANNEL_NAME,
+                BluetoothMonitoringService.PUSH_NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            mChannel.enableLights(false)
+            mChannel.enableVibration(true)
+            mChannel.vibrationPattern = longArrayOf(0L)
+            mChannel.setSound(null, null)
+            mChannel.setShowBadge(false)
+            mNotifManager!!.createNotificationChannel(mChannel)
+        }
+
+        val fcmNotifBuilder = NotificationCompat.Builder(this, BluetoothMonitoringService.PUSH_NOTIFICATION_CHANNEL_NAME)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentIntent(activityPendingIntent)
+            .setWhen(System.currentTimeMillis())
+            .setSound(null)
+            .setVibrate(null)
+
+        mNotifManager.notify(BluetoothMonitoringService.PUSH_NOTIFICATION_ID, fcmNotifBuilder.build())
     }
 }

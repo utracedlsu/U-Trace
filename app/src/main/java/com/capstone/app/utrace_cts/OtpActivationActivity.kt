@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
@@ -25,7 +26,7 @@ class OtpActivationActivity : AppCompatActivity() {
     private lateinit var signInMap: HashMap<String, Object>
     private lateinit var authCredential: PhoneAuthCredential
     private lateinit var etOTP: EditText
-
+    private lateinit var tvResendOTP: TextView
 
     private var callbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
         override fun onVerificationCompleted(credential: PhoneAuthCredential){
@@ -59,6 +60,7 @@ class OtpActivationActivity : AppCompatActivity() {
         regMap = intent.getSerializableExtra("USER_DETAILS")
 
         etOTP = findViewById(R.id.et_otp)
+        tvResendOTP = findViewById(R.id.tv_resendOTP)
         btn_otpConfirm = findViewById(R.id.btn_otpConfirm)
 
         signInMap = regMap as HashMap<String, Object>
@@ -72,6 +74,11 @@ class OtpActivationActivity : AppCompatActivity() {
         // go to Enable Permissions activity
         btn_otpConfirm.setOnClickListener {
             validateOTP()
+        }
+
+        //there should be a timer to disable this for a specified time
+        tvResendOTP.setOnClickListener{
+            requestOTP(phoneNum)
         }
     }
 

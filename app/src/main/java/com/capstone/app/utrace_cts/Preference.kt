@@ -11,9 +11,14 @@ object Preference {
     private const val FIREBASE_ID = "FIREBASE_ID"
     private const val FULL_NAME = "FULL_NAME"
     private const val FULL_ADDRESS = "FULL_ADDRESS"
-    private const val VAX_ID = "VAX_ID"
-    private const val VAX_COUNT = "VAX_COUNT"
 
+    //vaccination data
+    private const val VAX_ID = "VAX_ID"
+    private const val VAX_MANUFACTURER = "VAX_MANUFACTURER"
+    private const val VAX_1STDOSE = "VAX_1STDOSE"
+    private const val VAX_2NDDOSE = "VAX_2NDDOSE"
+
+    //test data
     private const val LATEST_TESTSTATUS = "LATEST_TESTSTATUS"
     private const val LAST_TESTDATE = "LAST_TESTDATE"
 
@@ -90,14 +95,34 @@ object Preference {
             .getString(VAX_ID, "") ?: ""
     }
 
-    fun putVaxCount(context: Context, value: String) {
-        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-            .edit().putString(VAX_COUNT, value).apply()
+    fun putVaxDose(context: Context, value: String, doseNum: Int){
+        if(doseNum == 1) {
+            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .edit().putString(VAX_1STDOSE, value).apply()
+        } else {
+            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .edit().putString(VAX_2NDDOSE, value).apply()
+        }
     }
 
-    fun getVaxCount(context: Context): String {
+    fun getVaxDose(context: Context, doseNum: Int): String {
+        if(doseNum == 1) {
+            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .getString(VAX_1STDOSE, "") ?: ""
+        } else {
+            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .getString(VAX_2NDDOSE, "") ?: ""
+        }
+    }
+
+    fun putVaxManufacturer(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(VAX_MANUFACTURER, value).apply()
+    }
+
+    fun getVaxManufacturer(context: Context): String {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-            .getString(VAX_COUNT, "0") ?: ""
+            .getString(VAX_MANUFACTURER, "") ?: ""
     }
 
     fun putCloudMessagingToken(context: Context, value: String){

@@ -73,7 +73,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // change up na lang yung captions here
         val testStatus = Preference.getTestStatus(requireContext())
-        //another random comment
+
         // either empty string, positive or negative
         if(testStatus.equals("")){
             tvTest.setText("Your test status has not been set.")
@@ -87,8 +87,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         if(vaxID.equals("")){
             tvVax.setText("Your vaccination status has not yet been set.")
         } else {
-            val vaxCount = Preference.getVaxCount(requireContext())
-            tvVax.setText("You have been vaccinated $vaxCount times.")
+            val secondDoseCheck = Preference.getVaxDose(requireContext(), 2)
+            Log.d("HomeFragment", "Vax dose is: $secondDoseCheck")
+            if(secondDoseCheck.equals("")){
+                tvVax.setText("You have received your 1st vaccination dose.")
+            } else {
+                tvVax.setText("You have received both vaccination doses.")
+            }
         }
     }
 

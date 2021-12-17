@@ -30,7 +30,11 @@
                    to swap Main Activity to Login Activity (change code below as well) -->
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".EnablingPermissionsActivity"
