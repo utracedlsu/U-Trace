@@ -64,7 +64,7 @@
           app:srcCompat="@drawable/des1" />
 
       <androidx.cardview.widget.CardView
-          android:id="@+id/cv_testStatusInfo"
+          android:id="@+id/cv_basicUserInfo"
           android:layout_width="374dp"
           android:layout_height="350dp"
           android:layout_marginTop="275dp"

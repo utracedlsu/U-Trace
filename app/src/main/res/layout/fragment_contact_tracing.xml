@@ -56,7 +56,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_testStatusInfo"
+                android:id="@+id/cv_basicUserInfo"
                 android:layout_width="374dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="120dp"
@@ -128,7 +128,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_testStatusInfo">
+                app:layout_constraintTop_toBottomOf="@+id/cv_basicUserInfo">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

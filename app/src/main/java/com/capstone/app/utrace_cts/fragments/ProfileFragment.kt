@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import com.capstone.app.utrace_cts.LoginActivity
-import com.capstone.app.utrace_cts.MainActivity
-import com.capstone.app.utrace_cts.Preference
-import com.capstone.app.utrace_cts.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.capstone.app.utrace_cts.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import org.w3c.dom.Text
@@ -35,27 +35,88 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var builder: MaterialAlertDialogBuilder
     private lateinit var tvProfileName: TextView
     private lateinit var tvProfileAddress: TextView
+    private lateinit var tv_vaxID : TextView
+    private lateinit var tv_vaxBrand : TextView
+    private lateinit var tv_firstDose : TextView
+    private lateinit var tv_secondDose : TextView
+    private lateinit var rv_boosters: RecyclerView
+    private lateinit var btn_verifyAcc : Button
+    private lateinit var btn_deleteAcc : Button
+
+    private lateinit var boosterList : ArrayList<Booster>
+
+    lateinit var dates : Array<String>
+    lateinit var brands : Array<String>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // initialize
+        // connect
+        tvProfileName = view.findViewById(R.id.tv_profile_fullname)
+        tvProfileAddress = view.findViewById(R.id.tv_profile_address)
+        tv_vaxID = view.findViewById(R.id.tv_vaxID)
+        tv_vaxBrand = view.findViewById(R.id.tv_vaxBrand)
+        tv_firstDose = view.findViewById(R.id.tv_firstDose)
+        tv_secondDose = view.findViewById(R.id.tv_secondDose)
+        rv_boosters = view.findViewById(R.id.rv_boosters)
+        btn_verifyAcc = view.findViewById(R.id.btn_verifyAcc)
+        btn_deleteAcc = view.findViewById(R.id.btn_deleteAcc)
         ll_logout = view.findViewById(R.id.ll_logout)
+
+        // set field data
+        tvProfileName.text = Preference.getFullName(requireContext())
+        tvProfileAddress.text = (Preference.getFullAddress(requireContext()))
+
+        // boosters recyclerview init
+        rv_boosters.layoutManager = LinearLayoutManager(this.context)
+        rv_boosters.setHasFixedSize(true)
+        boosterList = arrayListOf<Booster>()
+            // TESTER: FOR TESTING BOOSTERS RECYCLER VIEW
+            dates = arrayOf(
+                "01-01-2021",
+                "01-02-2021",
+                "01-03-2021",
+                "01-04-2021",
+            )
+            brands = arrayOf(
+                "Moderna",
+                "Sinovac",
+                "Sinopharm",
+                "Pfizer",
+            )
+        getTesterData() // TESTER
+
+        // initialize Logout Dialog
         initLogoutDialog()
+
+        // verify account -- go to <?>
+        btn_verifyAcc.setOnClickListener {
+            // TODO: maybe go to OtpActivationActivity again?
+        }
+
+        // delete account -- open confirm deletion dialog
+        btn_deleteAcc.setOnClickListener {
+            val confirmDeleteDialog = ConfirmAccDeletionFragment()
+            confirmDeleteDialog.show(parentFragmentManager, "deleteAccDialog")
+        }
 
         // logout -- go to login activity
         ll_logout.setOnClickListener {
             builder.show()
         }
-
-        tvProfileName = view.findViewById(R.id.tv_profile_fullname)
-        tvProfileAddress = view.findViewById(R.id.tv_profile_address)
-
-        tvProfileName.setText(Preference.getFullName(requireContext()))
-        tvProfileAddress.setText(Preference.getFullAddress(requireContext()))
     }
 
-    // initialize alert dialog
+    // POPULATE TESTER ARRAY
+    private fun getTesterData() {
+        for (i in dates.indices) {
+            val booster = Booster(dates[i], brands[i])
+            boosterList.add(booster)
+        }
+        // Note: Only after the data is collected should the recycler view be triggered
+        rv_boosters.adapter = BoosterAdapter(boosterList)
+    }
+
+    // initialize logout alert dialog
     private fun initLogoutDialog() {
 
         builder = MaterialAlertDialogBuilder(requireContext())
