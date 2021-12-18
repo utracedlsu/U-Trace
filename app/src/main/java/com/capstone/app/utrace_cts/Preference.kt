@@ -23,6 +23,7 @@ object Preference {
     private const val LAST_TESTDATE = "LAST_TESTDATE"
 
     private const val VERIFICATION = "VERIFICATION"
+
     private const val CHECK_POINT = "CHECK_POINT"
     private const val HANDSHAKE_PIN = "HANDSHAKE_PIN"
     private const val FCM_TOKEN = "FCM_TOKEN"
@@ -162,7 +163,7 @@ object Preference {
 
     fun getVerification(context: Context): String {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-            .getString(VERIFICATION, "") ?: ""
+            .getString(VERIFICATION, "false") ?: ""
     }
 
     fun putPhoneNumber(context: Context, value: String) {

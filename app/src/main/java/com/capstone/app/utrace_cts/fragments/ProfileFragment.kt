@@ -66,6 +66,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         // set field data
         tvProfileName.text = Preference.getFullName(requireContext())
         tvProfileAddress.text = (Preference.getFullAddress(requireContext()))
+        setVaxTVs()
 
         // boosters recyclerview init
         rv_boosters.layoutManager = LinearLayoutManager(this.context)
@@ -90,8 +91,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         initLogoutDialog()
 
         // verify account -- go to <?>
-        btn_verifyAcc.setOnClickListener {
-            // TODO: maybe go to OtpActivationActivity again?
+
+        if(Preference.getVerification(requireContext()).equals("false")){
+            btn_verifyAcc.setOnClickListener {
+                verifyOTP()
+            }
+        } else {
+            //disable verification button if already verified
+            btn_verifyAcc.setEnabled(false)
+            btn_verifyAcc.setText("ACCOUNT VERIFIED")
         }
 
         // delete account -- open confirm deletion dialog
@@ -103,6 +111,49 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         // logout -- go to login activity
         ll_logout.setOnClickListener {
             builder.show()
+        }
+    }
+
+    private fun verifyOTP(){
+        var phoneNo = Preference.getPhoneNumber(requireContext())
+
+        var verifyDetails = hashMapOf(
+            //remove the '+63' in the saved preference phone number
+            "activity_source" to "UserVerification",
+            "phone" to phoneNo.drop(3)
+        )
+
+        val otpIntent = Intent(requireContext(), OtpActivationActivity::class.java)
+
+        otpIntent.putExtra("USER_DETAILS", verifyDetails)
+
+        startActivity(otpIntent)
+    }
+
+    //sets the vaccination text views
+    private fun setVaxTVs(){
+        if(!Preference.getVaxID(requireContext()).equals("")){
+            tv_vaxID.setText(Preference.getVaxID(requireContext()))
+        } else {
+            tv_vaxID.setText("No vaccine ID set.")
+        }
+
+        if(!Preference.getVaxManufacturer(requireContext()).equals("")){
+            tv_vaxBrand.setText(Preference.getVaxManufacturer(requireContext()))
+        } else {
+            tv_vaxBrand.setText("No vaccine brand set.")
+        }
+
+        if(!Preference.getVaxDose(requireContext(), 1).equals("")){
+            tv_firstDose.setText(Preference.getVaxDose(requireContext(), 1))
+        } else {
+            tv_firstDose.setText("No first dose date set.")
+        }
+
+        if(!Preference.getVaxDose(requireContext(), 2).equals("")){
+            tv_secondDose.setText(Preference.getVaxDose(requireContext(), 2))
+        } else {
+            tv_secondDose.setText("No second dose date set.")
         }
     }
 

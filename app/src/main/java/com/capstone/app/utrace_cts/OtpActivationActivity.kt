@@ -86,13 +86,22 @@ class OtpActivationActivity : AppCompatActivity() {
         val enteredOTP = etOTP.text.toString()
         if(enteredOTP.equals(authCredential.smsCode)){
             Preference.putPhoneNumber(applicationContext, "+63${phoneNum}")
-            if(intentSource.equals("RegisterActivity")) {
-               registerWithPhoneCredential(authCredential)
-            } else if (intentSource.equals("LoginActivity")){
-                logInWithPhoneCredential(authCredential)
-            } else {
-                Toast.makeText(applicationContext, "Error validating OTP!", Toast.LENGTH_SHORT).show()
+
+            when(intentSource){
+                "RegisterActivity"->{
+                    registerWithPhoneCredential(authCredential)
+                }
+                "LoginActivity"->{
+                    logInWithPhoneCredential(authCredential)
+                }
+                "UserVerification"->{
+                    verifyUser()
+                }
+                else -> {
+                    Toast.makeText(applicationContext, "Can't identify cause of OTP, please return to home.", Toast.LENGTH_SHORT).show()
+                }
             }
+
         } else {
             Toast.makeText(applicationContext, "OTP is incorrect. Please try again.", Toast.LENGTH_SHORT).show()
         }
@@ -200,5 +209,24 @@ class OtpActivationActivity : AppCompatActivity() {
                 Log.d("OTPActivation", "Error! ${task.exception?.message}")
             }
         }
+    }
+
+    //upon user verification
+    private fun verifyUser(){
+        val currUserID = Preference.getFirebaseId(applicationContext)
+
+        fStore.collection("users").document(currUserID).update("verification", true)
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    Preference.putVerification(applicationContext, "true")
+
+                    Toast.makeText(applicationContext, "Your account has been successfully verified!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(applicationContext, "Error! ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Log.d("OTPActivation", "Error! ${task.exception?.message}")
+                }
+            }
     }
 }

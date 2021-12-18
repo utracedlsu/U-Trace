@@ -71,7 +71,8 @@ class ConfirmAccDeletionFragment: DialogFragment() {
         override fun afterTextChanged(s: Editable?) {}
     }
 
+    //delete firebase and preferences data
+    private fun deleteAccContents(){
 
-
-
+    }
 }

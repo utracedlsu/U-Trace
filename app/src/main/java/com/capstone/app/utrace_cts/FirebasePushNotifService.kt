@@ -58,10 +58,10 @@ class FirebasePushNotifService: FirebaseMessagingService() {
         /*
             Based on the notification flag, we will retrieve certain user data and save it to the device's preferences
             1 - Covid Test Result (Save in prefs)
-            2 - Close Contact
-            3 - Vaccine Status Update (1st Dose) (Save in prefs)
-            4 - Vaccine Status Update (2nd Dose) (Save in prefs)
-            5 - Vaccine Booster Shot
+            2 - Vaccine Status Update (1st Dose) (Save in prefs)
+            3 - Vaccine Status Update (2nd Dose) (Save in prefs)
+            4 - Vaccine Booster Shot
+            5 - Close Contact (?)
         */
         val firebaseUserID = Preference.getFirebaseId(applicationContext)
         Log.i("FirebaseNotifications", "Firebase ID: $firebaseUserID")
@@ -87,9 +87,6 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                     }
             }
             "2" -> {
-
-            }
-            "3" -> {
                 Log.i("FirebaseNotifications", "Attempting to retrieve first dose data...")
                 FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
                     .get().addOnCompleteListener { task ->
@@ -112,7 +109,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                         }
                     }
             }
-            "4" -> {
+            "3" -> {
                 Log.i("FirebaseNotifications", "Attempting to retrieve second dose data...")
                 FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
                     .get().addOnCompleteListener { task ->
@@ -130,6 +127,9 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             Log.e("FirebaseNotifications", "Failed to get second dose data: ${task.exception?.message}")
                         }
                     }
+            }
+            else -> {
+                Log.i("FirebaseNotifications", "Don't do anything with received flag")
             }
         }
 

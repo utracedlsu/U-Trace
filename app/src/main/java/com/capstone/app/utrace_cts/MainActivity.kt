@@ -66,95 +66,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             Utils.startBluetoothMonitoringService(this)
         }
-
-        //recieveNotifs()
-    }
-
-    //UNUSED FOR NOW: receive notifications when app is in background
-    private fun recieveNotifs(){
-        val fbIntent = intent
-        val firebaseUserID = Preference.getFirebaseId(applicationContext)
-        fbIntent.let { intent ->
-            val extras = intent.extras
-            extras?.let { recExtras ->
-                val notifFlag = recExtras.getString("notif_flag")
-
-                when (notifFlag){
-                    "1" -> {
-                        Log.i("FirebaseNotifications", "Attempting to retrieve test data...")
-                        FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
-                            .get().addOnCompleteListener { task ->
-                                if(task.isSuccessful){
-                                    Log.i("FirebaseNotifications", "Task successful, saving to preferences")
-                                    val snapshot = task.result
-                                    val latestTestResult = snapshot?.getBoolean("covid_positive")
-                                    val latestTestDate = snapshot?.getString("last_testdate")
-
-                                    //save latest test data to preferences
-                                    Preference.putTestStatus(applicationContext, latestTestResult.toString())
-                                    Preference.putLastTestDate(applicationContext, latestTestDate.toString())
-                                    Log.i("FirebaseNotifications", "Test Results have been updated")
-
-                                } else {
-                                    Log.e("FirebaseNotifications", "Failed to get Test Data: ${task.exception?.message}")
-                                }
-                            }
-                    }
-                    "2" -> {
-
-                    }
-                    "3" -> {
-                        Log.i("FirebaseNotifications", "Attempting to retrieve first dose data...")
-                        FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
-                            .get().addOnCompleteListener { task ->
-                                if(task.isSuccessful){
-                                    Log.i("FirebaseNotifications", "Task successful, saving to preferences")
-                                    val snapshot = task.result
-
-                                    val vaxID = snapshot?.getString("vax_ID")
-                                    val vax1stDose = snapshot?.getString("vax_1stdose")
-                                    val vaxManufacturer = snapshot?.getString("vax_manufacturer")
-
-                                    //save latest vax data to preferences
-                                    Preference.putVaxID(applicationContext, vaxID.toString())
-                                    Preference.putVaxDose(applicationContext, vax1stDose.toString(), 1)
-                                    Preference.putVaxManufacturer(applicationContext, vaxManufacturer.toString())
-                                    Log.i("FirebaseNotifications", "Vaccination data has been updated (first dose)")
-
-                                } else {
-                                    Log.e("FirebaseNotifications", "Failed to get first dose data: ${task.exception?.message}")
-                                }
-                            }
-                    }
-                    "4" -> {
-                        Log.i("FirebaseNotifications", "Attempting to retrieve second dose data...")
-                        FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
-                            .get().addOnCompleteListener { task ->
-                                if(task.isSuccessful){
-                                    Log.i("FirebaseNotifications", "Task successful, saving to preferences")
-                                    val snapshot = task.result
-
-                                    val vax2ndDose = snapshot?.getString("vax_2nddose")
-
-                                    //save latest vax data to preferences
-                                    Preference.putVaxDose(applicationContext, vax2ndDose.toString(), 2)
-                                    Log.i("FirebaseNotifications", "Vaccination data has been updated (second dose)")
-
-                                } else {
-                                    Log.e("FirebaseNotifications", "Failed to get second dose data: ${task.exception?.message}")
-                                }
-                            }
-                    }
-                    else -> {
-                        Log.e("HomeFragment", "Unknown notif flag; do nothing")
-                    }
-                }
-            }
-        }
     }
 
     // Check if permissions are granted
-
     val isLocationPermissionGranted
         get() = hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)
     fun Context.hasPermission(permissionType: String): Boolean {
