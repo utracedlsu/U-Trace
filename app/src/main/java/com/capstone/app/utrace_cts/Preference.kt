@@ -242,6 +242,11 @@ object Preference {
                 .getLong(LAST_PURGE_TIME, 0)
     }
 
+    fun nukePreferences(context: Context){
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().clear().apply()
+    }
+
     fun registerListener(
             context: Context,
             listener: SharedPreferences.OnSharedPreferenceChangeListener
