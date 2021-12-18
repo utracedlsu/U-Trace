@@ -3,11 +3,13 @@ package com.capstone.app.utrace_cts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
 
@@ -39,16 +41,33 @@ class LoginActivity : AppCompatActivity() {
         if(!etLoginMobileNo.text.isEmpty()){
             val phoneno = etLoginMobileNo.text.toString()
 
-            var loginDetails = hashMapOf(
-                "activity_source" to "LoginActivity",
-                "phone" to phoneno
-            )
+            //check if user exists in database
+            FirebaseFirestore.getInstance().collection("users").whereEqualTo("phone", phoneno).get()
+                .addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        val snapshot = task.result
 
-            val otpIntent = Intent(this, OtpActivationActivity::class.java)
+                        snapshot?.let {
+                            if(it.documents.size > 0){
+                                var loginDetails = hashMapOf(
+                                    "activity_source" to "LoginActivity",
+                                    "phone" to phoneno
+                                )
 
-            otpIntent.putExtra("USER_DETAILS", loginDetails)
+                                val otpIntent = Intent(this, OtpActivationActivity::class.java)
 
-            startActivity(otpIntent)
+                                otpIntent.putExtra("USER_DETAILS", loginDetails)
+
+                                startActivity(otpIntent)
+                            } else {
+                                Toast.makeText(applicationContext, "User does not exist, please try another number or register an account.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(applicationContext, "Unable to log in at this time, please try again later.", Toast.LENGTH_SHORT).show()
+                        Log.e("LoginActivity", "Unable to log in: ${task.exception?.message}")
+                    }
+                }
         } else {
             Toast.makeText(applicationContext, "lorem ipsum", Toast.LENGTH_SHORT).show()
         }
