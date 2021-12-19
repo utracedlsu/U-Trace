@@ -50,14 +50,13 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getNotifsFromDB()
-
         // connect & init var
         rv_notifications = view.findViewById(R.id.rv_notifications)
         tv_emptyMsg = view.findViewById(R.id.tv_emptyMsg)
         notificationsList = arrayListOf<Notification>()
 
-        getTestingData() // FOR TESTING
+        //retrieve notifications from database, then initialize
+        getNotifsFromDB()
     }
 
     private fun getNotifsFromDB(){
@@ -70,48 +69,23 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
             Schedulers.io()).subscribe{ retrievedNotifs ->
             Log.d("NotifFragment", "Notifs ${retrievedNotifs}")
             Log.d("NotifFragment", "Notif 1: ${retrievedNotifs.get(0).title} - ${retrievedNotifs.get(0).body} - ${retrievedNotifs.get(0).timestamp}")
-            //TODO: Create RecyclerView Here with retrievedNotifs
-            //retrievedNotifs: array of notificationRecords (check notifications > persistence > NotificationRecord.kt)
 
+
+            if(retrievedNotifs.size > 0){
+                for (notif in retrievedNotifs){
+                    notificationsList.add(Notification(
+                        "WARNING",
+                        Utils.getDDMMYYY(notif.timestamp),
+                        Utils.getTimeInHours(notif.timestamp),
+                        notif.title,
+                        notif.body
+                    ))
+                }
+                initRecyclerView()
+            } else {
+                checkIfEmpty()
+            }
         }
-    }
-
-    // POPULATE TESTER ARRAY
-    private fun getTestingData() {
-        nTypes = arrayOf(
-            "BLUETOOTH",
-            "WARNING",
-            "some other thing (see NotificationsAdapter for more info)",
-        )
-        nDates = arrayOf(
-            "12-16-2021",
-            "12-17-2021",
-            "12-18-2021",
-        )
-        nTimes = arrayOf(
-            "1:00PM",
-            "2:30PM",
-            "7:00AM",
-        )
-        nHeaders = arrayOf(
-            "You've had 10 Bluetooth exchanges in the past 24 hours.",
-            "One of your close contacts listed themself as positive.",
-            "super idol doengmi yoshangmin idk",
-        )
-        nContents = arrayOf(
-            "You should get tested my guy",
-            "You should check yourself and see if you're safe or not or something",
-            "stop babe youre not super idol",
-        )
-
-        for (i in nTypes.indices) {
-            val notif = Notification(nTypes[i], nDates[i], nTimes[i], nHeaders[i], nContents[i])
-            notificationsList.add(notif)
-        }
-
-        // IMPORTANT: Only after the data is collected should the recycler view be initialized
-        checkIfEmpty()
-        initRecyclerView()
     }
 
     private fun initRecyclerView() {

@@ -675,7 +675,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         val bmCheckInterval: Long = 540000 // 9 Minutes
         val healthCheckInterval: Long = 900000 // 15 Minutes
         val purgeInterval: Long = 86400000 // 1 Day - 24 Hours
-        val purgeTTL: Long = 1814400000 // 21 Days - 3 Weeks (Might have to change to 2 weeks)
+        val purgeTTL: Long = 1209600000 // 14 Days - 2 Weeks
 
         val connectionTimeout: Long = 6000
 

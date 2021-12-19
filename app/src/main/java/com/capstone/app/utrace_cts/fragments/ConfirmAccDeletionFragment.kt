@@ -18,9 +18,14 @@ import androidx.fragment.app.DialogFragment
 import com.capstone.app.utrace_cts.LoginActivity
 import com.capstone.app.utrace_cts.Preference
 import com.capstone.app.utrace_cts.R
+import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecordStorage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_confirm_account_deletion.*
+import java.util.*
 
 
 class ConfirmAccDeletionFragment: DialogFragment() {
@@ -94,14 +99,24 @@ class ConfirmAccDeletionFragment: DialogFragment() {
            userFstore.delete().addOnCompleteListener { task ->
                if(task.isSuccessful){
                    Log.i("ConfirmDelete", "Deleted user FStore data, proceeding to user contact data..")
-                   userContacts.delete().addOnCompleteListener { task ->
-                       if(task.isSuccessful){
+                   userContacts.delete().addOnCompleteListener { firsttask ->
+                       if(firsttask.isSuccessful){
                            Log.i("ConfirmDelete", "Deleted contact data, proceeding to user auth data..")
                            //Delete user auth last, we won't have privileges to delete fstore data if it was deleted first
-                           userAuth.delete().addOnCompleteListener { task ->
-                               if(task.isSuccessful){
+                           userAuth.delete().addOnCompleteListener { secondtask ->
+                               if(secondtask.isSuccessful){
                                    Log.i("ConfirmDelete", "Deleted auth data, proceeding to preferences..")
                                    Preference.nukePreferences(requireContext())
+
+                                   //delete notifs records
+                                   Observable.create<Boolean>{
+                                       NotificationRecordStorage(requireContext()).nukeDb()
+                                       it.onNext(true)
+                                   }.observeOn(AndroidSchedulers.mainThread())
+                                       .subscribeOn(Schedulers.io())
+                                       .subscribe{ result ->
+                                           Log.i("ConfirmDelete", "Deleted notif records: $result")
+                                       }
 
                                    Log.i("ConfirmDelete", "Deleted everything, logging out")
                                    FirebaseAuth.getInstance().signOut()

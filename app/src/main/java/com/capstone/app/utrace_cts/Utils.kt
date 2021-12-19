@@ -66,6 +66,28 @@ object Utils {
         return formatter.format(calendar.time)
     }
 
+    fun getDDMMYYY(milliSeconds: Long): String {
+        val dateFormat = "MM/dd/yyyy"
+        // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat(dateFormat)
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = milliSeconds
+        return formatter.format(calendar.time)
+    }
+
+    fun getTimeInHours(milliSeconds: Long): String {
+        val dateFormat = "HH:mm:ss"
+        // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat(dateFormat)
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = milliSeconds
+        return formatter.format(calendar.time)
+    }
+
     //BROADCASTING
 
     fun broadcastDeviceScanned(

@@ -3,6 +3,7 @@ package com.capstone.app.utrace_cts.notifications.persistence
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.capstone.app.utrace_cts.Utils
 
 @Entity(tableName = "notification_table")
 class NotificationRecord constructor(
