@@ -11,6 +11,8 @@ import com.google.android.material.imageview.ShapeableImageView
 
 class NotificationsAdapter (private val notifList: ArrayList<Notification>) : RecyclerView.Adapter<NotificationsAdapter.NotifViewHolder>() {
 
+    private lateinit var changeListener : ChangeListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotifViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.notif_list, parent, false)
         return NotifViewHolder(itemView)
@@ -42,8 +44,15 @@ class NotificationsAdapter (private val notifList: ArrayList<Notification>) : Re
         val notifContent : TextView = itemView.findViewById(R.id.tv_notifContent)
     }
 
+    fun setOnChangeListener(listener: ChangeListener) { changeListener = listener }
+
     fun deleteItem(index: Int) {
         notifList.removeAt(index)
         notifyItemRemoved(index)
+        changeListener.onChange(itemCount)
     }
+}
+
+interface ChangeListener {
+    fun onChange(data: Int)
 }

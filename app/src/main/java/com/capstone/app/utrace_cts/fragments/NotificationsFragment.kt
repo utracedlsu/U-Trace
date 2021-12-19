@@ -10,10 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.capstone.app.utrace_cts.Notification
-import com.capstone.app.utrace_cts.NotificationsAdapter
-import com.capstone.app.utrace_cts.R
-import com.capstone.app.utrace_cts.SwipeToDelete
+import com.capstone.app.utrace_cts.*
 import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecord
 import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecordStorage
 import io.reactivex.Observable
@@ -113,26 +110,36 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         }
 
         // IMPORTANT: Only after the data is collected should the recycler view be initialized
-        toggleEmptyMessage()
+        checkIfEmpty()
         initRecyclerView()
     }
 
     private fun initRecyclerView() {
+
         rv_notifications.layoutManager = LinearLayoutManager(this.context)
         rv_notifications.setHasFixedSize(true)
         adapter = NotificationsAdapter(notificationsList)
         rv_notifications.adapter = adapter
         var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
         itemTouchHelper.attachToRecyclerView(rv_notifications)
+
+        // What: Instantiate interface from NotificationsAdapter
+        // Purpose: Show text: "You've no notifications" when user has no notifications
+        class Listener : ChangeListener {
+            override fun onChange(data: Int) {
+                if (data > 0) tv_emptyMsg.visibility = View.GONE
+                else tv_emptyMsg.visibility = View.VISIBLE
+            }
+        }
+
+        adapter.setOnChangeListener(Listener())
     }
 
-    private fun toggleEmptyMessage() {
-        if (notificationsList.isEmpty()) {
-            tv_emptyMsg.visibility = View.VISIBLE
-        } else {
-            tv_emptyMsg.visibility = View.GONE
-        }
+    private fun checkIfEmpty() {
+        if (notificationsList.isEmpty()) tv_emptyMsg.visibility = View.VISIBLE
     }
+
+
 
     companion object {
         /**
