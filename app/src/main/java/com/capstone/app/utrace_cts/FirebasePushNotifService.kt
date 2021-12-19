@@ -38,9 +38,6 @@ class FirebasePushNotifService: FirebaseMessagingService() {
     override fun onMessageReceived(p0: RemoteMessage) {
         super.onMessageReceived(p0)
 
-        //var recTitle: String? = p0.notification?.title
-        //var recContent: String? = p0.notification?.body
-
         //do not use notifications key for now, instead put everything at data key
         var dataNotifTitle = p0.data["title"]
         var dataNotifContent = p0.data["body"]
@@ -59,14 +56,13 @@ class FirebasePushNotifService: FirebaseMessagingService() {
             Based on the notification flag, we will retrieve certain user data and save it to the device's preferences
             1 - Covid Test Result (Save in prefs)
             2 - Vaccine Status Update (1st Dose) (Save in prefs)
-            3 - Vaccine Status Update (2nd Dose) (Save in prefs)
             4 - Vaccine Booster Shot
             5 - Close Contact (?)
         */
         val firebaseUserID = Preference.getFirebaseId(applicationContext)
         Log.i("FirebaseNotifications", "Firebase ID: $firebaseUserID")
         when(notifFlag){
-            "1" -> {
+            "1" -> { //get latest test info only
                 Log.i("FirebaseNotifications", "Attempting to retrieve test data...")
                 FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
                     .get().addOnCompleteListener { task ->
@@ -86,8 +82,8 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                         }
                     }
             }
-            "2" -> {
-                Log.i("FirebaseNotifications", "Attempting to retrieve first dose data...")
+            "2" -> { //get vaccine info (id, 1st/2nd dose, manufacturer)
+                Log.i("FirebaseNotifications", "Attempting to retrieve vaccine data...")
                 FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
                     .get().addOnCompleteListener { task ->
                         if(task.isSuccessful){
@@ -96,21 +92,22 @@ class FirebasePushNotifService: FirebaseMessagingService() {
 
                             val vaxID = snapshot?.getString("vax_ID")
                             val vax1stDose = snapshot?.getString("vax_1stdose")
+                            val vax2ndDose = snapshot?.getString("vax_2nddose")
                             val vaxManufacturer = snapshot?.getString("vax_manufacturer")
 
                             //save latest vax data to preferences
                             Preference.putVaxID(applicationContext, vaxID.toString())
                             Preference.putVaxDose(applicationContext, vax1stDose.toString(), 1)
+                            Preference.putVaxDose(applicationContext, vax2ndDose.toString(), 2)
                             Preference.putVaxManufacturer(applicationContext, vaxManufacturer.toString())
-                            Log.i("FirebaseNotifications", "Vaccination data has been updated (first dose)")
-
+                            Log.i("FirebaseNotifications", "Vaccination data has been updated")
                         } else {
-                            Log.e("FirebaseNotifications", "Failed to get first dose data: ${task.exception?.message}")
+                            Log.e("FirebaseNotifications", "Failed to get vaccine data: ${task.exception?.message}")
                         }
                     }
             }
-            "3" -> {
-                Log.i("FirebaseNotifications", "Attempting to retrieve second dose data...")
+            "3" -> { //get booster data
+                Log.i("FirebaseNotifications", "Attempting to retrieve booster data...")
                 FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
                     .get().addOnCompleteListener { task ->
                         if(task.isSuccessful){
