@@ -31,8 +31,10 @@ private const val ARG_PARAM2 = "param2"
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var ivUpload: ImageView
+    private lateinit var ivVax: ImageView
+    private lateinit var ivVerification: ImageView
+    private lateinit var tvVerification: TextView
     private lateinit var ivTestStatus : ImageView
-    private var btState = true // TRUE: Bluetooth is ON ; FALSE: Bluetooth is OFF
     private lateinit var iv_bluetooth: ImageView
     private lateinit var tv_bluetooth: TextView
     private lateinit var tvTest: TextView
@@ -51,6 +53,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // connect
         ivUpload = view.findViewById(R.id.iv_upload)
+        ivVax = view.findViewById(R.id.iv_vaccination)
+        ivVerification = view.findViewById(R.id.iv_verified)
         ivTestStatus = view.findViewById(R.id.iv_testStatus)
         iv_bluetooth = view.findViewById(R.id.iv_bluetooth)
         tv_bluetooth = view.findViewById(R.id.tv_bluetooth)
@@ -67,26 +71,29 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             startActivity(intent)
         }
 
-        // Retrieve vaccination and test status from preferences
         tvTest = view.findViewById(R.id.tv_test)
         tvVax = view.findViewById(R.id.tv_vaccination)
+        tvVerification = view.findViewById(R.id.tv_verified)
 
-        // change up na lang yung captions here
         val testStatus = Preference.getTestStatus(requireContext())
 
-        // either empty string, positive or negative
         if(testStatus.equals("")){
-            tvTest.setText("Your test status has not been set.")
+            tvTest.setText("You have not yet had any COVID-19 tests.")
         } else if (testStatus.equals("true")) {
-            tvTest.setText("You have tested positive for COVID-19. Blah blah blah etc")
+            ivTestStatus.setImageResource(R.drawable.test)
+            tvTest.setText("You have tested positive for COVID-19. Please upload your records ASAP.")
         } else {
-            tvTest.setText("You have tested negative for COVID-19. Blah blah blah etc")
+            ivTestStatus.setImageResource(R.drawable.test)
+            tvTest.setText("You have tested negative for COVID-19.")
         }
 
+        //check vaccination status
         val vaxID = Preference.getVaxID(requireContext())
         if(vaxID.equals("")){
+            ivVax.setImageResource(R.drawable.vax_base)
             tvVax.setText("Your vaccination status has not yet been set.")
         } else {
+            ivVax.setImageResource(R.drawable.vax)
             val secondDoseCheck = Preference.getVaxDose(requireContext(), 2)
             Log.d("HomeFragment", "Vax dose is: $secondDoseCheck")
             if(secondDoseCheck.equals("")){
@@ -94,6 +101,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             } else {
                 tvVax.setText("You have received both vaccination doses.")
             }
+        }
+
+        //check user verification
+        val verifStatus = Preference.getVerification(requireContext())
+        if(verifStatus.equals("true")){
+            ivVerification.setImageResource(R.drawable.verified)
+            tvVerification.setText("Your account has been verified.")
         }
     }
 

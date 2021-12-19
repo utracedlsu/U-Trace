@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Denver/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout-xxxhdpi/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_enabling_permissions.xml" value="0.1" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -11,7 +12,7 @@
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_test_status.xml" value="0.25" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_contact_tracing.xml" value="0.33" />
-        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.75" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_notifications.xml" value="0.11666666666666667" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/notif_child.xml" value="0.12864583333333332" />
