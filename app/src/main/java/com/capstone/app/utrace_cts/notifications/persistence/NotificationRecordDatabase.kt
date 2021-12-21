@@ -4,14 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.capstone.app.utrace_cts.vaxboosters.persistence.VaxBoosterRecord
+import com.capstone.app.utrace_cts.vaxboosters.persistence.VaxBoosterRecordDao
 
 
 @Database(
-    entities = arrayOf(NotificationRecord::class),
+    entities = arrayOf(NotificationRecord::class, VaxBoosterRecord::class),
     version = 1
 )
 abstract class NotificationRecordDatabase: RoomDatabase() {
     abstract fun notifDao(): NotificationRecordDao
+    abstract fun vaxDao(): VaxBoosterRecordDao
 
     companion object {
         @Volatile

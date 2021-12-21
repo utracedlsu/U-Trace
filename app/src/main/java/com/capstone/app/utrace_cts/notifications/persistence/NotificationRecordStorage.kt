@@ -8,7 +8,7 @@ class NotificationRecordStorage(val context: Context) {
 
     fun saveNotif(notif: NotificationRecord){
         notifDao.insert(notif)
-        Log.i("NotifRecords", "Record saved?")
+        Log.i("NotifRecords", "Notification record saved")
     }
 
     fun nukeDb(){

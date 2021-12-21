@@ -128,6 +128,38 @@ class OtpActivationActivity : AppCompatActivity() {
                 val loggedUser = fAuth.currentUser
                 val loggedUserId = loggedUser?.uid as String
                 Preference.putFirebaseId(applicationContext, loggedUserId)
+                updatePrefsLogin(loggedUserId)
+            } else {
+                Toast.makeText(applicationContext, "Error! ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                Log.d("OTPActivation", "Error! ${task.exception?.message}")
+            }
+        }
+    }
+
+    //refreshes preferences of user upon logging in
+    private fun updatePrefsLogin(firebaseID: String){
+        Log.i("OTPActivation", "Entered updatePrefsLogin for $firebaseID")
+        fStore.collection("users").document(firebaseID).get().addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                Log.i("OTPActivation", "Retrieving data from firestore and saving to preferences...")
+                val result = task.result
+
+                Preference.putFirebaseId(applicationContext, firebaseID)
+                Preference.putCloudMessagingToken(applicationContext, "${result?.getString("fcm_token")}")
+                Preference.putFullName(applicationContext,
+                    "${result?.getString("firstname")} ${result?.getString("lastname")}")
+                Preference.putFullAddress(applicationContext,
+                "${result?.getString("street")}, ${result?.getString("barangay")}" +
+                        ", ${result?.getString("city")}, ${result?.getString("province")}"
+                    )
+                Preference.putVerification(applicationContext, "${result?.getBoolean("verification")}")
+                Preference.putTestStatus(applicationContext, "${result?.get("covid_positive")}")
+                Preference.putLastTestDate(applicationContext, "${result?.getString("last_testdate")}")
+                Preference.putVaxID(applicationContext, "${result?.getString("vax_ID")}")
+                Preference.putVaxDose(applicationContext, "${result?.getString("vax_1stdose")}", 1)
+                Preference.putVaxDose(applicationContext, "${result?.getString("vax_2nddose")}", 2)
+                Preference.putVaxManufacturer(applicationContext, "${result?.getString("vax_manufacturer")}")
+
                 Toast.makeText(applicationContext, "Successfully logged in! ${Preference.getPhoneNumber(applicationContext)}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)

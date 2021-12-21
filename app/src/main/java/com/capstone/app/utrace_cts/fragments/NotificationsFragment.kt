@@ -67,13 +67,10 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
 
         disposableObj = observableNotifs.observeOn(AndroidSchedulers.mainThread()).subscribeOn(
             Schedulers.io()).subscribe{ retrievedNotifs ->
-            Log.d("NotifFragment", "Notifs ${retrievedNotifs}")
-            Log.d("NotifFragment", "Notif 1: ${retrievedNotifs.get(0).title} - ${retrievedNotifs.get(0).body} - ${retrievedNotifs.get(0).timestamp}")
-
-
             if(retrievedNotifs.size > 0){
                 for (notif in retrievedNotifs){
                     notificationsList.add(Notification(
+                        //TODO: create logic for determining notification type
                         "WARNING",
                         Utils.getDDMMYYY(notif.timestamp),
                         Utils.getTimeInHours(notif.timestamp),

@@ -10,11 +10,15 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecord
 import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecordStorage
+import com.capstone.app.utrace_cts.vaxboosters.persistence.VaxBoosterRecord
+import com.capstone.app.utrace_cts.vaxboosters.persistence.VaxBoosterRecordStorage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import java.util.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 /*
@@ -23,6 +27,7 @@ import kotlin.collections.HashMap
 
 class FirebasePushNotifService: FirebaseMessagingService() {
     private lateinit var notificationRecordStorage: NotificationRecordStorage
+    private lateinit var vaxBoosterRecordStorage: VaxBoosterRecordStorage
 
     override fun onCreate() {
         super.onCreate()
@@ -32,6 +37,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
 
     fun setup(){
         notificationRecordStorage = NotificationRecordStorage(this.applicationContext)
+        vaxBoosterRecordStorage = VaxBoosterRecordStorage(this.applicationContext)
         Log.i("FirebaseNotifications", "setup() - FirebaseNotifications")
     }
 
@@ -51,13 +57,12 @@ class FirebasePushNotifService: FirebaseMessagingService() {
             body = dataNotifContent.toString()
         )
 
-        //TODO: check flag of notification
         /*
             Based on the notification flag, we will retrieve certain user data and save it to the device's preferences
             1 - Covid Test Result (Save in prefs)
             2 - Vaccine Status Update (1st Dose) (Save in prefs)
-            4 - Vaccine Booster Shot
-            5 - Close Contact (?)
+            3 - Vaccine Booster Shot
+            4 - Close Contact (?)
         */
         val firebaseUserID = Preference.getFirebaseId(applicationContext)
         Log.i("FirebaseNotifications", "Firebase ID: $firebaseUserID")
@@ -106,27 +111,33 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                         }
                     }
             }
-            "3" -> { //get booster data
+            "3" -> { //get LATEST booster data (can be recustomized to get all data instead just in case)
                 Log.i("FirebaseNotifications", "Attempting to retrieve booster data...")
                 FirebaseFirestore.getInstance().collection("users").document(firebaseUserID)
                     .get().addOnCompleteListener { task ->
                         if(task.isSuccessful){
-                            Log.i("FirebaseNotifications", "Task successful, saving to preferences")
+                            Log.i("FirebaseNotifications", "Task successful, saving to database")
                             val snapshot = task.result
 
-                            val vax2ndDose = snapshot?.getString("vax_2nddose")
+                            val boostersArray = snapshot?.get("vax_booster") as ArrayList<HashMap<String, Object>>
+                            val latestBooster = VaxBoosterRecord(
+                                vaxbrand = boostersArray.last().get("vax_manufacturer").toString(),
+                                date = boostersArray.last().get("date").toString()
+                            )
 
-                            //save latest vax data to preferences
-                            Preference.putVaxDose(applicationContext, vax2ndDose.toString(), 2)
-                            Log.i("FirebaseNotifications", "Vaccination data has been updated (second dose)")
+                            GlobalScope.launch {
+                                vaxBoosterRecordStorage.saveBooster(latestBooster)
+                            }
+
+                            Log.i("FirebaseNotifications", "Vaccination booster data has been updated")
 
                         } else {
-                            Log.e("FirebaseNotifications", "Failed to get second dose data: ${task.exception?.message}")
+                            Log.e("FirebaseNotifications", "Failed to get booster data: ${task.exception?.message}")
                         }
                     }
             }
             else -> {
-                Log.i("FirebaseNotifications", "Don't do anything with received flag")
+                Log.i("FirebaseNotifications", "Don't do anything with received flag: $notifFlag")
             }
         }
 

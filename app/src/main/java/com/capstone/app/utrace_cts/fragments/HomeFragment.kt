@@ -51,13 +51,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         requireActivity().registerReceiver(btReceiver, btFilter)
         Log.d("HomeFragment", "Receiver Registered")
 
-        // connect
+        //connect
         ivUpload = view.findViewById(R.id.iv_upload)
         ivVax = view.findViewById(R.id.iv_vaccination)
         ivVerification = view.findViewById(R.id.iv_verified)
         ivTestStatus = view.findViewById(R.id.iv_testStatus)
         iv_bluetooth = view.findViewById(R.id.iv_bluetooth)
         tv_bluetooth = view.findViewById(R.id.tv_bluetooth)
+
+        //check bt state during oncreate
+        initialBTCheck()
 
         // Go to UploadDataActivity
         ivUpload.setOnClickListener {
@@ -111,6 +114,25 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    /*
+    an initial check regarding bluetooth status during onCreate, since action_state_changed is only
+    called when bt state is changed while app is running
+    */
+    private fun initialBTCheck(){
+        val btAdapter = BluetoothAdapter.getDefaultAdapter()
+        if(btAdapter.isEnabled){
+            Log.d("HomeFragment", "BT is ON")
+            iv_bluetooth.setImageResource(R.drawable.bt)
+            tv_bluetooth.text = "Bluetooth is up and running! Remember to leave it on when you're outside."
+        } else {
+            Log.d("HomeFragment", "BT is OFF")
+            iv_bluetooth.setImageResource(R.drawable.bt_base)
+            tv_bluetooth.text = "Bluetooth is off. Please turn Bluetooth on to enable contact tracing."
+        }
+    }
+
+    //TODO: Create a listener for when the user's test, vaccine, or verification status is changed
+
     inner class BluetoothBroadcastReceiver: BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent) {
             val action = intent.action
@@ -121,7 +143,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     BluetoothAdapter.STATE_OFF -> {
                         Log.d("HomeFragment", "BT is OFF")
                         iv_bluetooth.setImageResource(R.drawable.bt_base)
-                        tv_bluetooth.text = "Bluetooth is off. Turn Bluetooth on to enable contact tracing."
+                        tv_bluetooth.text = "Bluetooth is off. Please turn Bluetooth on to enable contact tracing."
                     }
                     BluetoothAdapter.STATE_ON -> {
                         Log.d("HomeFragment", "BT is ON")

@@ -15,9 +15,17 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.capstone.app.utrace_cts.*
+import com.capstone.app.utrace_cts.vaxboosters.persistence.VaxBoosterRecord
+import com.capstone.app.utrace_cts.vaxboosters.persistence.VaxBoosterRecordStorage
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import org.w3c.dom.Text
+import java.util.*
+import kotlin.collections.ArrayList
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,6 +38,8 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
+
+    private var disposableObj: Disposable? = null //used to read SQLite Records
 
     private lateinit var ll_logout: LinearLayout
     private lateinit var builder: MaterialAlertDialogBuilder
@@ -72,25 +82,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         rv_boosters.layoutManager = LinearLayoutManager(this.context)
         rv_boosters.setHasFixedSize(true)
         boosterList = arrayListOf<Booster>()
-            // TESTER: FOR TESTING BOOSTERS RECYCLER VIEW
-            dates = arrayOf(
-                "01-01-2021",
-                "01-02-2021",
-                "01-03-2021",
-                "01-04-2021",
-            )
-            brands = arrayOf(
-                "Moderna",
-                "Sinovac",
-                "Sinopharm",
-                "Pfizer",
-            )
-        getTesterData() // TESTER
+        getBoosterData() //retrieve boosters from DB
 
         // initialize Logout Dialog
         initLogoutDialog()
-
-        // verify account -- go to <?>
 
         if(Preference.getVerification(requireContext()).equals("false")){
             btn_verifyAcc.setOnClickListener {
@@ -157,15 +152,25 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    // POPULATE TESTER ARRAY
-    private fun getTesterData() {
-        for (i in dates.indices) {
-            val booster = Booster(dates[i], brands[i])
-            boosterList.add(booster)
+    private fun getBoosterData(){
+        var observableBoosters = Observable.create<List<VaxBoosterRecord>>{
+            val result = VaxBoosterRecordStorage(requireContext()).getAllBoosters()
+            it.onNext(result)
         }
-        // Note: Only after the data is collected should the recycler view be triggered
-        rv_boosters.adapter = BoosterAdapter(boosterList)
+
+        disposableObj = observableBoosters.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
+            .subscribe { retrievedBoosters ->
+                if(retrievedBoosters.size > 0){
+                    for(booster in retrievedBoosters){
+                        boosterList.add(Booster(booster.date, booster.vaxbrand))
+                    }
+                    rv_boosters.adapter = BoosterAdapter(boosterList)
+                } else {
+                    //TODO: Display 'No boosters' textview or something
+                }
+            }
     }
+
 
     // initialize logout alert dialog
     private fun initLogoutDialog() {
