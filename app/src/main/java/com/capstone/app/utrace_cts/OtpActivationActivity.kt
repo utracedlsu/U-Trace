@@ -8,10 +8,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecordStorage
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.io.Serializable
 import java.util.concurrent.TimeUnit
 
@@ -27,6 +31,7 @@ class OtpActivationActivity : AppCompatActivity() {
     private lateinit var authCredential: PhoneAuthCredential
     private lateinit var etOTP: EditText
     private lateinit var tvResendOTP: TextView
+    private lateinit var tvOTPText: TextView
 
     private var callbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
         override fun onVerificationCompleted(credential: PhoneAuthCredential){
@@ -69,6 +74,7 @@ class OtpActivationActivity : AppCompatActivity() {
 
         Log.d("OTPActivity", "+63"+phoneNum)
 
+        setOTPText()
         requestOTP(phoneNum)
 
         // go to Enable Permissions activity
@@ -82,27 +88,69 @@ class OtpActivationActivity : AppCompatActivity() {
         }
     }
 
+    //set OTP instructions here based on the intent source
+    private fun setOTPText(){
+        //connect text view
+        tvOTPText = findViewById(R.id.tv_OTPtext)
+        when(intentSource){
+            "RegisterActivity"->{
+                tvOTPText.setText(
+                    "An OTP has been sent to your device. Please enter the correct OTP in order to complete" +
+                            " the user registration."
+                )
+            }
+            "LoginActivity"->{
+                tvOTPText.setText(
+                    "An OTP has been sent to your device. Please enter the correct OTP in order to complete" +
+                            " user log in."
+                )
+            }
+            "UserVerification"->{
+                tvOTPText.setText(
+                    "An OTP has been sent to your device. Please enter the correct OTP in order to complete" +
+                            " user verification."
+                )
+            }
+            "UserDeletion"->{
+                tvOTPText.setText(
+                    "An OTP has been sent to your device. Please enter the correct OTP in order to complete" +
+                            " user deletion."
+                )
+            }
+            else -> {
+                Toast.makeText(applicationContext, "Can't identify cause of OTP, please return to home.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun validateOTP(){
         val enteredOTP = etOTP.text.toString()
-        if(enteredOTP.equals(authCredential.smsCode)){
-            Preference.putPhoneNumber(applicationContext, "+63${phoneNum}")
+        //check if authCredential's sms code exists in the first place
+        if(authCredential?.smsCode != null){
+            if(enteredOTP.equals(authCredential.smsCode)){
+                Preference.putPhoneNumber(applicationContext, "+63${phoneNum}")
 
-            when(intentSource){
-                "RegisterActivity"->{
-                    registerWithPhoneCredential(authCredential)
-                }
-                "LoginActivity"->{
-                    logInWithPhoneCredential(authCredential)
-                }
-                "UserVerification"->{
-                    verifyUser()
-                }
-                else -> {
-                    Toast.makeText(applicationContext, "Can't identify cause of OTP, please return to home.", Toast.LENGTH_SHORT).show()
+                when(intentSource){
+                    "RegisterActivity"->{
+                        registerWithPhoneCredential(authCredential)
+                    }
+                    "LoginActivity"->{
+                        logInWithPhoneCredential(authCredential)
+                    }
+                    "UserVerification"->{
+                        verifyUser()
+                    }
+                    "UserDeletion"->{
+                        deleteAccContents(authCredential)
+                    }
+                    else -> {
+                        Toast.makeText(applicationContext, "Can't identify cause of OTP, please try again later.", Toast.LENGTH_SHORT).show()
+                        //TODO: Return to Main Activity (?)
+                    }
                 }
             }
-
-        } else {
+        }
+        else {
             Toast.makeText(applicationContext, "OTP is incorrect. Please try again.", Toast.LENGTH_SHORT).show()
         }
     }
@@ -145,7 +193,7 @@ class OtpActivationActivity : AppCompatActivity() {
                 val result = task.result
 
                 Preference.putFirebaseId(applicationContext, firebaseID)
-                Preference.putCloudMessagingToken(applicationContext, "${result?.getString("fcm_token")}")
+                Preference.putCloudMessagingToken(applicationContext, "")
                 Preference.putFullName(applicationContext,
                     "${result?.getString("firstname")} ${result?.getString("lastname")}")
                 Preference.putFullAddress(applicationContext,
@@ -210,7 +258,8 @@ class OtpActivationActivity : AppCompatActivity() {
                     "covid_positive" to "",
                     "last_testdate" to "",
                     "verification" to isVerified,
-                    "fcm_token" to Preference.getCloudMessagingToken(applicationContext)
+                    "fcm_token" to Preference.getCloudMessagingToken(applicationContext),
+                    "document_status" to "published"
                 )
                 //another random comment
                 Log.d("OTPActivation", "{$fname, $lname, $phoneNum")
@@ -239,6 +288,117 @@ class OtpActivationActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(applicationContext, "Error! ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 Log.d("OTPActivation", "Error! ${task.exception?.message}")
+            }
+        }
+    }
+
+    //upon deletion
+    //deletes preferences and sets firebase data to 'deleted'
+    private fun deleteAccContents(credential: PhoneAuthCredential){
+        val fStoreUserID = Preference.getFirebaseId(applicationContext)
+        val userAuth = FirebaseAuth.getInstance().currentUser
+        val fStoreInstance = FirebaseFirestore.getInstance()
+        val userFstore = fStoreInstance.collection("users")
+            .document(fStoreUserID)
+        val userContacts = fStoreInstance.collection("filtered_contact_records")
+            .document(fStoreUserID)
+
+        //reauthenticate user
+        userAuth?.let { fbUser ->
+            fbUser.reauthenticate(credential).addOnCompleteListener { zerotask ->
+                if(zerotask.isSuccessful){
+                    userFstore.update("document_status", "deleted").addOnCompleteListener { task ->
+                        if(task.isSuccessful){
+                            Log.i("ConfirmDelete", "Set FStore data to 'deleted', checking contact data..")
+                            userContacts.get().addOnCompleteListener { recordCheck ->
+                                if(recordCheck.isSuccessful){
+                                    val result = recordCheck.result
+                                    result?.let { resultCheck ->
+                                        if(resultCheck.exists()){
+                                            Log.i("ConfirmDelete", "Contact record exists, setting to 'deleted'..")
+                                            userContacts.update("document_status", "deleted").addOnCompleteListener { firsttask ->
+                                                if(firsttask.isSuccessful){
+                                                    Log.i("ConfirmDelete", "Set contact data to 'deleted', proceeding to user auth data..")
+                                                    //Delete user auth last
+                                                    userAuth.delete().addOnCompleteListener { secondtask ->
+                                                        if(secondtask.isSuccessful){
+                                                            Log.i("ConfirmDelete", "Deleted auth data, proceeding to preferences..")
+                                                            Preference.nukePreferences(applicationContext)
+
+                                                            //delete notifs records
+                                                            Observable.create<Boolean>{
+                                                                NotificationRecordStorage(applicationContext).nukeDb()
+                                                                it.onNext(true)
+                                                            }.observeOn(AndroidSchedulers.mainThread())
+                                                                .subscribeOn(Schedulers.io())
+                                                                .subscribe{ result ->
+                                                                    Log.i("ConfirmDelete", "Deleted notif records: $result")
+                                                                }
+
+                                                            Log.i("ConfirmDelete", "Deleted everything, logging out")
+                                                            FirebaseAuth.getInstance().signOut()
+                                                            val intent = Intent(applicationContext, LoginActivity::class.java)
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                                            intent.putExtra("EXIT", true)
+                                                            startActivity(intent)
+                                                            finish() //monitor this, idk what happens pag finish lang
+                                                        } else {
+                                                            Log.e("ConfirmDelete", "Failed to delete auth: ${secondtask.exception?.message}")
+                                                        }
+                                                    }
+                                                } else {
+                                                    Log.e("ConfirmDelete", "Failed to delete contacts: ${firsttask.exception?.message}")
+                                                }
+                                            }
+                                        } else {
+                                            Log.i("ConfirmDelete", "Contact doesn't exist, proceeding to delete auth...")
+                                            userAuth.delete().addOnCompleteListener { secondtask ->
+                                                if(secondtask.isSuccessful){
+                                                    Log.i("ConfirmDelete", "Deleted auth data, proceeding to preferences..")
+                                                    Preference.nukePreferences(applicationContext)
+
+                                                    //delete notifs records
+                                                    Observable.create<Boolean>{
+                                                        NotificationRecordStorage(applicationContext).nukeDb()
+                                                        it.onNext(true)
+                                                    }.observeOn(AndroidSchedulers.mainThread())
+                                                        .subscribeOn(Schedulers.io())
+                                                        .subscribe{ result ->
+                                                            Log.i("ConfirmDelete", "Deleted notif records: $result")
+                                                        }
+
+                                                    Log.i("ConfirmDelete", "Deleted everything, logging out")
+                                                    Toast.makeText(applicationContext, "Successfully deleted user account.", Toast.LENGTH_SHORT).show()
+                                                    FirebaseAuth.getInstance().signOut()
+                                                    val intent = Intent(applicationContext, LoginActivity::class.java)
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                                                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                                    intent.putExtra("EXIT", true)
+                                                    startActivity(intent)
+                                                    finish() //monitor this, idk what happens pag finish lang
+                                                } else {
+                                                    Log.e("ConfirmDelete", "Failed to delete auth: ${secondtask.exception?.message}")
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    Log.i("ConfirmDelete", "Unable to get record: ${recordCheck.exception?.message}")
+                                }
+                            }
+                        } else {
+                            Log.e("ConfirmDelete", "Failed to delete FStore: ${task.exception?.message}")
+                            Toast.makeText(applicationContext, "Unable to delete account right now, please try again later.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                    Log.e("ConfirmDelete", "Failed to delete auth: ${zerotask.exception?.message}")
+                    Toast.makeText(applicationContext, "Unable to delete user at this time, please try again later.", Toast.LENGTH_SHORT).show()
+                    //TODO: Return to mainActivity / Home
+                }
             }
         }
     }

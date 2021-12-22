@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.capstone.app.utrace_cts.LoginActivity
+import com.capstone.app.utrace_cts.OtpActivationActivity
 import com.capstone.app.utrace_cts.Preference
 import com.capstone.app.utrace_cts.R
 import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecordStorage
@@ -53,9 +54,8 @@ class ConfirmAccDeletionFragment: DialogFragment() {
 
         // confirm delete button logic
         btn_confirmDeletion.setOnClickListener {
-            // TODO: account deletion logic
-            //might throw an exception where user has not reauthenticated for a long time, check na lang
-            deleteAccContents()
+            //go to otp for deletion
+            goToOTP("UserDeletion")
         }
 
         // remove this popup when the cancel button is pressed
@@ -84,8 +84,24 @@ class ConfirmAccDeletionFragment: DialogFragment() {
         override fun afterTextChanged(s: Editable?) {}
     }
 
-    //delete firebase and preferences data
-    //this deletes everything rn, might have to change it so that user is just unpublished / disabled
+    //activity source should be UserDeletion
+    private fun goToOTP(activitySource: String){
+        var phoneNo = Preference.getPhoneNumber(requireContext())
+
+        var intentDetails = hashMapOf(
+            //remove the '+63' in the saved preference phone number
+            "activity_source" to activitySource,
+            "phone" to phoneNo.drop(3)
+        )
+
+        val otpIntent = Intent(requireContext(), OtpActivationActivity::class.java)
+
+        otpIntent.putExtra("USER_DETAILS", intentDetails)
+
+        startActivity(otpIntent)
+    }
+
+    //deletes preferences and sets firebase data to 'deleted'
     private fun deleteAccContents(){
         val fStoreUserID = Preference.getFirebaseId(requireContext())
         val userAuth = FirebaseAuth.getInstance().currentUser
@@ -96,12 +112,12 @@ class ConfirmAccDeletionFragment: DialogFragment() {
             .document(fStoreUserID)
 
         userAuth?.let { fbUser ->
-           userFstore.delete().addOnCompleteListener { task ->
+           userFstore.update("document_status", "deleted").addOnCompleteListener { task ->
                if(task.isSuccessful){
-                   Log.i("ConfirmDelete", "Deleted user FStore data, proceeding to user contact data..")
-                   userContacts.delete().addOnCompleteListener { firsttask ->
+                   Log.i("ConfirmDelete", "Set FStore data to 'deleted', proceeding to user contact data..")
+                   userContacts.update("document_status", "deleted").addOnCompleteListener { firsttask ->
                        if(firsttask.isSuccessful){
-                           Log.i("ConfirmDelete", "Deleted contact data, proceeding to user auth data..")
+                           Log.i("ConfirmDelete", "Set contact data to 'deleted', proceeding to user auth data..")
                            //Delete user auth last, we won't have privileges to delete fstore data if it was deleted first
                            userAuth.delete().addOnCompleteListener { secondtask ->
                                if(secondtask.isSuccessful){

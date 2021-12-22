@@ -89,7 +89,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         if(Preference.getVerification(requireContext()).equals("false")){
             btn_verifyAcc.setOnClickListener {
-                verifyOTP()
+                goToOTP("UserVerification")
             }
         } else {
             //disable verification button if already verified
@@ -109,18 +109,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    private fun verifyOTP(){
+    //activity source should be UserVerification or UserDeletion
+    private fun goToOTP(activitySource: String){
         var phoneNo = Preference.getPhoneNumber(requireContext())
 
-        var verifyDetails = hashMapOf(
+        var intentDetails = hashMapOf(
             //remove the '+63' in the saved preference phone number
-            "activity_source" to "UserVerification",
+            "activity_source" to activitySource,
             "phone" to phoneNo.drop(3)
         )
 
         val otpIntent = Intent(requireContext(), OtpActivationActivity::class.java)
 
-        otpIntent.putExtra("USER_DETAILS", verifyDetails)
+        otpIntent.putExtra("USER_DETAILS", intentDetails)
 
         startActivity(otpIntent)
     }

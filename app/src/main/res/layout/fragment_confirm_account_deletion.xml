@@ -50,7 +50,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="15dp"
                 android:ems="10"
-                android:hint='type the word "delete" to confirm'
+                android:hint='type the word "DELETE" to confirm'
                 android:inputType="textPersonName"
                 android:textAlignment="center"
                 android:textSize="14dp"
