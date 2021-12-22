@@ -27,6 +27,7 @@ object Preference {
     private const val CHECK_POINT = "CHECK_POINT"
     private const val HANDSHAKE_PIN = "HANDSHAKE_PIN"
     private const val FCM_TOKEN = "FCM_TOKEN"
+    private const val TOKEN_UPLOADED = "TOKEN_UPLOADED"
 
     private const val NEXT_FETCH_TIME = "NEXT_FETCH_TIME"
     private const val EXPIRY_TIME = "EXPIRY_TIME"
@@ -134,6 +135,16 @@ object Preference {
     fun getCloudMessagingToken(context: Context): String {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getString(FCM_TOKEN, "") ?: ""
+    }
+
+    fun putTokenUploadStatus(context: Context, value: String){
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(TOKEN_UPLOADED, value).apply()
+    }
+
+    fun getTokenUploadStatus(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(TOKEN_UPLOADED, "") ?: ""
     }
 
     fun putTestStatus(context: Context, value: String) {

@@ -148,10 +148,9 @@ class FirebasePushNotifService: FirebaseMessagingService() {
         notificationRecordStorage.saveNotif(notifRecord)
     }
 
-    //Activates when the app is first installed (?)
+    //Activates when the app is first installed
     override fun onNewToken(p0: String) {
         super.onNewToken(p0)
-        var fUserId = FirebaseAuth.getInstance().currentUser?.uid
 
         Log.i("FirebaseNotifications", "New cloud messaging token: $p0")
         Preference.putCloudMessagingToken(applicationContext, p0)

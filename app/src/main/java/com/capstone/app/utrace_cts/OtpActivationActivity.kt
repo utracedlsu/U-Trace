@@ -193,7 +193,6 @@ class OtpActivationActivity : AppCompatActivity() {
                 val result = task.result
 
                 Preference.putFirebaseId(applicationContext, firebaseID)
-                Preference.putCloudMessagingToken(applicationContext, "")
                 Preference.putFullName(applicationContext,
                     "${result?.getString("firstname")} ${result?.getString("lastname")}")
                 Preference.putFullAddress(applicationContext,
@@ -273,6 +272,7 @@ class OtpActivationActivity : AppCompatActivity() {
                             Preference.putFirebaseId(applicationContext, newUserID)
                             Preference.putFullName(applicationContext, "$fname $lname")
                             Preference.putFullAddress(applicationContext,"$street, $barangay, $city, $province")
+                            Preference.putTokenUploadStatus(applicationContext, "Uploaded")
                             Toast.makeText(
                                 applicationContext,
                                 "Successfully Added! ${Preference.getPhoneNumber(applicationContext)}",
