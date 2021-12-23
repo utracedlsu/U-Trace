@@ -9,6 +9,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecordStorage
+import com.capstone.app.utrace_cts.vaxboosters.persistence.VaxBoosterRecord
+import com.capstone.app.utrace_cts.vaxboosters.persistence.VaxBoosterRecordStorage
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
@@ -16,6 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.io.Serializable
 import java.util.concurrent.TimeUnit
 
@@ -32,6 +36,8 @@ class OtpActivationActivity : AppCompatActivity() {
     private lateinit var etOTP: EditText
     private lateinit var tvResendOTP: TextView
     private lateinit var tvOTPText: TextView
+
+    private lateinit var vaxBoosterRecordStorage: VaxBoosterRecordStorage
 
     private var callbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
         override fun onVerificationCompleted(credential: PhoneAuthCredential){
@@ -191,6 +197,11 @@ class OtpActivationActivity : AppCompatActivity() {
             if(task.isSuccessful){
                 Log.i("OTPActivation", "Retrieving data from firestore and saving to preferences...")
                 val result = task.result
+                val boosterArray = result?.get("vax_booster") as ArrayList<HashMap<String, Object>>
+
+                //array of booster sqlite entities
+                var sqliteBoosters = ArrayList<VaxBoosterRecord>()
+                vaxBoosterRecordStorage = VaxBoosterRecordStorage(this.applicationContext)
 
                 Preference.putFirebaseId(applicationContext, firebaseID)
                 Preference.putFullName(applicationContext,
@@ -206,6 +217,36 @@ class OtpActivationActivity : AppCompatActivity() {
                 Preference.putVaxDose(applicationContext, "${result?.getString("vax_1stdose")}", 1)
                 Preference.putVaxDose(applicationContext, "${result?.getString("vax_2nddose")}", 2)
                 Preference.putVaxManufacturer(applicationContext, "${result?.getString("vax_manufacturer")}")
+
+                //booster insert loop
+                //nuke db then reinsert everything
+
+                if(boosterArray.size > 0){
+                    for (fsBooster in boosterArray){
+                        sqliteBoosters.add(VaxBoosterRecord(
+                            vaxbrand = fsBooster.get("vax_manufacturer").toString(),
+                            date = fsBooster.get("date").toString()
+                            ))
+                    }
+
+                    //delete notifs records
+                    Observable.create<Boolean>{
+                        vaxBoosterRecordStorage.nukeDb()
+                        it.onNext(true)
+                    }.observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe{ result ->
+                            //TODO: insert boosters
+                            if(result){
+                                GlobalScope.launch {
+                                    vaxBoosterRecordStorage.saveMultipleBoosters(sqliteBoosters)
+                                }
+                            } else {
+                                Log.e("OTPActivation", "Unable to delete boosters")
+                            }
+                        }
+                }
+
 
                 Toast.makeText(applicationContext, "Successfully logged in! ${Preference.getPhoneNumber(applicationContext)}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)

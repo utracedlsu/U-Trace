@@ -12,6 +12,11 @@ class VaxBoosterRecordStorage (val context: Context) {
         Log.i("BoosterRecords", "Vax Booster Saved")
     }
 
+    suspend fun saveMultipleBoosters (boosters: ArrayList<VaxBoosterRecord>){
+        boosterDao.insertMultiple(boosters)
+        Log.i("BoosterRecords", "Vax Boosters Saved")
+    }
+
     fun nukeDb(){
         boosterDao.nukeDb()
     }

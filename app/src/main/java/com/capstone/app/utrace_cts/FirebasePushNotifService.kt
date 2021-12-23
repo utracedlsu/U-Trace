@@ -121,8 +121,8 @@ class FirebasePushNotifService: FirebaseMessagingService() {
 
                             val boostersArray = snapshot?.get("vax_booster") as ArrayList<HashMap<String, Object>>
                             val latestBooster = VaxBoosterRecord(
-                                vaxbrand = boostersArray.last().get("vax_manufacturer").toString(),
-                                date = boostersArray.last().get("date").toString()
+                                vaxbrand = boostersArray.get(boostersArray.size-1).get("vax_manufacturer").toString(),
+                                date = boostersArray.get(boostersArray.size-1).get("date").toString()
                             )
 
                             GlobalScope.launch {

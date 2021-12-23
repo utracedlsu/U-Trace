@@ -198,6 +198,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        disposableObj?.dispose()
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

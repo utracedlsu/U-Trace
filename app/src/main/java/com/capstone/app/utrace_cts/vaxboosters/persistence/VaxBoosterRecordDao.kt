@@ -19,4 +19,7 @@ interface VaxBoosterRecordDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(record: VaxBoosterRecord): Long
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertMultiple(record: ArrayList<VaxBoosterRecord>): List<Long>
 }

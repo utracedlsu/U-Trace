@@ -222,6 +222,7 @@ class MainActivity : AppCompatActivity() {
             //The tokenUploadStatus on sharedPreference is used to check if the token was uploaded.
             //When reinstalling app, the fcm service retrieves a new token via onNewToken and saves it to preferences.
             //Because tokenUploadStatus isn't set upon reinstall, the app will upload the new token to the firestore db
+            //The only time tokenUploadStatus is not set is when the user reinstalls app and logs in.
             if(Preference.getTokenUploadStatus(applicationContext).equals("")){
                 Log.i("FirebaseNotifications", "Token hasn't been uploaded to Firebase. Reuploading...")
                 val fUserId = Preference.getFirebaseId(applicationContext)

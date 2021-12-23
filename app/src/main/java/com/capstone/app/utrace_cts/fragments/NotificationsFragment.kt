@@ -110,7 +110,10 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
         if (notificationsList.isEmpty()) tv_emptyMsg.visibility = View.VISIBLE
     }
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+        disposableObj?.dispose()
+    }
 
     companion object {
         /**
