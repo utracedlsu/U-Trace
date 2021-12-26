@@ -21,6 +21,7 @@ object Preference {
     //test data
     private const val LATEST_TESTSTATUS = "LATEST_TESTSTATUS"
     private const val LAST_TESTDATE = "LAST_TESTDATE"
+    private const val LAST_TESTID = "LAST_TESTID"
 
     private const val VERIFICATION = "VERIFICATION"
 
@@ -161,10 +162,20 @@ object Preference {
         context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .edit().putString(LAST_TESTDATE, value).apply()
     }
-    //a random comment to repush this
+
     fun getLastTestDate(context: Context): String {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getString(LAST_TESTDATE, "") ?: ""
+    }
+
+    fun putLastTestID(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(LAST_TESTID, value).apply()
+    }
+
+    fun getLastTestID(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(LAST_TESTID, "") ?: ""
     }
 
     fun putVerification(context: Context, value: String) {

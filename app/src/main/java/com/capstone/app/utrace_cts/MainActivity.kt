@@ -191,6 +191,8 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
         }
 
+        Log.i("MainActivityCheck", "Test status: ${Preference.getTestStatus(applicationContext)}")
+
         //check if token is empty
         if(Preference.getCloudMessagingToken(applicationContext).equals("")){
             Log.i("FirebaseNotifications", "No FCM Token, retrieving from server")

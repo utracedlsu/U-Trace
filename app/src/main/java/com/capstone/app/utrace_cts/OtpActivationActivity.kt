@@ -198,6 +198,7 @@ class OtpActivationActivity : AppCompatActivity() {
                 Log.i("OTPActivation", "Retrieving data from firestore and saving to preferences...")
                 val result = task.result
                 val boosterArray = result?.get("vax_booster") as ArrayList<HashMap<String, Object>>
+                val covidTests = result?.get("covid_tests") as ArrayList<HashMap<String, Object>>
 
                 //array of booster sqlite entities
                 var sqliteBoosters = ArrayList<VaxBoosterRecord>()
@@ -211,16 +212,20 @@ class OtpActivationActivity : AppCompatActivity() {
                         ", ${result?.getString("city")}, ${result?.getString("province")}"
                     )
                 Preference.putVerification(applicationContext, "${result?.getBoolean("verification")}")
-                Preference.putTestStatus(applicationContext, "${result?.get("covid_positive")}")
+                Preference.putTestStatus(applicationContext, "${result?.get("covid_positive").toString()}")
                 Preference.putLastTestDate(applicationContext, "${result?.getString("last_testdate")}")
                 Preference.putVaxID(applicationContext, "${result?.getString("vax_ID")}")
                 Preference.putVaxDose(applicationContext, "${result?.getString("vax_1stdose")}", 1)
                 Preference.putVaxDose(applicationContext, "${result?.getString("vax_2nddose")}", 2)
                 Preference.putVaxManufacturer(applicationContext, "${result?.getString("vax_manufacturer")}")
 
+                //covid tests insert
+                if(covidTests.size > 0){
+                    Preference.putLastTestID(applicationContext, covidTests.last().get("testID").toString())
+                }
+
                 //booster insert loop
                 //nuke db then reinsert everything
-
                 if(boosterArray.size > 0){
                     for (fsBooster in boosterArray){
                         sqliteBoosters.add(VaxBoosterRecord(

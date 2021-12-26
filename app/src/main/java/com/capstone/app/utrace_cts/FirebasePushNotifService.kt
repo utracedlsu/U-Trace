@@ -76,10 +76,13 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             val snapshot = task.result
                             val latestTestResult = snapshot?.getBoolean("covid_positive")
                             val latestTestDate = snapshot?.getString("last_testdate")
+                            val covidTests = snapshot?.get("covid_tests") as ArrayList<HashMap<String, Object>>
+                            val latestTestID = covidTests.last().get("testID")
 
                             //save latest test data to preferences
                             Preference.putTestStatus(applicationContext, latestTestResult.toString())
                             Preference.putLastTestDate(applicationContext, latestTestDate.toString())
+                            Preference.putLastTestID(applicationContext, latestTestID.toString())
                             Log.i("FirebaseNotifications", "Test Results have been updated")
 
                         } else {
