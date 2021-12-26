@@ -30,14 +30,21 @@
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/layout/fragment_profile.xml" value="0.23369565217391305" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/menu/menu.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/drawable/header.xml" value="0.2703125" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/drawable/style_spinner.xml" value="0.2703125" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-xxxhdpi/fragment_home.xml" value="0.2" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/font/roboto.xml" value="0.284375" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-hdpi/fragment_home.xml" value="0.148224043715847" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-land/fragment_home.xml" value="0.21516754850088182" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-xhdpi/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-xxhdpi/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-xxxhdpi/fragment_home.xml" value="0.152" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_login.xml" value="0.6" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_main.xml" value="0.15670289855072464" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_register.xml" value="0.72" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_upload_data.xml" value="0.19519927536231885" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_blank.xml" value="0.536" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_contact_tracing.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.72" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_notifications.xml" value="0.4" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/notif_child.xml" value="0.72" />

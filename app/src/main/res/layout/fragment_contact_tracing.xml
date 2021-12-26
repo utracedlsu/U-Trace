@@ -17,30 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bgheader" />
 
-    <TextView
-        android:id="@+id/tv_utrace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:text="U-TRACE"
-        android:textColor="#FFFEF6"
-        android:textSize="19sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_contactTracing"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="32dp"
-        android:text="CONTACT TRACING"
-        android:textColor="#D2FF99"
-        android:textSize="42sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,16 +31,42 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/tv_utrace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="U-TRACE"
+                android:textColor="#FFFEF6"
+                android:textSize="19dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_contactTracing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="41dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="CONTACT TRACING"
+                android:textColor="#D2FF99"
+                android:textSize="34dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_basicUserInfo"
                 android:layout_width="374dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="30dp"
                 app:cardBackgroundColor="#FFFEF6"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_contactTracing"
                 app:strokeColor="#428E5C"
                 app:strokeWidth="2dp">
 
@@ -77,10 +79,11 @@
                         android:layout_width="320dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:gravity="center"
                         android:text="You have had [#] Bluetooth exchange(s) in the past 24 hours."
                         android:textColor="#428E5C"
-                        android:textSize="20sp"
+                        android:textSize="20dp"
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -92,9 +95,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="20dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
                         android:text="Lorem ipsum blah blah quick brown fox yeah my guy lets go i suppose"
                         android:textColor="#428E5C"
+                        android:textSize="14dp"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -147,11 +152,14 @@
                         <TextView
                             android:id="@+id/tv_ctHistory"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/roboto_bold"
                             android:gravity="center_horizontal"
+                            android:letterSpacing="0.1"
                             android:paddingTop="1.5dp"
                             android:text="CONTACT TRACING HISTORY"
-                            android:textColor="#FFFFFF" />
+                            android:textColor="#FFFFFF"
+                            android:textSize="14dp" />
                     </LinearLayout>
 
                     <TextView
@@ -160,8 +168,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:text="[startDate - endDate]"
                         android:textColor="#428E5C"
+                        android:textSize="14dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ll_statusBanner" />
 
@@ -183,9 +193,10 @@
                         android:layout_width="340dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:text="Lorem ipsum blah blah quick brown fox yeah my guy lets go i suppose"
                         android:textColor="#428E5C"
-                        android:textSize="12sp"
+                        android:textSize="12dp"
                         android:textStyle="italic"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
