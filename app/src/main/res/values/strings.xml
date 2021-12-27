@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">U-TRACE</string>
+    <string name="app_name">U-Trace</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="ble_uuid">61ca2ddb-d5d0-489c-8542-2d1b72e594b4</string>

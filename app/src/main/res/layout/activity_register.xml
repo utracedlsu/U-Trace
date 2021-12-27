@@ -7,255 +7,311 @@
     android:background="@drawable/gradientbg"
     tools:context=".RegisterActivity">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="302dp"
-        android:layout_height="113dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="55dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/utraceheader" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="110dp"
-        android:text="Insert tag line here. Lorem ipsum or somethin."
-        android:textColor="#FFFEF6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="36dp"
-        app:cardBackgroundColor="#FFFEF6"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:strokeColor="#34B961"
-        app:strokeWidth="2dp">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content" >
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="302dp"
+                android:layout_height="113dp"
                 android:layout_marginTop="25dp"
-                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/utraceheader" />
 
-                <EditText
-                    android:id="@+id/et_regFname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:hint="first name"
-                    android:inputType="textPersonName"
-                    android:paddingStart="10sp"
-                    android:textSize="13sp" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="110dp"
+                android:text="Insert tag line here. Lorem ipsum or somethin."
+                android:textColor="#FFFEF6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/et_regLname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="25dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:hint="last name"
-                    android:inputType="textPersonName"
-                    android:paddingStart="10sp"
-                    android:textSize="13sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/LinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-                <EditText
-                    android:id="@+id/et_regMobileNo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="25dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:hint="mobile phone number"
-                    android:inputType="phone"
-                    android:maxLength="10"
-                    android:paddingStart="10sp"
-                    android:paddingEnd="10sp"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/LinearLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/LinearLayout">
-
-                <Spinner
-                    android:id="@+id/sp_region"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="25dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:paddingStart="10sp"
-                    android:paddingEnd="10sp"
-                    android:textSize="13sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/LinearLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/LinearLayout2">
-
-                <Spinner
-                    android:id="@+id/sp_province"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:paddingStart="10sp"
-                    android:paddingEnd="10sp"
-                    android:textSize="13sp" />
-
-                <Spinner
-                    android:id="@+id/sp_city"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="25dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:paddingStart="10sp"
-                    android:paddingEnd="10sp"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearlayout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/LinearLayout1">
-
-                <Spinner
-                    android:id="@+id/sp_barangay"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="25dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:paddingStart="10sp"
-                    android:paddingEnd="10sp"
-                    android:textSize="13sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/Linearlayout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearlayout">
-
-                <EditText
-                    android:id="@+id/et_street"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="25dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:hint="street"
-                    android:inputType="textPersonName"
-                    android:paddingStart="10sp"
-                    android:textSize="13sp" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_regConfirm"
-                android:layout_width="150dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="95dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginEnd="95dp"
-                android:layout_marginBottom="25dp"
-                android:backgroundTint="#428E5C"
-                android:text="REGISTER"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="50dp"
+                app:cardBackgroundColor="#FFFEF6"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Linearlayout" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                app:strokeColor="#34B961"
+                app:strokeWidth="2dp">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="25dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <EditText
+                            android:id="@+id/et_regFname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:background="#FDFCF1"
+                            android:ems="10"
+                            android:hint="first name"
+                            android:inputType="textPersonName"
+                            android:paddingStart="10sp"
+                            android:textColor="#428E5C"
+                            android:textColorHint="#7A557A62"
+                            android:textSize="13sp" />
+
+                        <EditText
+                            android:id="@+id/et_regLname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_weight="1"
+                            android:background="#FDFCF1"
+                            android:ems="10"
+                            android:hint="last name"
+                            android:inputType="textPersonName"
+                            android:paddingStart="10sp"
+                            android:textColor="#428E5C"
+                            android:textColorHint="#7A557A62"
+                            android:textSize="13sp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LinearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/intIdentifier"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="25dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="+63"
+                                android:textColor="#428E5C"
+                                android:textStyle="normal"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <EditText
+                                android:id="@+id/et_regMobileNo"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginEnd="25dp"
+                                android:layout_weight="1"
+                                android:background="#FDFCF1"
+                                android:ems="10"
+                                android:hint="mobile phone number"
+                                android:inputType="phone"
+                                android:maxLength="10"
+                                android:paddingStart="10sp"
+                                android:paddingEnd="10sp"
+                                android:textColor="#428E5C"
+                                android:textColorHint="#7A557A62"
+                                android:textSize="13sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/intIdentifier"
+                                tools:layout_editor_absoluteY="0dp" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LinearLayout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/LinearLayout">
+
+                        <Spinner
+                            android:id="@+id/sp_region"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_weight="1"
+                            android:background="#FDFCF1"
+                            android:ems="10"
+                            android:paddingStart="10sp"
+                            android:paddingEnd="10sp"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LinearLayout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/LinearLayout2">
+
+                        <Spinner
+                            android:id="@+id/sp_province"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_weight="1"
+                            android:background="#FDFCF1"
+                            android:ems="10"
+                            android:paddingStart="10sp"
+                            android:paddingEnd="10sp"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/LinearLayout_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/LinearLayout1">
+
+                        <Spinner
+                            android:id="@+id/sp_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_weight="1"
+                            android:background="#FDFCF1"
+                            android:ems="10"
+                            android:paddingStart="10sp"
+                            android:paddingEnd="10sp"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearlayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/LinearLayout_2">
+
+                        <Spinner
+                            android:id="@+id/sp_barangay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_weight="1"
+                            android:background="#FDFCF1"
+                            android:ems="10"
+                            android:paddingStart="10sp"
+                            android:paddingEnd="10sp"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/Linearlayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearlayout">
+
+                        <EditText
+                            android:id="@+id/et_street"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="25dp"
+                            android:layout_marginEnd="25dp"
+                            android:layout_weight="1"
+                            android:background="#FDFCF1"
+                            android:ems="10"
+                            android:hint="street"
+                            android:inputType="textPersonName"
+                            android:paddingStart="10sp"
+                            android:textColor="#428E5C"
+                            android:textColorHint="#7A557A62"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_regConfirm"
+                        android:layout_width="150dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="95dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginEnd="95dp"
+                        android:layout_marginBottom="25dp"
+                        android:backgroundTint="#428E5C"
+                        android:text="REGISTER"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/Linearlayout" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scaleType="fitEnd"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/citybg" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-    </com.google.android.material.card.MaterialCardView>
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitEnd"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/citybg" />
 </androidx.constraintlayout.widget.ConstraintLayout>

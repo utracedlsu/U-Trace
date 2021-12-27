@@ -60,33 +60,46 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/intIdentifier"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="63"
-                    android:textColor="#428E5C"
-                    android:textStyle="normal" />
-
-                <EditText
-                    android:id="@+id/et_loginMobileNo"
-                    android:layout_width="230dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="25dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:hint="mobile phone number"
-                    android:inputType="phone"
-                    android:maxLength="10"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:textColor="#428E5C"
-                    android:textColorHint="#7A557A62"
-                    android:textSize="13sp" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/intIdentifier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="+63"
+                        android:textColor="#428E5C"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/et_loginMobileNo"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="25dp"
+                        android:layout_weight="1"
+                        android:background="#FDFCF1"
+                        android:ems="10"
+                        android:hint="mobile phone number"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textColor="#428E5C"
+                        android:textColorHint="#7A557A62"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/intIdentifier" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
             <Button
@@ -94,7 +107,7 @@
                 android:layout_width="150dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="95dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="95dp"
                 android:layout_marginBottom="10dp"
                 android:backgroundTint="#428E5C"

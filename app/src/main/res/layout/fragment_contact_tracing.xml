@@ -10,14 +10,15 @@
 
     <ImageView
         android:id="@+id/iv_bgheader"
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_width="0dp"
+        android:layout_height="205dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bgheader" />
+        app:srcCompat="@drawable/header" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,15 +54,17 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="CONTACT TRACING"
                 android:textColor="#D2FF99"
-                android:textSize="34dp"
+                android:textSize="36dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_basicUserInfo"
-                android:layout_width="374dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
                 app:cardBackgroundColor="#FFFEF6"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -76,24 +79,29 @@
 
                     <TextView
                         android:id="@+id/tv_btExchanges"
-                        android:layout_width="320dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginEnd="20dp"
                         android:fontFamily="@font/roboto_bold"
                         android:gravity="center"
                         android:text="You have had [#] Bluetooth exchange(s) in the past 24 hours."
                         android:textColor="#428E5C"
                         android:textSize="20dp"
                         android:textStyle="normal"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_btExchangesAddInfo"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
                     <TextView
                         android:id="@+id/tv_btExchangesAddInfo"
-                        android:layout_width="320dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginEnd="20dp"
                         android:layout_marginBottom="20dp"
                         android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
@@ -108,15 +116,15 @@
 
                     <ImageView
                         android:id="@+id/imageView6"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_marginStart="152dp"
+                        android:layout_width="0dp"
+                        android:layout_height="75dp"
+                        android:layout_marginStart="140dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginEnd="152dp"
+                        android:layout_marginEnd="140dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/exclamation" />
+                        app:srcCompat="@drawable/exclamation_v2" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -124,9 +132,11 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_testDetails"
-                android:layout_width="374dp"
-                android:layout_height="270dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="40dp"
                 app:cardBackgroundColor="#FFFEF6"
                 app:cardCornerRadius="10dp"
@@ -142,7 +152,7 @@
                     <LinearLayout
                         android:id="@+id/ll_statusBanner"
                         android:layout_width="match_parent"
-                        android:layout_height="22dp"
+                        android:layout_height="0dp"
                         android:background="#428E5C"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -153,54 +163,61 @@
                             android:id="@+id/tv_ctHistory"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
                             android:fontFamily="@font/roboto_bold"
-                            android:gravity="center_horizontal"
+                            android:gravity="center"
                             android:letterSpacing="0.1"
-                            android:paddingTop="1.5dp"
                             android:text="CONTACT TRACING HISTORY"
                             android:textColor="#FFFFFF"
-                            android:textSize="14dp" />
+                            android:textSize="12dp" />
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_dateRange"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="[startDate - endDate]"
                         android:textColor="#428E5C"
-                        android:textSize="14dp"
+                        android:textSize="12dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ll_statusBanner" />
 
                     <org.eazegraph.lib.charts.BarChart
                         android:id="@+id/bc_cthChart"
-                        android:layout_width="330dp"
+                        android:layout_width="0dp"
                         android:layout_height="155dp"
+                        android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginBottom="10dp"
                         android:padding="10dp"
                         app:egBarWidth="20dp"
                         app:egFixedBarWidth="true"
                         app:egLegendHeight="40dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_ctHistoryAddInfo"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_dateRange" />
 
                     <TextView
                         android:id="@+id/tv_ctHistoryAddInfo"
-                        android:layout_width="340dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="20dp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="Lorem ipsum blah blah quick brown fox yeah my guy lets go i suppose"
                         android:textColor="#428E5C"
                         android:textSize="12dp"
                         android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/bc_cthChart" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

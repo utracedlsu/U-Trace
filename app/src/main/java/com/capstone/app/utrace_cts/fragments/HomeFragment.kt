@@ -83,10 +83,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         if(testStatus.equals("")){
             tvTest.setText("You have not yet had any COVID-19 tests.")
         } else if (testStatus.equals("true")) {
-            ivTestStatus.setImageResource(R.drawable.test)
+            ivTestStatus.setImageResource(R.drawable.test_positive)
             tvTest.setText("You have tested positive for COVID-19. Please upload your records ASAP.")
         } else {
-            ivTestStatus.setImageResource(R.drawable.test)
+            ivTestStatus.setImageResource(R.drawable.test_negative)
             tvTest.setText("You have tested negative for COVID-19.")
         }
 

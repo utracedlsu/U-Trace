@@ -41,7 +41,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private var disposableObj: Disposable? = null //used to read SQLite Records
 
-    private lateinit var ll_logout: LinearLayout
     private lateinit var builder: MaterialAlertDialogBuilder
     private lateinit var tvProfileName: TextView
     private lateinit var tvProfileAddress: TextView
@@ -52,6 +51,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var rv_boosters: RecyclerView
     private lateinit var btn_verifyAcc : Button
     private lateinit var btn_deleteAcc : Button
+    private lateinit var btn_logout: Button
 
     private lateinit var boosterList : ArrayList<Booster>
 
@@ -71,7 +71,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         rv_boosters = view.findViewById(R.id.rv_boosters)
         btn_verifyAcc = view.findViewById(R.id.btn_verifyAcc)
         btn_deleteAcc = view.findViewById(R.id.btn_deleteAcc)
-        ll_logout = view.findViewById(R.id.ll_logout)
+        btn_logout = view.findViewById(R.id.btn_logout)
 
         // set field data
         tvProfileName.text = Preference.getFullName(requireContext())
@@ -104,7 +104,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
         // logout -- go to login activity
-        ll_logout.setOnClickListener {
+        btn_logout.setOnClickListener {
             builder.show()
         }
     }
