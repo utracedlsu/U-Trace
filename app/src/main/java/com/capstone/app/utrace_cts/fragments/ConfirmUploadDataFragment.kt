@@ -95,8 +95,6 @@ class ConfirmUploadDataFragment: DialogFragment() {
 
             // btn logic: ???
             btn_agreeConsent.setOnClickListener{
-                //TODO: Dito i-lalagay yung logic to upload their data to the servers i guess?
-
                 //Get records here
                 var observableStreetRecords = Observable.create<List<StreetPassRecord>> {
                     val result = StreetPassRecordStorage(requireActivity().applicationContext).getAllRecords()
@@ -113,39 +111,42 @@ class ConfirmUploadDataFragment: DialogFragment() {
                     }
                     ).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
                         .subscribe { exportedData ->
-                            Log.d("UploadFragment", "Records: ${exportedData.recordList}")
-                            Log.d("UploadFragment", "${exportedData.statusList}")
-                            Log.d("UploadFragment", "Timestamp: ${exportedData.statusList.get(0).timestamp}")
+                            if(exportedData.recordList.size > 0){
+                                Log.d("UploadFragment", "Records: ${exportedData.recordList}")
+                                Log.d("UploadFragment", "${exportedData.statusList}")
+                                Log.d("UploadFragment", "Timestamp: ${exportedData.statusList.get(0).timestamp}")
 
 
-                            getUploadToken("123456").addOnSuccessListener {
-                                val response = it.data as HashMap<String, String>
-                                try {
-                                    val uploadToken = response["token"]
-                                    var task = writeToInternalStorageAndUpload(
-                                        requireActivity().applicationContext,
-                                        exportedData.recordList,
-                                        exportedData.statusList,
-                                        uploadToken
-                                    )
-                                    task.addOnSuccessListener {
-                                        Log.d("UploadFragment", "Successfully Uploaded Records!")
-                                        Toast.makeText(requireActivity().applicationContext, "Successfully Uploaded Records!", Toast.LENGTH_SHORT).show()
-                                        dialog?.dismiss()
+                                getUploadToken("123456").addOnSuccessListener {
+                                    val response = it.data as HashMap<String, String>
+                                    try {
+                                        val uploadToken = response["token"]
+                                        var task = writeToInternalStorageAndUpload(
+                                            requireActivity().applicationContext,
+                                            exportedData.recordList,
+                                            exportedData.statusList,
+                                            uploadToken
+                                        )
+                                        task.addOnSuccessListener {
+                                            Log.d("UploadFragment", "Successfully Uploaded Records!")
+                                            Toast.makeText(requireActivity().applicationContext, "Successfully Uploaded Records!", Toast.LENGTH_SHORT).show()
+                                            dialog?.dismiss()
+                                        }
+                                        task.addOnFailureListener{
+                                            Log.d("UploadFragment", "Failed to upload records (task): ${it.message}")
+                                            Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${it.message}", Toast.LENGTH_SHORT).show()
+                                        }
+                                    } catch(e: Exception){
+                                        Log.d("UploadFragment", "Failed to upload records (try exception): ${e.message}")
+                                        Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${e.message}", Toast.LENGTH_SHORT).show()
                                     }
-                                    task.addOnFailureListener{
-                                        Log.d("UploadFragment", "Failed to upload records (task): ${it.message}")
-                                        Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${it.message}", Toast.LENGTH_SHORT).show()
-                                    }
-                                } catch(e: Exception){
-                                    Log.d("UploadFragment", "Failed to upload records (try exception): ${e.message}")
-                                    Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${e.message}", Toast.LENGTH_SHORT).show()
+                                }.addOnFailureListener {
+                                    Log.d("UploadFragment", "Failed to upload records (Invalid Code) ${it.message}")
+                                    Toast.makeText(requireActivity().applicationContext, "Failed to upload records (Invalid Code ${it.message})", Toast.LENGTH_SHORT).show()
                                 }
-                            }.addOnFailureListener {
-                                Log.d("UploadFragment", "Failed to upload records (Invalid Code) ${it.message}")
-                                Toast.makeText(requireActivity().applicationContext, "Failed to upload records (Invalid Code ${it.message})", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(requireActivity().applicationContext, "You don't have any records saved on your device yet!", Toast.LENGTH_SHORT).show()
                             }
-
                         }
             }
         }
