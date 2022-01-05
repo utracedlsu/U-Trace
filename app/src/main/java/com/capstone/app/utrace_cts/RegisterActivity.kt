@@ -299,7 +299,7 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(otpIntent)
 
         } else {
-            Toast.makeText(applicationContext, "lorem ipsum", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Please fill up the missing details.", Toast.LENGTH_SHORT).show()
         }
     }
 
