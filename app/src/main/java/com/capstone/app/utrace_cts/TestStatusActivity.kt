@@ -12,17 +12,21 @@ class TestStatusActivity : AppCompatActivity() {
     private lateinit var tvTestDateHeader: TextView
     private lateinit var tvTestDate: TextView
     private lateinit var tvTestID: TextView
+    private lateinit var btn_updateTestStatus : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test_status)
 
-        //set textviews
+        // connect
         tvTestStatus = findViewById(R.id.tv_covidTestStatus)
         tvTestDateHeader = findViewById(R.id.tv_testDateHeader)
         tvTestDate = findViewById(R.id.tv_details_dateOfTest)
         tvTestID = findViewById(R.id.tv_details_testID)
+        btn_back_TestStatus = findViewById(R.id.btn_back_TestStatus)
+        btn_updateTestStatus = findViewById(R.id.btn_updateTestStatus)
 
+        // set TextViews
         if(!Preference.getTestStatus(applicationContext).equals("")){
             val testDate = Preference.getLastTestDate(applicationContext)
             tvTestDateHeader.setText("As of $testDate")
@@ -42,10 +46,11 @@ class TestStatusActivity : AppCompatActivity() {
             tvTestID.setText("No test ID set.")
         }
 
-        // connect
-        btn_back_TestStatus = findViewById(R.id.btn_back_TestStatus)
-
         // go back to home
         btn_back_TestStatus.setOnClickListener { finish() }
+
+        btn_updateTestStatus.setOnClickListener {
+            // TODO: ???
+        }
     }
 }

@@ -18,10 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import com.capstone.app.utrace_cts.fragments.ContactTracingFragment
-import com.capstone.app.utrace_cts.fragments.HomeFragment
-import com.capstone.app.utrace_cts.fragments.NotificationsFragment
-import com.capstone.app.utrace_cts.fragments.ProfileFragment
+import com.capstone.app.utrace_cts.fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -37,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     private val profileFragment = ProfileFragment()
     private val notificationsFragment = NotificationsFragment()
     private val contactTracingFragment = ContactTracingFragment()
+    private val settingsFragment = SettingsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.profileFrag -> replaceFragment(profileFragment)
                 R.id.notifFrag -> replaceFragment(notificationsFragment)
                 R.id.contactTracingFrag -> replaceFragment(contactTracingFragment)
+                R.id.settingsFrag ->replaceFragment(settingsFragment)
             }
             true
         }
