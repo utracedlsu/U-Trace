@@ -131,8 +131,8 @@ class OtpActivationActivity : AppCompatActivity() {
 
     private fun validateOTP(){
         val enteredOTP = etOTP.text.toString()
-        //check if authCredential's sms code exists in the first place
-        if(authCredential?.smsCode != null){
+        //check if authCredential is initialized in the first place
+        if(this::authCredential.isInitialized){
             if(enteredOTP.equals(authCredential.smsCode)){
                 Preference.putPhoneNumber(applicationContext, "+63${phoneNum}")
 
@@ -154,6 +154,8 @@ class OtpActivationActivity : AppCompatActivity() {
                         //TODO: Return to Main Activity (?)
                     }
                 }
+            } else {
+                Toast.makeText(applicationContext, "OTP is incorrect. Please try again.", Toast.LENGTH_SHORT).show()
             }
         }
         else {
