@@ -268,6 +268,7 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
 
+
     private fun registerNumberFStore(){
         //get values from editTexts
         val fname = et_regFname.text.toString()
@@ -293,11 +294,27 @@ class RegisterActivity : AppCompatActivity() {
         )
 
         if(checkForDiscrepancies()) {
-
-            val otpIntent = Intent(this, OtpActivationActivity::class.java)
-            otpIntent.putExtra("USER_DETAILS", userDetails)
-            startActivity(otpIntent)
-
+            //check if phone number is being used by another existing user
+            fStore.collection("users").whereEqualTo("phone", phoneno)
+                .whereEqualTo("document_status", "published").get()
+                .addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        val snapshot = task.result
+                        snapshot?.let {
+                            if(it.documents.size > 0){
+                                Toast.makeText(applicationContext, "Someone else is using this phone number," +
+                                        " please use a different one.", Toast.LENGTH_SHORT).show()
+                            } else {
+                                val otpIntent = Intent(this, OtpActivationActivity::class.java)
+                                otpIntent.putExtra("USER_DETAILS", userDetails)
+                                startActivity(otpIntent)
+                            }
+                        }
+                    } else {
+                        Toast.makeText(applicationContext, "Unable to register at this time, please try again later.", Toast.LENGTH_SHORT).show()
+                        Log.d("RegisterActivityLog", "Unable to retrieve records at this time. ${task.exception?.message}")
+                    }
+                }
         } else {
             Toast.makeText(applicationContext, "Please fill up the missing details.", Toast.LENGTH_SHORT).show()
         }

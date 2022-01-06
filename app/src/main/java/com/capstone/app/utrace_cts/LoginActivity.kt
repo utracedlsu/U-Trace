@@ -42,7 +42,8 @@ class LoginActivity : AppCompatActivity() {
             val phoneno = etLoginMobileNo.text.toString()
 
             //check if user exists in database
-            FirebaseFirestore.getInstance().collection("users").whereEqualTo("phone", phoneno).get()
+            FirebaseFirestore.getInstance().collection("users").whereEqualTo("phone", phoneno)
+                .whereEqualTo("document_status", "published").get()
                 .addOnCompleteListener { task ->
                     if(task.isSuccessful){
                         val snapshot = task.result
