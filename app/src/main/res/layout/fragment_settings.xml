@@ -90,7 +90,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/tv_doh1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
@@ -113,13 +113,13 @@
                         android:layout_marginEnd="15dp"
                         android:layout_marginBottom="15dp"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="1555 (PLDT, Smart, Sun, and TNT Subscribers"
+                        android:text="1555 (PLDT, Smart, Sun, and TNT Subscribers)"
                         android:textColor="#2A8348"
                         android:textSize="12dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_doh1" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
