@@ -69,9 +69,15 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
             Schedulers.io()).subscribe{ retrievedNotifs ->
             if(retrievedNotifs.size > 0){
                 for (notif in retrievedNotifs){
+                    var notifType = "GENERAL"
+
+                    //set image to warning if user has tested or has come into close contact
+                    if(notif.title.contains("tested") || notif.title.contains("close contact")){
+                        notifType = "WARNING"
+                    }
+
                     notificationsList.add(Notification(
-                        //TODO: create logic for determining notification type
-                        "WARNING",
+                        notifType,
                         Utils.getDDMMYYY(notif.timestamp),
                         Utils.getTimeInHours(notif.timestamp),
                         notif.title,

@@ -1,8 +1,10 @@
 package com.capstone.app.utrace_cts
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -36,7 +38,7 @@ class OtpActivationActivity : AppCompatActivity() {
     private lateinit var etOTP: EditText
     private lateinit var tvResendOTP: TextView
     private lateinit var tvOTPText: TextView
-
+    private lateinit var resendOTPTimer: CountDownTimer
     private lateinit var vaxBoosterRecordStorage: VaxBoosterRecordStorage
 
     private var callbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
@@ -57,6 +59,27 @@ class OtpActivationActivity : AppCompatActivity() {
 
         override fun onCodeSent(verificationID: String, token: PhoneAuthProvider.ForceResendingToken) {
             Log.d("OTPActivation", "onCodeSent")
+            startResendTimer()
+        }
+    }
+
+    //starts a timer for resending otp
+    fun startResendTimer(){
+        resendOTPTimer = object: CountDownTimer(61000, 1000){
+            override fun onTick(millisUntilFinished: Long){
+                tvResendOTP.setText("Resend OTP (${millisUntilFinished/1000})")
+            }
+            override fun onFinish(){
+                tvResendOTP.setEnabled(true)
+                tvResendOTP.setTextColor(Color.parseColor("#428E5C"))
+                tvResendOTP.setText("Resend OTP")
+            }
+        }.start()
+    }
+
+    fun cancelTimer(){
+        if(resendOTPTimer != null){
+            resendOTPTimer.cancel()
         }
     }
 
@@ -73,6 +96,8 @@ class OtpActivationActivity : AppCompatActivity() {
         etOTP = findViewById(R.id.et_otp)
         tvResendOTP = findViewById(R.id.tv_resendOTP)
         btn_otpConfirm = findViewById(R.id.btn_otpConfirm)
+
+        tvResendOTP.setEnabled(false)
 
         signInMap = regMap as HashMap<String, Object>
         phoneNum = signInMap.get("phone") as String
@@ -243,7 +268,6 @@ class OtpActivationActivity : AppCompatActivity() {
                     }.observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe{ result ->
-                            //TODO: insert boosters
                             if(result){
                                 GlobalScope.launch {
                                     vaxBoosterRecordStorage.saveMultipleBoosters(sqliteBoosters)
@@ -468,5 +492,10 @@ class OtpActivationActivity : AppCompatActivity() {
                     Log.d("OTPActivation", "Error! ${task.exception?.message}")
                 }
             }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cancelTimer()
     }
 }
