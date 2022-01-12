@@ -32,7 +32,8 @@ class TestStatusActivity : AppCompatActivity() {
         testID = Preference.getLastTestID(applicationContext)
 
         // set TextViews
-        if(!Preference.getTestStatus(applicationContext).equals("")){
+        if(!Preference.getTestStatus(applicationContext).equals("") &&
+            !Preference.getTestStatus(applicationContext).equals("Untested")){
             val testDate = Preference.getLastTestDate(applicationContext)
             tvTestDateHeader.setText("As of $testDate")
             tvTestDate.setText("$testDate")

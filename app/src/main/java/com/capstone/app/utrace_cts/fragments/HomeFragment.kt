@@ -80,7 +80,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val testStatus = Preference.getTestStatus(requireContext())
 
-        if(testStatus.equals("")){
+        if(testStatus.equals("") || testStatus.equals("Untested")){
             tvTest.setText("You have not yet had any COVID-19 tests.")
         } else if (testStatus.equals("true")) {
             ivTestStatus.setImageResource(R.drawable.test_positive)

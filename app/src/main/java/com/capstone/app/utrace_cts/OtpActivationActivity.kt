@@ -326,7 +326,7 @@ class OtpActivationActivity : AppCompatActivity() {
                     "vax_2nddose" to vax2ndDose,
                     "vax_booster" to covidTestsArray, //just an empty array, so use the same var
                     "covid_tests" to covidTestsArray,
-                    "covid_positive" to "",
+                    "covid_positive" to "Untested", //untested, positive, or negative ONLY
                     "last_testdate" to "",
                     "verification" to isVerified,
                     "fcm_token" to Preference.getCloudMessagingToken(applicationContext),
