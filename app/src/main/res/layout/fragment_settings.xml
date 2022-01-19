@@ -49,9 +49,9 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="41dp"
                 android:fontFamily="@font/roboto_light"
-                android:text="SETTINGS"
+                android:text="IMPORTANT HOTLINES"
                 android:textColor="#D2FF99"
-                android:textSize="45dp"
+                android:textSize="35dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

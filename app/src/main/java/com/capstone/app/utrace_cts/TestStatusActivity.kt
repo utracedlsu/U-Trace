@@ -40,7 +40,8 @@ class TestStatusActivity : AppCompatActivity() {
             tvTestID.setText("$testID")
 
             //change true to positive eventually
-            if(Preference.getTestStatus(applicationContext).equals("true")){
+            if(Preference.getTestStatus(applicationContext).equals("true")
+                || Preference.getTestStatus(applicationContext).equals("Positive", true)){
                 tvTestStatus.setText("You have been tested POSTIVE for COVID-19.")
             } else {
                 tvTestStatus.setText("You have been tested NEGATIVE for COVID-19.")
