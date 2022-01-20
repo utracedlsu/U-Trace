@@ -191,6 +191,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
             .setWhen(System.currentTimeMillis())
             .setSound(null)
             .setVibrate(null)
+            .setPriority(NotificationCompat.PRIORITY_MAX)
 
         mNotifManager.notify(BluetoothMonitoringService.PUSH_NOTIFICATION_ID, fcmNotifBuilder.build())
     }

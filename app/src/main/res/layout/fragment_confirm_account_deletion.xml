@@ -38,7 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:scrollbars="vertical"
-                android:text='Additional supplementary desc. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Type the word "DELETE" (all letters capitalized) in the provided textbox below to confirm your decision.  '
+                android:textAlignment="center"
+                android:text='Deleting your account prevents you from accessing your UTrace account. Some of your account details might still remain for a period of FOURTEEN (14) days, after which these are securely deleted. Should you wish to have the data collected from you deleted and destroyed or you wish to withdraw your consent in the processing of the same, you may do so by contacting us.\n\n Type the word "DELETE" (all letters capitalized) in the provided textbox below to confirm your decision.  '
                 android:textColor="#428E5C"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
