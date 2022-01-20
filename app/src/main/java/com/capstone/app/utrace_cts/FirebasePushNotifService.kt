@@ -174,7 +174,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             val mChannel = NotificationChannel(BluetoothMonitoringService.PUSH_NOTIFICATION_CHANNEL_NAME,
-                BluetoothMonitoringService.PUSH_NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+                BluetoothMonitoringService.PUSH_NOTIFICATION_CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
             mChannel.enableLights(false)
             mChannel.enableVibration(true)
             mChannel.vibrationPattern = longArrayOf(0L)
@@ -189,8 +189,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentIntent(activityPendingIntent)
             .setWhen(System.currentTimeMillis())
-            .setSound(null)
-            .setVibrate(null)
+            .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setPriority(NotificationCompat.PRIORITY_MAX)
 
         mNotifManager.notify(BluetoothMonitoringService.PUSH_NOTIFICATION_ID, fcmNotifBuilder.build())
