@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="110dp"
-                android:text="Insert tag line here. Lorem ipsum or somethin."
+                android:text=""
                 android:textColor="#FFFEF6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -60,10 +60,12 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        if(!isLocationPermissionGranted){
-            requestLocationPermission()
-        } else {
-            Utils.startBluetoothMonitoringService(this)
+        if(FirebaseAuth.getInstance().currentUser != null){
+            if(!isLocationPermissionGranted){
+                requestLocationPermission()
+            } else {
+                Utils.startBluetoothMonitoringService(this)
+            }
         }
     }
 
@@ -120,7 +122,8 @@ class MainActivity : AppCompatActivity() {
     //Request Bluetooth Permission
     override fun onResume(){
         super.onResume()
-        if(!bluetoothAdapter.isEnabled){
+        //only prompt bluetooth to enable if user is logged in and bluetooth is off
+        if(!bluetoothAdapter.isEnabled && FirebaseAuth.getInstance().currentUser != null){
             promptBluetoothEnable()
         }
     }
@@ -186,61 +189,63 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        //Place a logo page here or something? Para itago lang yung main activity or someshiet
         if(FirebaseAuth.getInstance().currentUser == null){
             startActivity(Intent(this, LoginActivity::class.java))
-        }
+        } else{
+            //Check cloud messaging token
+            Log.i("MainActivityCheck", "Test status: ${Preference.getTestStatus(applicationContext)}")
 
-        Log.i("MainActivityCheck", "Test status: ${Preference.getTestStatus(applicationContext)}")
+            //check if token is empty
+            if(Preference.getCloudMessagingToken(applicationContext).equals("")){
+                Log.i("FirebaseNotifications", "No FCM Token, retrieving from server")
 
-        //check if token is empty
-        if(Preference.getCloudMessagingToken(applicationContext).equals("")){
-            Log.i("FirebaseNotifications", "No FCM Token, retrieving from server")
+                FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        val newToken = task.result
+                        val fUserId = FirebaseAuth.getInstance().currentUser?.uid
+                        Log.i("FirebaseNotifications", "User ID: $fUserId")
+                        Log.i("FirebaseNotifications", "New FCM Token: $newToken")
+                        Preference.putCloudMessagingToken(applicationContext, newToken.toString())
 
-            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-                if(task.isSuccessful){
-                    val newToken = task.result
-                    val fUserId = FirebaseAuth.getInstance().currentUser?.uid
-                    Log.i("FirebaseNotifications", "User ID: $fUserId")
-                    Log.i("FirebaseNotifications", "New FCM Token: $newToken")
-                    Preference.putCloudMessagingToken(applicationContext, newToken.toString())
+                        FirebaseFirestore.getInstance().collection("users")
+                            .document(fUserId.toString()).update("fcm_token", newToken.toString()).addOnCompleteListener { task ->
+                                if(task.isSuccessful){
+                                    Log.i("FirebaseNotifications", "Successfully sent token to server")
+                                } else {
+                                    Log.i("FirebaseNotifications", "Unable to send token to server: ${task.exception?.message}")
+                                }
+                            }
+                    } else {
+                        Log.i("FirebaseNotifications", "Unable to retrieve FCM Token, ${task.exception?.message}")
+                    }
+                }
+            } else {
+                Log.i("FirebaseNotifications", "FCM Token: ${Preference.getCloudMessagingToken(applicationContext)}")
+
+                //check if token was uploaded to Firestore
+                //The tokenUploadStatus on sharedPreference is used to check if the token was uploaded.
+                //When reinstalling app, the fcm service retrieves a new token via onNewToken and saves it to preferences.
+                //Because tokenUploadStatus isn't set upon reinstall, the app will upload the new token to the firestore db
+                //The only time tokenUploadStatus is not set is when the user reinstalls app and logs in.
+                if(Preference.getTokenUploadStatus(applicationContext).equals("")){
+                    Log.i("FirebaseNotifications", "Token hasn't been uploaded to Firebase. Reuploading...")
+                    val fUserId = Preference.getFirebaseId(applicationContext)
+                    val fcmToken = Preference.getCloudMessagingToken(applicationContext)
 
                     FirebaseFirestore.getInstance().collection("users")
-                        .document(fUserId.toString()).update("fcm_token", newToken.toString()).addOnCompleteListener { task ->
+                        .document(fUserId).update("fcm_token", fcmToken).addOnCompleteListener { task ->
                             if(task.isSuccessful){
                                 Log.i("FirebaseNotifications", "Successfully sent token to server")
+                                Preference.putTokenUploadStatus(applicationContext, "Uploaded")
                             } else {
                                 Log.i("FirebaseNotifications", "Unable to send token to server: ${task.exception?.message}")
                             }
                         }
                 } else {
-                    Log.i("FirebaseNotifications", "Unable to retrieve FCM Token, ${task.exception?.message}")
+                    Log.i("FirebaseNotifications", "Token status is ${Preference.getTokenUploadStatus(applicationContext)}." +
+                            " No need to reupload it into firestore.")
                 }
-            }
-        } else {
-            Log.i("FirebaseNotifications", "FCM Token: ${Preference.getCloudMessagingToken(applicationContext)}")
-
-            //check if token was uploaded to Firestore
-            //The tokenUploadStatus on sharedPreference is used to check if the token was uploaded.
-            //When reinstalling app, the fcm service retrieves a new token via onNewToken and saves it to preferences.
-            //Because tokenUploadStatus isn't set upon reinstall, the app will upload the new token to the firestore db
-            //The only time tokenUploadStatus is not set is when the user reinstalls app and logs in.
-            if(Preference.getTokenUploadStatus(applicationContext).equals("")){
-                Log.i("FirebaseNotifications", "Token hasn't been uploaded to Firebase. Reuploading...")
-                val fUserId = Preference.getFirebaseId(applicationContext)
-                val fcmToken = Preference.getCloudMessagingToken(applicationContext)
-
-                FirebaseFirestore.getInstance().collection("users")
-                    .document(fUserId).update("fcm_token", fcmToken).addOnCompleteListener { task ->
-                        if(task.isSuccessful){
-                            Log.i("FirebaseNotifications", "Successfully sent token to server")
-                            Preference.putTokenUploadStatus(applicationContext, "Uploaded")
-                        } else {
-                            Log.i("FirebaseNotifications", "Unable to send token to server: ${task.exception?.message}")
-                        }
-                    }
-            } else {
-                Log.i("FirebaseNotifications", "Token status is ${Preference.getTokenUploadStatus(applicationContext)}." +
-                        " No need to reupload it into firestore.")
             }
         }
     }
