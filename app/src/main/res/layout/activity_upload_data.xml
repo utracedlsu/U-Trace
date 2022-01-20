@@ -108,7 +108,7 @@
               android:layout_marginStart="20dp"
               android:layout_marginEnd="20dp"
               android:fontFamily="@font/roboto_regular"
-              android:text="You are now going to upload your contact tracing history to the health authorities. This may require you to agree on a data privacy consent form which states why your data is collected and how it will be handled by the system. You may opt to upload your data by clicking on the button below "
+              android:text="You are now going to upload your contact tracing history to the health authorities. This may require you to agree on a data privacy consent form which states why your data is collected and how it will be handled by the system. You may opt to upload your data by clicking on the button below."
               android:textColor="#428E5C"
               android:textSize="12sp"
               app:layout_constraintBottom_toTopOf="@+id/btn_enablePermissions"
