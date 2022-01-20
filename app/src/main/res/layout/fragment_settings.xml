@@ -51,7 +51,7 @@
                 android:fontFamily="@font/roboto_light"
                 android:text="IMPORTANT HOTLINES"
                 android:textColor="#D2FF99"
-                android:textSize="35dp"
+                android:textSize="32dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

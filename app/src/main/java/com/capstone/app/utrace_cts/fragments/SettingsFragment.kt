@@ -26,7 +26,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        
+
         cv_hot1 = view.findViewById(R.id.cv_hot1)
         cv_hot2 = view.findViewById(R.id.cv_hot2)
         cv_hot3 = view.findViewById(R.id.cv_hot3)
