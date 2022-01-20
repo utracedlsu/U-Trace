@@ -191,7 +191,11 @@ class MainActivity : AppCompatActivity() {
 
         //Place a logo page here or something? Para itago lang yung main activity or someshiet
         if(FirebaseAuth.getInstance().currentUser == null){
-            startActivity(Intent(this, LoginActivity::class.java))
+            val loginRedirect = Intent(this, LoginActivity::class.java)
+            loginRedirect.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(loginRedirect)
+            finish()
+            overridePendingTransition(0, 0)
         } else{
             //Check cloud messaging token
             Log.i("MainActivityCheck", "Test status: ${Preference.getTestStatus(applicationContext)}")
