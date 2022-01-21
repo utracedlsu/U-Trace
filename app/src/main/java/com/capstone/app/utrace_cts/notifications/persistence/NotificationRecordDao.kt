@@ -14,7 +14,10 @@ interface NotificationRecordDao {
 
     //May need to be changed to LiveData
     @Query("SELECT * FROM notification_table WHERE id = :id ORDER BY timestamp DESC LIMIT 1")
-    fun getSingleNotif(id: String): NotificationRecord
+    fun getSingleNotif(id: Int): NotificationRecord
+
+    @Query("DELETE FROM notification_table WHERE id = :id")
+    fun deleteSingleNotif(id: Int)
 
     @Query("DELETE FROM notification_table")
     fun nukeDb()

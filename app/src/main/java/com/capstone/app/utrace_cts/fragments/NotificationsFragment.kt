@@ -41,12 +41,6 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
     private lateinit var tv_emptyMsg: TextView
     private lateinit var notificationsList : ArrayList<Notification>
 
-    private lateinit var nTypes : Array<String>
-    private lateinit var nDates : Array<String>
-    private lateinit var nTimes : Array<String>
-    private lateinit var nHeaders : Array<String>
-    private lateinit var nContents : Array<String>
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -77,6 +71,7 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
                     }
 
                     notificationsList.add(Notification(
+                        notif.id,
                         notifType,
                         Utils.getDDMMYYY(notif.timestamp),
                         Utils.getTimeInHours(notif.timestamp),
@@ -95,7 +90,7 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
 
         rv_notifications.layoutManager = LinearLayoutManager(this.context)
         rv_notifications.setHasFixedSize(true)
-        adapter = NotificationsAdapter(notificationsList)
+        adapter = NotificationsAdapter(notificationsList, requireActivity().applicationContext)
         rv_notifications.adapter = adapter
         var itemTouchHelper = ItemTouchHelper(SwipeToDelete(adapter))
         itemTouchHelper.attachToRecyclerView(rv_notifications)

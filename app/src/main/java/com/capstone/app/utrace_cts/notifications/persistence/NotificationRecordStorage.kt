@@ -11,6 +11,10 @@ class NotificationRecordStorage(val context: Context) {
         Log.i("NotifRecords", "Notification record saved")
     }
 
+    fun deleteSingleNotif(id: Int){
+        notifDao.deleteSingleNotif(id)
+    }
+
     fun nukeDb(){
         notifDao.nukeDb()
     }

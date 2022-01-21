@@ -1,5 +1,6 @@
 package com.capstone.app.utrace_cts
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecordStorage
 import com.google.android.material.imageview.ShapeableImageView
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class NotificationsAdapter (private val notifList: ArrayList<Notification>) : RecyclerView.Adapter<NotificationsAdapter.NotifViewHolder>() {
+class NotificationsAdapter (private val notifList: ArrayList<Notification>, context: Context) : RecyclerView.Adapter<NotificationsAdapter.NotifViewHolder>() {
 
     private lateinit var changeListener : ChangeListener
+    var appContext = context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotifViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.notif_list, parent, false)
@@ -47,9 +53,16 @@ class NotificationsAdapter (private val notifList: ArrayList<Notification>) : Re
     fun setOnChangeListener(listener: ChangeListener) { changeListener = listener }
 
     fun deleteItem(index: Int) {
-        notifList.removeAt(index)
-        notifyItemRemoved(index)
-        changeListener.onChange(itemCount)
+        Observable.create<Boolean>{
+            NotificationRecordStorage(appContext).deleteSingleNotif(notifList.get(index).id)
+            it.onNext(true)
+        }.observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe{ result ->
+                notifList.removeAt(index)
+                notifyItemRemoved(index)
+                changeListener.onChange(itemCount)
+            }
     }
 }
 
