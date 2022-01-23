@@ -186,7 +186,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
         val fcmNotifBuilder = NotificationCompat.Builder(this, BluetoothMonitoringService.PUSH_NOTIFICATION_CHANNEL_NAME)
             .setContentTitle(title)
             .setContentText(body)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.appicon_nobg)
             .setContentIntent(activityPendingIntent)
             .setWhen(System.currentTimeMillis())
             .setDefaults(NotificationCompat.DEFAULT_ALL)

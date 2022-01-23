@@ -19,7 +19,7 @@ class NotificationTemplates {
                     .setContentTitle("Setting things up")
                     .setOngoing(true)
                     //.setPriority(Notification.PRIORITY_LOW)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setSmallIcon(R.drawable.appicon_nobg)
                     .setWhen(System.currentTimeMillis())
                     .setSound(null)
                     .setVibrate(null)
@@ -37,7 +37,7 @@ class NotificationTemplates {
             val builder = NotificationCompat.Builder(context, channel)
                     .setContentTitle("U-Trace is currently scanning for close contacts!")
                     .setContentText("Reset your phone if this notification disappears.")
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setSmallIcon(R.drawable.appicon_nobg)
                     .setContentIntent(activityPendingIntent)
                     .setWhen(System.currentTimeMillis())
                     .setSound(null)
@@ -61,11 +61,11 @@ class NotificationTemplates {
                     .setContentText("U-Trace is not scanning!")
                     .setOngoing(true)
                     .addAction(
-                            R.drawable.ic_launcher_foreground,
+                            R.drawable.appicon_nobg,
                             "Open app now",
                             activityPendingIntent
                     )
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setSmallIcon(R.drawable.appicon_nobg)
                     .setContentIntent(activityPendingIntent)
                     .setWhen(System.currentTimeMillis())
                     .setSound(null)
