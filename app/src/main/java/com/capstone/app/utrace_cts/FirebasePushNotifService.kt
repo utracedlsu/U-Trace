@@ -12,7 +12,6 @@ import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecord
 import com.capstone.app.utrace_cts.notifications.persistence.NotificationRecordStorage
 import com.capstone.app.utrace_cts.vaxboosters.persistence.VaxBoosterRecord
 import com.capstone.app.utrace_cts.vaxboosters.persistence.VaxBoosterRecordStorage
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -186,7 +185,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
         val fcmNotifBuilder = NotificationCompat.Builder(this, BluetoothMonitoringService.PUSH_NOTIFICATION_CHANNEL_NAME)
             .setContentTitle(title)
             .setContentText(body)
-            .setSmallIcon(R.drawable.appicon_nobg)
+            .setSmallIcon(R.drawable.appiconnobg)
             .setContentIntent(activityPendingIntent)
             .setWhen(System.currentTimeMillis())
             .setDefaults(NotificationCompat.DEFAULT_ALL)
