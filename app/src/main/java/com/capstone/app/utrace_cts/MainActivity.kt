@@ -23,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlin.system.exitProcess
 
 private const val LOCATION_PERMISSION_REQUEST_CODE = 2
 private const val REQUEST_ENABLE_BT = 123
@@ -253,4 +254,22 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    /*
+    //should minimize app if pressed
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        /*
+        //this completely closes the mobile app (UNUSED)
+        this@MainActivity.finish()
+        exitProcess(0)
+         */
+
+        val goHome = Intent(Intent.ACTION_MAIN)
+        goHome.addCategory(Intent.CATEGORY_HOME)
+        goHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(goHome)
+    }
+     */
 }

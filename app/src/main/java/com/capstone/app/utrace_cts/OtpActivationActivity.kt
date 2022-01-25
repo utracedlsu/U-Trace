@@ -282,6 +282,7 @@ class OtpActivationActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Successfully logged in! ${Preference.getPhoneNumber(applicationContext)}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                finish()
             } else {
                 Toast.makeText(applicationContext, "Error! ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 Log.d("OTPActivation", "Error! ${task.exception?.message}")
@@ -352,6 +353,7 @@ class OtpActivationActivity : AppCompatActivity() {
                             ).show()
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
+                            finish()
                         } else {
                             Toast.makeText(applicationContext, "Error! ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                             Log.d("OTPActivation", "Error! ${task.exception?.message}")
@@ -487,6 +489,7 @@ class OtpActivationActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "Your account has been successfully verified!", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     Toast.makeText(applicationContext, "Error! ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     Log.d("OTPActivation", "Error! ${task.exception?.message}")
