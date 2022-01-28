@@ -78,6 +78,14 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             val covidTests = snapshot?.get("covid_tests") as ArrayList<HashMap<String, Object>>
                             val latestTestID = covidTests.last().get("testID")
 
+                            val retrievedFac = covidTests.last().get("facility")
+                            val retrievedMeth = covidTests.last().get("method")
+
+                            if(retrievedFac != null && retrievedMeth != null){
+                                Preference.putLastTestFac(applicationContext, retrievedFac.toString())
+                                Preference.putLastTestMethod(applicationContext, retrievedMeth.toString())
+                            }
+
                             //save latest test data to preferences
                             Preference.putTestStatus(applicationContext, latestTestResult.toString())
                             Preference.putLastTestDate(applicationContext, latestTestDate.toString())

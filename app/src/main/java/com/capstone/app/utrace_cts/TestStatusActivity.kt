@@ -15,6 +15,8 @@ class TestStatusActivity : AppCompatActivity() {
     private lateinit var tvTestDateHeader: TextView
     private lateinit var tvTestDate: TextView
     private lateinit var tvTestID: TextView
+    private lateinit var tvTestFacility: TextView
+    private lateinit var tvTestMethod: TextView
     private lateinit var btn_updateTestStatus : Button
     private lateinit var testID: String
 
@@ -27,6 +29,9 @@ class TestStatusActivity : AppCompatActivity() {
         tvTestDateHeader = findViewById(R.id.tv_testDateHeader)
         tvTestDate = findViewById(R.id.tv_details_dateOfTest)
         tvTestID = findViewById(R.id.tv_details_testID)
+        tvTestFacility = findViewById(R.id.tv_details_facility)
+        tvTestMethod = findViewById(R.id.tv_details_method)
+
         btn_back_TestStatus = findViewById(R.id.btn_back_TestStatus)
         btn_updateTestStatus = findViewById(R.id.btn_updateTestStatus)
         testID = Preference.getLastTestID(applicationContext)
@@ -38,8 +43,9 @@ class TestStatusActivity : AppCompatActivity() {
             tvTestDateHeader.setText("As of $testDate")
             tvTestDate.setText("$testDate")
             tvTestID.setText("$testID")
+            tvTestFacility.setText("${Preference.getLastTestFac(applicationContext)}")
+            tvTestMethod.setText("${Preference.getLastTestMethod(applicationContext)}")
 
-            //change true to positive eventually
             if(Preference.getTestStatus(applicationContext).equals("true")
                 || Preference.getTestStatus(applicationContext).equals("Positive", true)){
                 tvTestStatus.setText("You have been tested POSTIVE for COVID-19.")
@@ -47,10 +53,11 @@ class TestStatusActivity : AppCompatActivity() {
                 tvTestStatus.setText("You have been tested NEGATIVE for COVID-19.")
             }
         } else {
-            //set header to blank in order to hide it if wala pang test status at all
             tvTestDateHeader.setText("")
-            tvTestDate.setText("No test date set.")
-            tvTestID.setText("No test ID set.")
+            tvTestDate.setText("N/A")
+            tvTestID.setText("N/A")
+            tvTestFacility.setText("N/A")
+            tvTestMethod.setText("N/A")
         }
 
         // go back to home
@@ -76,14 +83,25 @@ class TestStatusActivity : AppCompatActivity() {
                             Preference.putTestStatus(applicationContext, "${result?.get("covid_positive").toString()}")
                             Preference.putLastTestDate(applicationContext, "${result?.getString("last_testdate")}")
 
+                            val retrievedFac = covidTests.last().get("facility")
+                            val retrievedMeth = covidTests.last().get("method")
+
+                            if(retrievedFac != null && retrievedMeth != null){
+                                Preference.putLastTestFac(applicationContext, retrievedFac.toString())
+                                Preference.putLastTestMethod(applicationContext, retrievedMeth.toString())
+                            }
+
                             //refresh textViews
                             val testDate = Preference.getLastTestDate(applicationContext)
                             tvTestDateHeader.setText("As of $testDate")
                             tvTestDate.setText("$testDate")
                             tvTestID.setText("${Preference.getLastTestID(applicationContext)}")
+                            tvTestFacility.setText("${Preference.getLastTestFac(applicationContext)}")
+                            tvTestMethod.setText("${Preference.getLastTestMethod(applicationContext)}")
 
                             //change true to positive eventually
-                            if(Preference.getTestStatus(applicationContext).equals("true")){
+                            if(Preference.getTestStatus(applicationContext).equals("true")
+                                || Preference.getTestStatus(applicationContext).equals("Positive", true)){
                                 tvTestStatus.setText("You have been tested POSTIVE for COVID-19.")
                             } else {
                                 tvTestStatus.setText("You have been tested NEGATIVE for COVID-19.")

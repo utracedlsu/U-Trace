@@ -249,6 +249,13 @@ class OtpActivationActivity : AppCompatActivity() {
                 //covid tests insert
                 if(covidTests.size > 0){
                     Preference.putLastTestID(applicationContext, covidTests.last().get("testID").toString())
+                    val retrievedFac = covidTests.last().get("facility")
+                    val retrievedMeth = covidTests.last().get("method")
+
+                    if(retrievedFac != null && retrievedMeth != null){
+                        Preference.putLastTestFac(applicationContext, retrievedFac.toString())
+                        Preference.putLastTestMethod(applicationContext, retrievedMeth.toString())
+                    }
                 }
 
                 //booster insert loop
@@ -278,7 +285,7 @@ class OtpActivationActivity : AppCompatActivity() {
                         }
                 }
 
-
+                Preference.putLoggedIn(applicationContext, true)
                 Toast.makeText(applicationContext, "Successfully logged in! ${Preference.getPhoneNumber(applicationContext)}", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)

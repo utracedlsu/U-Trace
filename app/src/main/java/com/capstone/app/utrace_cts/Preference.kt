@@ -22,8 +22,11 @@ object Preference {
     private const val LATEST_TESTSTATUS = "LATEST_TESTSTATUS"
     private const val LAST_TESTDATE = "LAST_TESTDATE"
     private const val LAST_TESTID = "LAST_TESTID"
+    private const val LAST_TESTFAC = "LAST_TESTFAC"
+    private const val LAST_TESTMETHOD = "LAST_TESTMETHOD"
 
     private const val VERIFICATION = "VERIFICATION"
+    private const val ISLOGGEDIN = "ISLOGGEDIN"
 
     private const val CHECK_POINT = "CHECK_POINT"
     private const val HANDSHAKE_PIN = "HANDSHAKE_PIN"
@@ -37,6 +40,18 @@ object Preference {
     private const val LAST_PURGE_TIME = "LAST_PURGE_TIME"
 
     private const val ANNOUNCEMENT = "ANNOUNCEMENT"
+
+
+    //Offline method for logging in
+    fun putLoggedIn(context: Context, value: Boolean) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putBoolean(ISLOGGEDIN, value).apply()
+    }
+
+    fun getLoggedIn(context: Context): Boolean {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getBoolean(ISLOGGEDIN, false)
+    }
 
     fun putHandShakePin(context: Context, value: String) {
         context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
@@ -176,6 +191,26 @@ object Preference {
     fun getLastTestID(context: Context): String {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getString(LAST_TESTID, "") ?: ""
+    }
+
+    fun putLastTestFac(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(LAST_TESTFAC, value).apply()
+    }
+
+    fun getLastTestFac(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(LAST_TESTFAC, "") ?: ""
+    }
+
+    fun putLastTestMethod(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(LAST_TESTMETHOD, value).apply()
+    }
+
+    fun getLastTestMethod(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(LAST_TESTMETHOD, "") ?: ""
     }
 
     fun putVerification(context: Context, value: String) {

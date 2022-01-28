@@ -183,6 +183,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         // Yes — finish all activities, go to LoginActivity
         builder.setPositiveButton("Yes") {dialog, which ->
             FirebaseAuth.getInstance().signOut()
+            Preference.putLoggedIn(requireContext(), false)
             val intent = Intent(context, LoginActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
