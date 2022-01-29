@@ -57,6 +57,7 @@ class ConfirmAccDeletionFragment: DialogFragment() {
             //go to otp for deletion
             goToOTP("UserDeletion")
         }
+        btn_confirmDeletion.setEnabled(false)
 
         // remove this popup when the cancel button is pressed
         btn_cancelDeletion.setOnClickListener{ dialog?.dismiss() }
@@ -70,10 +71,10 @@ class ConfirmAccDeletionFragment: DialogFragment() {
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             if (et_typeDelete.text.toString() == "DELETE") {
                 btn_confirmDeletion.setBackgroundColor(enabledColor)
-                btn_confirmDeletion.isEnabled = true
+                btn_confirmDeletion.setEnabled(true)
             } else {
                 btn_confirmDeletion.setBackgroundColor(disabledColor)
-                btn_confirmDeletion.isEnabled = false
+                btn_confirmDeletion.setEnabled(false)
             }
 
 
