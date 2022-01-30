@@ -129,14 +129,29 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             Log.i("FirebaseNotifications", "Task successful, saving to database")
                             val snapshot = task.result
 
+                            val vaxID = snapshot?.getString("vax_ID")
+                            val vax1stDose = snapshot?.getString("vax_1stdose")
+                            val vax2ndDose = snapshot?.getString("vax_2nddose")
+                            val vaxManufacturer = snapshot?.getString("vax_manufacturer")
+
+                            Preference.putVaxID(applicationContext, vaxID.toString())
+                            Preference.putVaxDose(applicationContext, vax1stDose.toString(), 1)
+                            Preference.putVaxDose(applicationContext, vax2ndDose.toString(), 2)
+                            Preference.putVaxManufacturer(applicationContext, vaxManufacturer.toString())
+
                             val boostersArray = snapshot?.get("vax_booster") as ArrayList<HashMap<String, Object>>
-                            val latestBooster = VaxBoosterRecord(
-                                vaxbrand = boostersArray.get(boostersArray.size-1).get("vax_manufacturer").toString(),
-                                date = boostersArray.get(boostersArray.size-1).get("date").toString()
-                            )
+                            var sqliteBoosters = ArrayList<VaxBoosterRecord>()
+
+                            for (fsBooster in boostersArray){
+                                sqliteBoosters.add(VaxBoosterRecord(
+                                    vaxbrand = fsBooster.get("vax_manufacturer").toString(),
+                                    date = fsBooster.get("date").toString()
+                                ))
+                            }
 
                             GlobalScope.launch {
-                                vaxBoosterRecordStorage.saveBooster(latestBooster)
+                                vaxBoosterRecordStorage.nukeDb()
+                                vaxBoosterRecordStorage.saveMultipleBoosters(sqliteBoosters)
                             }
 
                             Log.i("FirebaseNotifications", "Vaccination booster data has been updated")

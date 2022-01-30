@@ -119,7 +119,7 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                         cthChart.addBar(BarModel("M", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Mon") }.size.toFloat(),green))
                         cthChart.addBar(BarModel("T", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Tue") }.size.toFloat(),green))
                         cthChart.addBar(BarModel("W", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Wed") }.size.toFloat(),green))
-                        cthChart.addBar(BarModel("H", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Thu") }.size.toFloat(),green))
+                        cthChart.addBar(BarModel("T", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Thu") }.size.toFloat(),green))
                         cthChart.addBar(BarModel("F", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Fri") }.size.toFloat(),green))
                         cthChart.addBar(BarModel("S", filteredRecords.filter { getDayOfTheWeek(it.timestamp).equals("Sat") }.size.toFloat(),green))
                         // start chart animation
@@ -132,7 +132,7 @@ class ContactTracingFragment : Fragment(R.layout.fragment_contact_tracing) {
                     cthChart.addBar(BarModel("M", 0f,green))
                     cthChart.addBar(BarModel("T", 0f,green))
                     cthChart.addBar(BarModel("W", 0f,green))
-                    cthChart.addBar(BarModel("H", 0f,green))
+                    cthChart.addBar(BarModel("T", 0f,green))
                     cthChart.addBar(BarModel("F", 0f,green))
                     cthChart.addBar(BarModel("S", 0f,green))
                     // start chart animation
