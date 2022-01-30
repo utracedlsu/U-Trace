@@ -116,6 +116,24 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             Preference.putVaxDose(applicationContext, vax2ndDose.toString(), 2)
                             Preference.putVaxManufacturer(applicationContext, vaxManufacturer.toString())
                             Log.i("FirebaseNotifications", "Vaccination data has been updated")
+
+                            val boostersArray = snapshot?.get("vax_booster") as ArrayList<HashMap<String, Object>>
+                            var sqliteBoosters = ArrayList<VaxBoosterRecord>()
+
+                            if(boostersArray.size > 0){
+                                for (fsBooster in boostersArray){
+                                    sqliteBoosters.add(VaxBoosterRecord(
+                                        vaxbrand = fsBooster.get("vax_manufacturer").toString(),
+                                        date = fsBooster.get("date").toString()
+                                    ))
+                                }
+
+                                GlobalScope.launch {
+                                    vaxBoosterRecordStorage.nukeDb()
+                                    vaxBoosterRecordStorage.saveMultipleBoosters(sqliteBoosters)
+                                }
+                            }
+
                         } else {
                             Log.e("FirebaseNotifications", "Failed to get vaccine data: ${task.exception?.message}")
                         }
