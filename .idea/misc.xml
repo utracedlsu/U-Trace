@@ -46,7 +46,7 @@
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_main.xml" value="0.15670289855072464" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_otp_activation.xml" value="0.264" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_register.xml" value="0.4" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_test_status.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_test_status.xml" value="0.2" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_upload_data.xml" value="0.19519927536231885" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/boosters_list.xml" value="0.4" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_blank.xml" value="0.536" />
@@ -78,7 +78,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
