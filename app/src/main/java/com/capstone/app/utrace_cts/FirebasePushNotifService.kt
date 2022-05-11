@@ -153,6 +153,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             val vaxManufacturer = snapshot?.getString("vax_manufacturer")
 
                             // 5/12/2022 - New Vaccination Database Attributes
+                            val vaxCategory = snapshot?.getString("vax_category")
                             val vaxLotNo = snapshot?.getString("vax_lotno")
                             val vaxBatchNo = snapshot?.getString("vax_batchno")
                             val vaxVaccinator = snapshot?.getString("vax_vaccinator")
@@ -164,6 +165,7 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             Preference.putVaxManufacturer(applicationContext, vaxManufacturer.toString())
 
                             // 5/12/2022 - New Vaccination Database Attributes
+                            Preference.putVaxCategory(applicationContext, vaxCategory.toString())
                             Preference.putVaxLotNo(applicationContext, vaxLotNo.toString())
                             Preference.putVaxBatchNo(applicationContext, vaxBatchNo.toString())
                             Preference.putVaxVaccinator(applicationContext, vaxVaccinator.toString())

@@ -247,6 +247,7 @@ class OtpActivationActivity : AppCompatActivity() {
                 Preference.putVaxManufacturer(applicationContext, "${result?.getString("vax_manufacturer")}")
 
                 // 5/12/2022 - New Vaccination Database Attributes
+                Preference.putVaxCategory(applicationContext, "${result?.getString("vax_category")}")
                 Preference.putVaxLotNo(applicationContext, "${result?.getString("vax_lotno")}")
                 Preference.putVaxBatchNo(applicationContext, "${result?.getString("vax_batchno")}")
                 Preference.putVaxVaccinator(applicationContext, "${result?.getString("vax_vaccinator")}")
@@ -334,6 +335,7 @@ class OtpActivationActivity : AppCompatActivity() {
                     "vax_manufacturer" to "",
                     "vax_1stdose" to "",
                     "vax_2nddose" to "",
+                    "vax_category" to "",
                     "vax_lotno" to "",
                     "vax_batchno" to "",
                     "vax_vaccinator" to "",

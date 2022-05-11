@@ -17,6 +17,8 @@ object Preference {
     private const val VAX_MANUFACTURER = "VAX_MANUFACTURER"
     private const val VAX_1STDOSE = "VAX_1STDOSE"
     private const val VAX_2NDDOSE = "VAX_2NDDOSE"
+
+    private const val VAX_CATEGORY = "VAX_CATEGORY"
     private const val VAX_LOTNO = "VAX_LOTNO"
     private const val VAX_BATCHNO = "VAX_BATCHNO"
     private const val VAX_VACCINATOR = "VAX_VACCINATOR"
@@ -145,6 +147,16 @@ object Preference {
     fun getVaxManufacturer(context: Context): String {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getString(VAX_MANUFACTURER, "") ?: ""
+    }
+
+    fun putVaxCategory(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(VAX_CATEGORY, value).apply()
+    }
+
+    fun getVaxCategory(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(VAX_CATEGORY, "") ?: ""
     }
 
     fun putVaxLotNo(context: Context, value: String) {
