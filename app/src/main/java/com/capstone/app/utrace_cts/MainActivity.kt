@@ -2,6 +2,7 @@ package com.capstone.app.utrace_cts
 
 import android.Manifest
 import android.app.Activity
+import android.app.ActivityManager
 import android.app.AlertDialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
@@ -65,7 +66,14 @@ class MainActivity : AppCompatActivity() {
             if(!isLocationPermissionGranted){
                 requestLocationPermission()
             } else {
-                Utils.startBluetoothMonitoringService(this)
+
+                //Experimental: NEED TO FIX
+                if(checkBTMSStatus(BluetoothMonitoringService::class.java)){
+                  Log.d("MainActivityLog", "Bluetooth Monitoring Service is running, do not start")
+                } else {
+                    Log.d("MainActivityLog", "Starting Bluetooth Monitoring Service - User Login")
+                    Utils.startBluetoothMonitoringService(this)
+                }
             }
         }
     }
@@ -115,7 +123,12 @@ class MainActivity : AppCompatActivity() {
                     excludeFromBatteryOptimization()
                 } else {
                     excludeFromBatteryOptimization() //tentative location
-                    Utils.startBluetoothMonitoringService(this)
+                    if(checkBTMSStatus(BluetoothMonitoringService::class.java)){
+                        Log.d("MainActivityLog", "Bluetooth Monitoring Service is running, do not start")
+                    } else {
+                        Log.d("MainActivityLog", "Starting Bluetooth Monitoring Service - User Login")
+                        Utils.startBluetoothMonitoringService(this)
+                    }
                 }
             }
         }
@@ -184,6 +197,28 @@ class MainActivity : AppCompatActivity() {
             transaction.replace(R.id.fragmentHolder, fragment)
             transaction.commit()
         }
+    }
+
+
+    //check if bt monitoring service is running
+    private fun checkBTMSStatus(serviceClass: Class<BluetoothMonitoringService>): Boolean {
+        var manager: ActivityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (service in manager.runningAppProcesses) {
+            if (serviceClass.getName().equals(service.processName)) {
+                return true
+            }
+        }
+        return false
+    }
+
+
+    //check if bt monitoring service is running (V2 - Kotlin Oriented)
+    private fun checkAppStatusV2(context: Context): Boolean {
+        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        return activityManager.appTasks
+            .filter { it.taskInfo != null }
+            .filter { it.taskInfo.baseActivity != null }
+            .any { it.taskInfo.baseActivity?.packageName == context.packageName }
     }
 
     //check if user is already logged in, if not then send to login page

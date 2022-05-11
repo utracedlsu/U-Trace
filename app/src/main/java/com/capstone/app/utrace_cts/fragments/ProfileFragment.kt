@@ -68,6 +68,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         tv_vaxBrand = view.findViewById(R.id.tv_vaxBrand)
         tv_firstDose = view.findViewById(R.id.tv_firstDose)
         tv_secondDose = view.findViewById(R.id.tv_secondDose)
+
+        //TODO: ADD NEW VACCINATION INFORMATION TVs (LotNo, BatchNo, Vaccinator, Facility)
+
         rv_boosters = view.findViewById(R.id.rv_boosters)
         btn_verifyAcc = view.findViewById(R.id.btn_verifyAcc)
         btn_deleteAcc = view.findViewById(R.id.btn_deleteAcc)
@@ -151,6 +154,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         } else {
             tv_secondDose.setText("No second dose date set.")
         }
+
+        //TODO: SETUP NEW VACCINATION INFORMATION TVs (LotNo, BatchNo, Vaccinator, Facility)
+        // <TextView>.setText(Preference.getVaxLotNo(requireContext()))
+        // <TextView>.setText(Preference.getVaxBatchNo(requireContext()))
+        // <TextView>.setText(Preference.getVaxVaccinator(requireContext()))
+        // <TextView>.setText(Preference.getVaxFacility(requireContext()))
     }
 
     private fun getBoosterData(){

@@ -246,6 +246,12 @@ class OtpActivationActivity : AppCompatActivity() {
                 Preference.putVaxDose(applicationContext, "${result?.getString("vax_2nddose")}", 2)
                 Preference.putVaxManufacturer(applicationContext, "${result?.getString("vax_manufacturer")}")
 
+                // 5/12/2022 - New Vaccination Database Attributes
+                Preference.putVaxLotNo(applicationContext, "${result?.getString("vax_lotno")}")
+                Preference.putVaxBatchNo(applicationContext, "${result?.getString("vax_batchno")}")
+                Preference.putVaxVaccinator(applicationContext, "${result?.getString("vax_vaccinator")}")
+                Preference.putVaxFacility(applicationContext, "${result?.getString("vax_facility")}")
+
                 //covid tests insert
                 if(covidTests.size > 0){
                     Preference.putLastTestID(applicationContext, covidTests.last().get("testID").toString())
@@ -312,10 +318,6 @@ class OtpActivationActivity : AppCompatActivity() {
                 val city = signInMap.get("city") as String
                 val barangay = signInMap.get("barangay") as String
                 val street = signInMap.get("street") as String
-                val vaxID = ""
-                val vaxManufacturer = ""
-                val vax1stDose = ""
-                val vax2ndDose = ""
                 val covidTestsArray = ArrayList<String>() //array that should contain test result and test date
                 val isVerified = false
 
@@ -328,10 +330,14 @@ class OtpActivationActivity : AppCompatActivity() {
                     "barangay" to barangay,
                     "street" to street,
                     "phone" to phoneNum,
-                    "vax_ID" to vaxID,
-                    "vax_manufacturer" to vaxManufacturer,
-                    "vax_1stdose" to vax1stDose,
-                    "vax_2nddose" to vax2ndDose,
+                    "vax_ID" to "",
+                    "vax_manufacturer" to "",
+                    "vax_1stdose" to "",
+                    "vax_2nddose" to "",
+                    "vax_lotno" to "",
+                    "vax_batchno" to "",
+                    "vax_vaccinator" to "",
+                    "vax_facility" to "",
                     "vax_booster" to covidTestsArray, //just an empty array, so use the same var
                     "covid_tests" to covidTestsArray,
                     "covid_positive" to "Untested", //untested, positive, or negative ONLY
@@ -340,7 +346,7 @@ class OtpActivationActivity : AppCompatActivity() {
                     "fcm_token" to Preference.getCloudMessagingToken(applicationContext),
                     "document_status" to "published"
                 )
-                //another random comment
+
                 Log.d("OTPActivation", "{$fname, $lname, $phoneNum")
 
                 val newUser = fAuth.currentUser

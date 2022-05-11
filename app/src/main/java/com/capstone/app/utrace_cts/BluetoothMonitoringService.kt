@@ -1,6 +1,7 @@
 package com.capstone.app.utrace_cts
 
 import android.Manifest
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
@@ -60,6 +61,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         get() = Dispatchers.Main + job
 
     var worker: StreetPassWorker? = null
+    lateinit var notif: Notification
 
     private var notificationShown: NOTIFICATION_STATE? = null
 
@@ -174,7 +176,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
     private fun notifyLackingThings(override: Boolean = false){
         if(notificationShown != NOTIFICATION_STATE.LACKING_THINGS || override){
-            var notif = NotificationTemplates.lackingThingsNotification(this.applicationContext, CHANNEL_ID)
+            notif = NotificationTemplates.lackingThingsNotification(this.applicationContext, CHANNEL_ID)
             startForeground(NOTIFICATION_ID, notif)
             notificationShown = NOTIFICATION_STATE.LACKING_THINGS
         }
@@ -182,7 +184,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
 
     private fun notifyRunning(override: Boolean = false){
         if (notificationShown != NOTIFICATION_STATE.RUNNING || override) {
-            var notif = NotificationTemplates.getRunningNotification(this.applicationContext, CHANNEL_ID)
+            notif = NotificationTemplates.getRunningNotification(this.applicationContext, CHANNEL_ID)
             startForeground(NOTIFICATION_ID, notif)
             notificationShown = NOTIFICATION_STATE.RUNNING
         }
@@ -523,7 +525,7 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         job.cancel()
 
         //remove notifications here
-        mNotifManager!!.cancelAll()
+        //mNotifManager!!.cancelAll()
         //stopForeground(true)
     }
 

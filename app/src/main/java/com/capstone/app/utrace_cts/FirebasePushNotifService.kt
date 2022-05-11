@@ -152,10 +152,22 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             val vax2ndDose = snapshot?.getString("vax_2nddose")
                             val vaxManufacturer = snapshot?.getString("vax_manufacturer")
 
+                            // 5/12/2022 - New Vaccination Database Attributes
+                            val vaxLotNo = snapshot?.getString("vax_lotno")
+                            val vaxBatchNo = snapshot?.getString("vax_batchno")
+                            val vaxVaccinator = snapshot?.getString("vax_vaccinator")
+                            val vaxFacility = snapshot?.getString("vax_facility")
+
                             Preference.putVaxID(applicationContext, vaxID.toString())
                             Preference.putVaxDose(applicationContext, vax1stDose.toString(), 1)
                             Preference.putVaxDose(applicationContext, vax2ndDose.toString(), 2)
                             Preference.putVaxManufacturer(applicationContext, vaxManufacturer.toString())
+
+                            // 5/12/2022 - New Vaccination Database Attributes
+                            Preference.putVaxLotNo(applicationContext, vaxLotNo.toString())
+                            Preference.putVaxBatchNo(applicationContext, vaxBatchNo.toString())
+                            Preference.putVaxVaccinator(applicationContext, vaxVaccinator.toString())
+                            Preference.putVaxFacility(applicationContext, vaxFacility.toString())
 
                             val boostersArray = snapshot?.get("vax_booster") as ArrayList<HashMap<String, Object>>
                             var sqliteBoosters = ArrayList<VaxBoosterRecord>()

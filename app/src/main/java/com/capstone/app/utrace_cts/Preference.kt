@@ -17,6 +17,10 @@ object Preference {
     private const val VAX_MANUFACTURER = "VAX_MANUFACTURER"
     private const val VAX_1STDOSE = "VAX_1STDOSE"
     private const val VAX_2NDDOSE = "VAX_2NDDOSE"
+    private const val VAX_LOTNO = "VAX_LOTNO"
+    private const val VAX_BATCHNO = "VAX_BATCHNO"
+    private const val VAX_VACCINATOR = "VAX_VACCINATOR"
+    private const val VAX_FACILITY = "VAX_FACILITY"
 
     //test data
     private const val LATEST_TESTSTATUS = "LATEST_TESTSTATUS"
@@ -141,6 +145,46 @@ object Preference {
     fun getVaxManufacturer(context: Context): String {
         return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .getString(VAX_MANUFACTURER, "") ?: ""
+    }
+
+    fun putVaxLotNo(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(VAX_LOTNO, value).apply()
+    }
+
+    fun getVaxLotNo(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(VAX_LOTNO, "") ?: ""
+    }
+
+    fun putVaxBatchNo(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(VAX_BATCHNO, value).apply()
+    }
+
+    fun getVaxBatchNo(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(VAX_BATCHNO, "") ?: ""
+    }
+
+    fun putVaxVaccinator(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(VAX_VACCINATOR, value).apply()
+    }
+
+    fun getVaxVaccinator(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(VAX_VACCINATOR, "") ?: ""
+    }
+
+    fun putVaxFacility(context: Context, value: String) {
+        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .edit().putString(VAX_FACILITY, value).apply()
+    }
+
+    fun getVaxFacility(context: Context): String {
+        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+            .getString(VAX_FACILITY, "") ?: ""
     }
 
     fun putCloudMessagingToken(context: Context, value: String){
