@@ -12,6 +12,7 @@
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_register.xml" value="0.33" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_test_status.xml" value="0.25" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_upload_data.xml" value="0.33" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/boosters_list.xml" value="0.33" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_confirm_account_deletion.xml" value="0.25" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_confirm_upload_data.xml" value="0.2483766233766234" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_contact_tracing.xml" value="0.33" />
@@ -20,6 +21,7 @@
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_settings.xml" value="0.22" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/notif_child.xml" value="0.12864583333333332" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/notif_list.xml" value="0.67" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/notif_parent.xml" value="0.12864583333333332" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/homenav.xml" value="0.2703125" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/nav_contacttracing.xml" value="0.2703125" />
@@ -78,7 +80,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

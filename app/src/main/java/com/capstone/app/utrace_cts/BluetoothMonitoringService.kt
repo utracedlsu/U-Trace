@@ -521,6 +521,10 @@ class BluetoothMonitoringService: Service(), CoroutineScope{
         worker?.unregisterReceivers()
 
         job.cancel()
+
+        //remove notifications here
+        mNotifManager!!.cancelAll()
+        //stopForeground(true)
     }
 
     //stop bluetooth monitoring service upon destroying

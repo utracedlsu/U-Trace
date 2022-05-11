@@ -148,8 +148,8 @@ class RegisterActivity : AppCompatActivity() {
             }
             "barangays" -> {
                 codeString = "city_code"
-                spinnerNamesData.add("Select Barangay")
-                spinnerIDsData.add("PLACEHOLDER")
+                //spinnerNamesData.add("Select Barangay")
+                //spinnerIDsData.add("PLACEHOLDER")
             }
         }
 
@@ -205,9 +205,15 @@ class RegisterActivity : AppCompatActivity() {
                             sp_city.setEnabled(true)
                         }
                         "barangays" -> {
+                            var placeholderBrgyNamesArray = arrayOf("Select Barangay")
+                            //var placeholderBrgyIDArray = arrayOf("PLACEHOLDER")
+
                             barangaysNamesArray = spinnerNamesData
+                            barangaysNamesArray.sort()
+
+                            // 5/11/22 - Realized that we don't use barangaysIDsArray at all
                             barangaysIDsArray = spinnerIDsData
-                            sp_barangay.adapter = ArrayAdapter(this, R.layout.style_spinner, barangaysNamesArray)
+                            sp_barangay.adapter = ArrayAdapter(this, R.layout.style_spinner, placeholderBrgyNamesArray.plus(barangaysNamesArray))
                             sp_barangay.setEnabled(true)
                         }
                     }

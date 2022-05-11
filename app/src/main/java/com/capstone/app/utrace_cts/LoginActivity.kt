@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
     //invalidates login textbox then sends user to otpActivationActivity
     fun loginOTP(){
-        if(!etLoginMobileNo.text.isEmpty()){
+        if(!etLoginMobileNo.text.isEmpty() && etLoginMobileNo.text.toString().length == 10){
             val phoneno = etLoginMobileNo.text.toString()
 
             //check if user exists in database
@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
         } else {
-            Toast.makeText(applicationContext, "lorem ipsum", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Please enter a valid phone number.", Toast.LENGTH_SHORT).show()
         }
     }
 
