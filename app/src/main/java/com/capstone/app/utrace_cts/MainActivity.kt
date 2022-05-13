@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
                     if(checkBTMSStatus(BluetoothMonitoringService::class.java)){
                         Log.d("MainActivityLog", "Bluetooth Monitoring Service is running, do not start")
                     } else {
-                        Log.d("MainActivityLog", "Starting Bluetooth Monitoring Service - User Login")
+                        Log.d("MainActivityLog", "Starting Bluetooth Monitoring Service - Battery Optimization")
                         Utils.startBluetoothMonitoringService(this)
                     }
                 }

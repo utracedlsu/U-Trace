@@ -470,23 +470,27 @@ class OtpActivationActivity : AppCompatActivity() {
                                                     finish() //monitor this, idk what happens pag finish lang
                                                 } else {
                                                     Log.e("ConfirmDelete", "Failed to delete auth: ${secondtask.exception?.message}")
+                                                    finish()
                                                 }
                                             }
                                         }
                                     }
                                 } else {
                                     Log.i("ConfirmDelete", "Unable to get record: ${recordCheck.exception?.message}")
+                                    finish()
                                 }
                             }
                         } else {
                             Log.e("ConfirmDelete", "Failed to delete FStore: ${task.exception?.message}")
                             Toast.makeText(applicationContext, "Unable to delete account right now, please try again later.", Toast.LENGTH_SHORT).show()
+                            finish()
                         }
                     }
                 } else {
                     Log.e("ConfirmDelete", "Failed to delete auth: ${zerotask.exception?.message}")
                     Toast.makeText(applicationContext, "Unable to delete user at this time, please try again later.", Toast.LENGTH_SHORT).show()
                     //TODO: Return to mainActivity / Home
+                    finish()
                 }
             }
         }
@@ -502,12 +506,15 @@ class OtpActivationActivity : AppCompatActivity() {
                     Preference.putVerification(applicationContext, "true")
 
                     Toast.makeText(applicationContext, "Your account has been successfully verified!", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+
+                    // 5/22/2022 - DO NOT start a new MainActivity. instead finish() and return to prev
+                    //val intent = Intent(this, MainActivity::class.java)
+                    //startActivity(intent)
                     finish()
                 } else {
                     Toast.makeText(applicationContext, "Error! ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                     Log.d("OTPActivation", "Error! ${task.exception?.message}")
+                    finish()
                 }
             }
     }

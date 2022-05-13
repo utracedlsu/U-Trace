@@ -79,13 +79,16 @@ class ConfirmUploadDataFragment: DialogFragment() {
 
             // btn logic: go to MainActivity
             btn_agreeConsent.setOnClickListener{
-                val intent = Intent(context, MainActivity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                intent.putExtra("EXIT", true)
-                startActivity(intent)
-                activity?.finish()
+
+                // 5/22/2022 - DO NOT start a new MainActivity. instead finish() and return to prev
+                //val intent = Intent(context, MainActivity::class.java)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                //intent.putExtra("EXIT", true)
+                //startActivity(intent)
+                //activity?.
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
             }
         }
         else if (!source) { // else, previous activity was UploadDataActivity
