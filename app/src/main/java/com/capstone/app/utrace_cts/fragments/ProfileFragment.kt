@@ -157,9 +157,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
         //TODO: SETUP NEW VACCINATION INFORMATION TVs (LotNo, BatchNo, Vaccinator, Facility)
         // <TextView>.setText(Preference.getVaxCategory(requireContext()))
-        // <TextView>.setText(Preference.getVaxLotNo(requireContext()))
-        // <TextView>.setText(Preference.getVaxBatchNo(requireContext()))
-        // <TextView>.setText(Preference.getVaxVaccinator(requireContext()))
+        // <TextView>.setText(Preference.getVaxLotNo(requireContext(), 1))
+        // <TextView>.setText(Preference.getVaxBatchNo(requireContext(), 1))
+        // <TextView>.setText(Preference.getVaxVaccinator(requireContext(), 1))
         // <TextView>.setText(Preference.getVaxFacility(requireContext()))
     }
 

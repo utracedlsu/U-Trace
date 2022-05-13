@@ -224,6 +224,7 @@ class OtpActivationActivity : AppCompatActivity() {
             if(task.isSuccessful){
                 Log.i("OTPActivation", "Retrieving data from firestore and saving to preferences...")
                 val result = task.result
+
                 val boosterArray = result?.get("vax_booster") as ArrayList<HashMap<String, Object>>
                 val covidTests = result?.get("covid_tests") as ArrayList<HashMap<String, Object>>
 
@@ -242,16 +243,26 @@ class OtpActivationActivity : AppCompatActivity() {
                 Preference.putTestStatus(applicationContext, "${result?.get("covid_positive").toString()}")
                 Preference.putLastTestDate(applicationContext, "${result?.getString("last_testdate")}")
                 Preference.putVaxID(applicationContext, "${result?.getString("vax_ID")}")
-                Preference.putVaxDose(applicationContext, "${result?.getString("vax_1stdose")}", 1)
-                Preference.putVaxDose(applicationContext, "${result?.getString("vax_2nddose")}", 2)
                 Preference.putVaxManufacturer(applicationContext, "${result?.getString("vax_manufacturer")}")
-
-                // 5/12/2022 - New Vaccination Database Attributes
                 Preference.putVaxCategory(applicationContext, "${result?.getString("vax_category")}")
-                Preference.putVaxLotNo(applicationContext, "${result?.getString("vax_lotno")}")
-                Preference.putVaxBatchNo(applicationContext, "${result?.getString("vax_batchno")}")
-                Preference.putVaxVaccinator(applicationContext, "${result?.getString("vax_vaccinator")}")
                 Preference.putVaxFacility(applicationContext, "${result?.getString("vax_facility")}")
+
+                // 5/13/2022 - Vaccination Data Redesign
+                val vax1Map = result?.get("vax_1stdose") as HashMap<String, Object>
+                if(!vax1Map.isEmpty()){
+                    Preference.putVaxDose(applicationContext, "${vax1Map.get("date").toString()}", 1)
+                    Preference.putVaxLotNo(applicationContext, "${vax1Map.get("lot_no").toString()}", 1)
+                    Preference.putVaxBatchNo(applicationContext, "${vax1Map.get("batch_no").toString()}", 1)
+                    Preference.putVaxVaccinator(applicationContext, "${vax1Map.get("lot_no").toString()}", 1)
+                }
+
+                val vax2Map = result?.get("vax_2nddose") as HashMap<String, Object>
+                if(!vax2Map.isEmpty()){
+                    Preference.putVaxDose(applicationContext, "${vax2Map.get("date").toString()}", 2)
+                    Preference.putVaxLotNo(applicationContext, "${vax2Map.get("lot_no").toString()}", 2)
+                    Preference.putVaxBatchNo(applicationContext, "${vax2Map.get("batch_no").toString()}", 2)
+                    Preference.putVaxVaccinator(applicationContext, "${vax2Map.get("lot_no").toString()}", 2)
+                }
 
                 //covid tests insert
                 if(covidTests.size > 0){
@@ -271,7 +282,12 @@ class OtpActivationActivity : AppCompatActivity() {
                     for (fsBooster in boosterArray){
                         sqliteBoosters.add(VaxBoosterRecord(
                             vaxbrand = fsBooster.get("vax_manufacturer").toString(),
-                            date = fsBooster.get("date").toString()
+                            date = fsBooster.get("date").toString(),
+                            blockno = fsBooster.get("blockno").toString(),
+                            lotno = fsBooster.get("lotno").toString(),
+                            vaccinator = fsBooster.get("vaccinator").toString(),
+                            category = fsBooster.get("category").toString(),
+                            facility = fsBooster.get("facility").toString()
                             ))
                     }
 
@@ -319,7 +335,8 @@ class OtpActivationActivity : AppCompatActivity() {
                 val city = signInMap.get("city") as String
                 val barangay = signInMap.get("barangay") as String
                 val street = signInMap.get("street") as String
-                val covidTestsArray = ArrayList<String>() //array that should contain test result and test date
+                val emptyRegMap = HashMap<String, Object>()
+                val emptyRegArray = ArrayList<String>() //just an empty array for registering
                 val isVerified = false
 
                 val fStoreInsertMap = hashMapOf(
@@ -333,15 +350,12 @@ class OtpActivationActivity : AppCompatActivity() {
                     "phone" to phoneNum,
                     "vax_ID" to "",
                     "vax_manufacturer" to "",
-                    "vax_1stdose" to "",
-                    "vax_2nddose" to "",
                     "vax_category" to "",
-                    "vax_lotno" to "",
-                    "vax_batchno" to "",
-                    "vax_vaccinator" to "",
-                    "vax_facility" to "",
-                    "vax_booster" to covidTestsArray, //just an empty array, so use the same var
-                    "covid_tests" to covidTestsArray,
+                    "vax_1stdose" to emptyRegMap, //map which will contain date, lot, batch, facility, vaccinator
+                    "vax_2nddose" to emptyRegMap,
+                    "vax_facility" to "", //might be removed later
+                    "vax_booster" to emptyRegArray, //just an empty array, so use the same var
+                    "covid_tests" to emptyRegArray,
                     "covid_positive" to "Untested", //untested, positive, or negative ONLY
                     "last_testdate" to "",
                     "verification" to isVerified,

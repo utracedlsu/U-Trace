@@ -106,15 +106,33 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             val snapshot = task.result
 
                             val vaxID = snapshot?.getString("vax_ID")
-                            val vax1stDose = snapshot?.getString("vax_1stdose")
-                            val vax2ndDose = snapshot?.getString("vax_2nddose")
                             val vaxManufacturer = snapshot?.getString("vax_manufacturer")
+                            val vaxCategory = snapshot?.getString("vax_category")
+                            val vaxFacility = snapshot?.getString("vax_facility")
 
                             //save latest vax data to preferences
                             Preference.putVaxID(applicationContext, vaxID.toString())
-                            Preference.putVaxDose(applicationContext, vax1stDose.toString(), 1)
-                            Preference.putVaxDose(applicationContext, vax2ndDose.toString(), 2)
                             Preference.putVaxManufacturer(applicationContext, vaxManufacturer.toString())
+                            Preference.putVaxCategory(applicationContext, vaxCategory.toString())
+                            Preference.putVaxFacility(applicationContext, vaxFacility.toString())
+
+                            // 5/13/2022 - Vaccination Data Redesign
+                            val vax1Map = snapshot?.get("vax_1stdose") as HashMap<String, Object>
+                            if(!vax1Map.isEmpty()){
+                                Preference.putVaxDose(applicationContext, "${vax1Map.get("date").toString()}", 1)
+                                Preference.putVaxLotNo(applicationContext, "${vax1Map.get("lot_no").toString()}", 1)
+                                Preference.putVaxBatchNo(applicationContext, "${vax1Map.get("batch_no").toString()}", 1)
+                                Preference.putVaxVaccinator(applicationContext, "${vax1Map.get("lot_no").toString()}", 1)
+                            }
+
+                            val vax2Map = snapshot?.get("vax_2nddose") as HashMap<String, Object>
+                            if(!vax2Map.isEmpty()){
+                                Preference.putVaxDose(applicationContext, "${vax2Map.get("date").toString()}", 2)
+                                Preference.putVaxLotNo(applicationContext, "${vax2Map.get("lot_no").toString()}", 2)
+                                Preference.putVaxBatchNo(applicationContext, "${vax2Map.get("batch_no").toString()}", 2)
+                                Preference.putVaxVaccinator(applicationContext, "${vax2Map.get("lot_no").toString()}", 2)
+                            }
+
                             Log.i("FirebaseNotifications", "Vaccination data has been updated")
 
                             val boostersArray = snapshot?.get("vax_booster") as ArrayList<HashMap<String, Object>>
@@ -124,7 +142,12 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                                 for (fsBooster in boostersArray){
                                     sqliteBoosters.add(VaxBoosterRecord(
                                         vaxbrand = fsBooster.get("vax_manufacturer").toString(),
-                                        date = fsBooster.get("date").toString()
+                                        date = fsBooster.get("date").toString(),
+                                        blockno = fsBooster.get("blockno").toString(),
+                                        lotno = fsBooster.get("lotno").toString(),
+                                        vaccinator = fsBooster.get("vaccinator").toString(),
+                                        category = fsBooster.get("category").toString(),
+                                        facility = fsBooster.get("facility").toString()
                                     ))
                                 }
 
@@ -148,28 +171,31 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             val snapshot = task.result
 
                             val vaxID = snapshot?.getString("vax_ID")
-                            val vax1stDose = snapshot?.getString("vax_1stdose")
-                            val vax2ndDose = snapshot?.getString("vax_2nddose")
                             val vaxManufacturer = snapshot?.getString("vax_manufacturer")
-
-                            // 5/12/2022 - New Vaccination Database Attributes
                             val vaxCategory = snapshot?.getString("vax_category")
-                            val vaxLotNo = snapshot?.getString("vax_lotno")
-                            val vaxBatchNo = snapshot?.getString("vax_batchno")
-                            val vaxVaccinator = snapshot?.getString("vax_vaccinator")
                             val vaxFacility = snapshot?.getString("vax_facility")
 
                             Preference.putVaxID(applicationContext, vaxID.toString())
-                            Preference.putVaxDose(applicationContext, vax1stDose.toString(), 1)
-                            Preference.putVaxDose(applicationContext, vax2ndDose.toString(), 2)
                             Preference.putVaxManufacturer(applicationContext, vaxManufacturer.toString())
-
-                            // 5/12/2022 - New Vaccination Database Attributes
                             Preference.putVaxCategory(applicationContext, vaxCategory.toString())
-                            Preference.putVaxLotNo(applicationContext, vaxLotNo.toString())
-                            Preference.putVaxBatchNo(applicationContext, vaxBatchNo.toString())
-                            Preference.putVaxVaccinator(applicationContext, vaxVaccinator.toString())
                             Preference.putVaxFacility(applicationContext, vaxFacility.toString())
+
+                            // 5/13/2022 - Vaccination Data Redesign
+                            val vax1Map = snapshot?.get("vax_1stdose") as HashMap<String, Object>
+                            if(!vax1Map.isEmpty()){
+                                Preference.putVaxDose(applicationContext, "${vax1Map.get("date").toString()}", 1)
+                                Preference.putVaxLotNo(applicationContext, "${vax1Map.get("lot_no").toString()}", 1)
+                                Preference.putVaxBatchNo(applicationContext, "${vax1Map.get("batch_no").toString()}", 1)
+                                Preference.putVaxVaccinator(applicationContext, "${vax1Map.get("lot_no").toString()}", 1)
+                            }
+
+                            val vax2Map = snapshot?.get("vax_2nddose") as HashMap<String, Object>
+                            if(!vax2Map.isEmpty()){
+                                Preference.putVaxDose(applicationContext, "${vax2Map.get("date").toString()}", 2)
+                                Preference.putVaxLotNo(applicationContext, "${vax2Map.get("lot_no").toString()}", 2)
+                                Preference.putVaxBatchNo(applicationContext, "${vax2Map.get("batch_no").toString()}", 2)
+                                Preference.putVaxVaccinator(applicationContext, "${vax2Map.get("lot_no").toString()}", 2)
+                            }
 
                             val boostersArray = snapshot?.get("vax_booster") as ArrayList<HashMap<String, Object>>
                             var sqliteBoosters = ArrayList<VaxBoosterRecord>()
@@ -177,7 +203,12 @@ class FirebasePushNotifService: FirebaseMessagingService() {
                             for (fsBooster in boostersArray){
                                 sqliteBoosters.add(VaxBoosterRecord(
                                     vaxbrand = fsBooster.get("vax_manufacturer").toString(),
-                                    date = fsBooster.get("date").toString()
+                                    date = fsBooster.get("date").toString(),
+                                    blockno = fsBooster.get("blockno").toString(),
+                                    lotno = fsBooster.get("lotno").toString(),
+                                    vaccinator = fsBooster.get("vaccinator").toString(),
+                                    category = fsBooster.get("category").toString(),
+                                    facility = fsBooster.get("facility").toString()
                                 ))
                             }
 

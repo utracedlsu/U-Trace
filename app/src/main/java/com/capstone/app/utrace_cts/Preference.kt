@@ -15,14 +15,18 @@ object Preference {
     //vaccination data
     private const val VAX_ID = "VAX_ID"
     private const val VAX_MANUFACTURER = "VAX_MANUFACTURER"
+    private const val VAX_CATEGORY = "VAX_CATEGORY"
+    private const val VAX_FACILITY = "VAX_FACILITY"
+
     private const val VAX_1STDOSE = "VAX_1STDOSE"
     private const val VAX_2NDDOSE = "VAX_2NDDOSE"
+    private const val VAX_1STLOTNO = "VAX_1STLOTNO"
+    private const val VAX_2NDLOTNO = "VAX_2NDLOTNO"
+    private const val VAX_1STBATCHNO = "VAX_1STBATCHNO"
+    private const val VAX_2NDBATCHNO = "VAX_2NDBATCHNO"
+    private const val VAX_1STVACCINATOR = "VAX_1STVACCINATOR"
+    private const val VAX_2NDVACCINATOR = "VAX_2NDVACCINATOR"
 
-    private const val VAX_CATEGORY = "VAX_CATEGORY"
-    private const val VAX_LOTNO = "VAX_LOTNO"
-    private const val VAX_BATCHNO = "VAX_BATCHNO"
-    private const val VAX_VACCINATOR = "VAX_VACCINATOR"
-    private const val VAX_FACILITY = "VAX_FACILITY"
 
     //test data
     private const val LATEST_TESTSTATUS = "LATEST_TESTSTATUS"
@@ -119,26 +123,6 @@ object Preference {
             .getString(VAX_ID, "") ?: ""
     }
 
-    fun putVaxDose(context: Context, value: String, doseNum: Int){
-        if(doseNum == 1) {
-            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-                .edit().putString(VAX_1STDOSE, value).apply()
-        } else {
-            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-                .edit().putString(VAX_2NDDOSE, value).apply()
-        }
-    }
-
-    fun getVaxDose(context: Context, doseNum: Int): String {
-        if(doseNum == 1) {
-            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-                .getString(VAX_1STDOSE, "") ?: ""
-        } else {
-            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-                .getString(VAX_2NDDOSE, "") ?: ""
-        }
-    }
-
     fun putVaxManufacturer(context: Context, value: String) {
         context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
             .edit().putString(VAX_MANUFACTURER, value).apply()
@@ -159,34 +143,84 @@ object Preference {
             .getString(VAX_CATEGORY, "") ?: ""
     }
 
-    fun putVaxLotNo(context: Context, value: String) {
-        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-            .edit().putString(VAX_LOTNO, value).apply()
+    fun putVaxDose(context: Context, value: String, doseNum: Int){
+        if(doseNum == 1) {
+            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .edit().putString(VAX_1STDOSE, value).apply()
+        } else {
+            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .edit().putString(VAX_2NDDOSE, value).apply()
+        }
     }
 
-    fun getVaxLotNo(context: Context): String {
-        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-            .getString(VAX_LOTNO, "") ?: ""
+    fun getVaxDose(context: Context, doseNum: Int): String {
+        if(doseNum == 1) {
+            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .getString(VAX_1STDOSE, "") ?: ""
+        } else {
+            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .getString(VAX_2NDDOSE, "") ?: ""
+        }
     }
 
-    fun putVaxBatchNo(context: Context, value: String) {
-        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-            .edit().putString(VAX_BATCHNO, value).apply()
+    fun putVaxLotNo(context: Context, value: String, doseNum: Int) {
+        if(doseNum == 1) {
+            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .edit().putString(VAX_1STLOTNO, value).apply()
+        } else {
+            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .edit().putString(VAX_2NDLOTNO, value).apply()
+        }
     }
 
-    fun getVaxBatchNo(context: Context): String {
-        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-            .getString(VAX_BATCHNO, "") ?: ""
+    fun getVaxLotNo(context: Context, doseNum: Int): String {
+        if(doseNum == 1) {
+            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .getString(VAX_1STLOTNO, "") ?: ""
+        } else {
+            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .getString(VAX_2NDLOTNO, "") ?: ""
+        }
     }
 
-    fun putVaxVaccinator(context: Context, value: String) {
-        context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-            .edit().putString(VAX_VACCINATOR, value).apply()
+    fun putVaxBatchNo(context: Context, value: String, doseNum: Int) {
+        if(doseNum == 1) {
+            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .edit().putString(VAX_1STBATCHNO, value).apply()
+        } else {
+            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .edit().putString(VAX_2NDBATCHNO, value).apply()
+        }
     }
 
-    fun getVaxVaccinator(context: Context): String {
-        return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
-            .getString(VAX_VACCINATOR, "") ?: ""
+    fun getVaxBatchNo(context: Context, doseNum: Int): String {
+        if(doseNum == 1) {
+            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .getString(VAX_1STBATCHNO, "") ?: ""
+        } else {
+            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .getString(VAX_2NDBATCHNO, "") ?: ""
+        }
+    }
+
+    fun putVaxVaccinator(context: Context, value: String, doseNum: Int) {
+        if(doseNum == 1) {
+            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .edit().putString(VAX_1STVACCINATOR, value).apply()
+        } else {
+            context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .edit().putString(VAX_2NDVACCINATOR, value).apply()
+        }
+    }
+
+    fun getVaxVaccinator(context: Context, doseNum: Int): String {
+        if(doseNum == 1) {
+            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .getString(VAX_1STVACCINATOR, "") ?: ""
+        } else {
+            return context.getSharedPreferences(PREF_ID, Context.MODE_PRIVATE)
+                .getString(VAX_2NDVACCINATOR, "") ?: ""
+        }
     }
 
     fun putVaxFacility(context: Context, value: String) {
