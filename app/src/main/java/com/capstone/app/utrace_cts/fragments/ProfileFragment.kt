@@ -48,10 +48,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private lateinit var tv_vaxBrand : TextView
     private lateinit var tv_firstDose : TextView
     private lateinit var tv_secondDose : TextView
+    private lateinit var tv_vaxFacility : TextView
+    private lateinit var tv_vaxCategory : TextView
     private lateinit var rv_boosters: RecyclerView
     private lateinit var btn_verifyAcc : Button
     private lateinit var btn_deleteAcc : Button
     private lateinit var btn_logout: Button
+    private lateinit var ll_firstDose : LinearLayout
+    private lateinit var ll_secondDose : LinearLayout
 
     private lateinit var boosterList : ArrayList<Booster>
 
@@ -69,7 +73,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         tv_firstDose = view.findViewById(R.id.tv_firstDose)
         tv_secondDose = view.findViewById(R.id.tv_secondDose)
 
-        //TODO: ADD NEW VACCINATION INFORMATION TVs (LotNo, BatchNo, Vaccinator, Facility)
+        tv_vaxFacility = view.findViewById(R.id.tv_vaxFacility)
+        tv_vaxCategory = view.findViewById(R.id.tv_vaxCategory)
+        ll_firstDose = view.findViewById(R.id.ll_firstDose)
+        ll_secondDose = view.findViewById(R.id.ll_secondDose)
 
         rv_boosters = view.findViewById(R.id.rv_boosters)
         btn_verifyAcc = view.findViewById(R.id.btn_verifyAcc)
@@ -109,6 +116,37 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         // logout -- go to login activity
         btn_logout.setOnClickListener {
             builder.show()
+        }
+
+
+        if (/* TODO: user has taken their first dose*/) {
+            // when user clicks first dose, show dialog popup containing details of first dose (Date, Batch #, Lot#, Vaccinator)
+            ll_firstDose.setOnClickListener {
+                val firstDoseDialog = VaccinationDetailsFragment()
+                val bundle = Bundle()
+                // TODO: put first dose details on bundle
+
+
+
+
+                firstDoseDialog.arguments = bundle
+                firstDoseDialog.show(parentFragmentManager, "firstDoseDialog")
+            }
+        }
+
+        if (/* TODO:  user has taken their first dose*/) {
+            // when user clicks second dose, show dialog popup containing details of second dose (Date, Batch #, Lot#, Vaccinator)
+            ll_secondDose.setOnClickListener {
+                val secondDoseDialog = VaccinationDetailsFragment()
+                val bundle = Bundle()
+                // TODO: put first dose details on bundle
+
+
+
+
+                secondDoseDialog.arguments = bundle
+                secondDoseDialog.show(parentFragmentManager, "secondDoseDialog")
+            }
         }
     }
 
