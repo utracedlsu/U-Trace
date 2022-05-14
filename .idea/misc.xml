@@ -52,7 +52,9 @@
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_test_status.xml" value="0.2" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_upload_data.xml" value="0.19519927536231885" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/boosters_list.xml" value="0.4" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fargment_boosteraddinfo.xml" value="0.5" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_blank.xml" value="0.536" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_boosteraddinfo.xml" value="0.5" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_confirm_account_deletion.xml" value="0.29257246376811596" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_confirm_upload_data.xml" value="0.4" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_contact_tracing.xml" value="0.4" />
@@ -60,7 +62,7 @@
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_notifications.xml" value="0.264" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_profile.xml" value="0.5" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_settings.xml" value="0.2" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_vaxaddinfo.xml" value="0.5" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_vaxaddinfo.xml" value="0.43737166324435317" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/notif_child.xml" value="0.72" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/notif_list.xml" value="0.4" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/style_spinner.xml" value="0.264" />

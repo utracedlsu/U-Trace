@@ -213,7 +213,32 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     for(booster in retrievedBoosters){
                         boosterList.add(Booster(booster.date, booster.vaxbrand))
                     }
-                    rv_boosters.adapter = BoosterAdapter(boosterList)
+
+                    // PREVIOUS CODE: rv_boosters.adapter = BoosterAdapter(boosterList)
+                    // just one line -- this one line is replaced by the several lines below
+                    // pag di gumana, use the above code ^
+
+                    var adapter = BoosterAdapter(boosterList)
+                    rv_boosters.adapter = adapter
+                    adapter.setOnItemClickListener(object: BoosterAdapter.onItemClickListener{
+                        override fun onItemClick(position: Int) {
+
+                            val boosterDetailsDialog = VaccinationDetailsFragment()
+                            val bundle = Bundle()
+                            // TODO: put *clicked* booster details on bundle
+
+
+
+
+                            boosterDetailsDialog.arguments = bundle
+                            boosterDetailsDialog.show(parentFragmentManager, "boosterDetailsDialog")
+                        }
+                    })
+
+
+
+
+
                 } else {
                     //TODO: Display 'No boosters' textview or something
                 }

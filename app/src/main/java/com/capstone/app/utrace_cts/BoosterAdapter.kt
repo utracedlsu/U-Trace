@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 class BoosterAdapter (private val boosterList: ArrayList<Booster>) : RecyclerView.Adapter<BoosterAdapter.BoosterViewHolder>() {
 
     private var grey: Int = Color.parseColor("#FDFCF1")
+    private lateinit var mListener: onItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoosterViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.boosters_list, parent, false)
 
         boosterList.sortByDescending { it.date }
 
-        return BoosterViewHolder(itemView)
+        return BoosterViewHolder(itemView, mListener)
     }
 
     override fun onBindViewHolder(holder: BoosterViewHolder, position: Int) {
@@ -32,9 +33,28 @@ class BoosterAdapter (private val boosterList: ArrayList<Booster>) : RecyclerVie
         return boosterList.size
     }
 
-    class BoosterViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class BoosterViewHolder(itemView : View, listener: onItemClickListener) : RecyclerView.ViewHolder(itemView) {
         val boosterShotDate  : TextView = itemView.findViewById(R.id.tv_boosterShotDate)
         val boosterShotBrand : TextView = itemView.findViewById(R.id.tv_boosterShotBrand)
         val boosterLayout : ConstraintLayout = itemView.findViewById(R.id.cl_boosterShot)
+
+        init {
+            itemView.setOnClickListener {
+                listener.onItemClick(adapterPosition)
+            }
+        }
+
+    }
+
+    interface onItemClickListener {
+
+        fun onItemClick(position: Int)
+
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener) {
+
+        mListener = listener
+
     }
 }
