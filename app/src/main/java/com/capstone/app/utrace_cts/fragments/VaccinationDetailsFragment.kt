@@ -30,15 +30,11 @@ class VaccinationDetailsFragment: DialogFragment() {
 
         // get data
         val bundle = arguments
-        //TODO: get data from bundle
-
-        // set data
-        //TODO: set data (retrieved from bundle)
-        tv_doseNo.text = ""
-        tv_doseDate.text = ""
-        tv_doseBatchNo.text = ""
-        tv_doseLotNo.text = ""
-        tv_doseVaccinator.text = ""
+        tv_doseNo.text = bundle?.getString("vax_dose")
+        tv_doseDate.text = bundle?.getString("vax_date")
+        tv_doseBatchNo.text = bundle?.getString("vax_batchno")
+        tv_doseLotNo.text = bundle?.getString("vax_lotno")
+        tv_doseVaccinator.text = bundle?.getString("vax_vaccinator")
 
         return content
     }

@@ -253,7 +253,7 @@ class OtpActivationActivity : AppCompatActivity() {
                     Preference.putVaxDose(applicationContext, "${vax1Map.get("date").toString()}", 1)
                     Preference.putVaxLotNo(applicationContext, "${vax1Map.get("lot_no").toString()}", 1)
                     Preference.putVaxBatchNo(applicationContext, "${vax1Map.get("batch_no").toString()}", 1)
-                    Preference.putVaxVaccinator(applicationContext, "${vax1Map.get("lot_no").toString()}", 1)
+                    Preference.putVaxVaccinator(applicationContext, "${vax1Map.get("vaccinator").toString()}", 1)
                 }
 
                 val vax2Map = result?.get("vax_2nddose") as HashMap<String, Object>
@@ -261,7 +261,7 @@ class OtpActivationActivity : AppCompatActivity() {
                     Preference.putVaxDose(applicationContext, "${vax2Map.get("date").toString()}", 2)
                     Preference.putVaxLotNo(applicationContext, "${vax2Map.get("lot_no").toString()}", 2)
                     Preference.putVaxBatchNo(applicationContext, "${vax2Map.get("batch_no").toString()}", 2)
-                    Preference.putVaxVaccinator(applicationContext, "${vax2Map.get("lot_no").toString()}", 2)
+                    Preference.putVaxVaccinator(applicationContext, "${vax2Map.get("vaccinator").toString()}", 2)
                 }
 
                 //covid tests insert

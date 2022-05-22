@@ -119,31 +119,31 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
 
 
-        if (/* TODO: user has taken their first dose*/) {
+        if (!Preference.getVaxDose(requireContext(), 1).equals("")) {
             // when user clicks first dose, show dialog popup containing details of first dose (Date, Batch #, Lot#, Vaccinator)
             ll_firstDose.setOnClickListener {
                 val firstDoseDialog = VaccinationDetailsFragment()
                 val bundle = Bundle()
-                // TODO: put first dose details on bundle
-
-
-
-
+                bundle.putString("vax_dose", "1")
+                bundle.putString("vax_date", Preference.getVaxDose(requireContext(), 1))
+                bundle.putString("vax_batchno", Preference.getVaxBatchNo(requireContext(), 1))
+                bundle.putString("vax_lotno", Preference.getVaxLotNo(requireContext(), 1))
+                bundle.putString("vax_vaccinator", Preference.getVaxVaccinator(requireContext(), 1))
                 firstDoseDialog.arguments = bundle
                 firstDoseDialog.show(parentFragmentManager, "firstDoseDialog")
             }
         }
 
-        if (/* TODO:  user has taken their first dose*/) {
+        if (!Preference.getVaxDose(requireContext(), 2).equals("")) {
             // when user clicks second dose, show dialog popup containing details of second dose (Date, Batch #, Lot#, Vaccinator)
             ll_secondDose.setOnClickListener {
                 val secondDoseDialog = VaccinationDetailsFragment()
                 val bundle = Bundle()
-                // TODO: put first dose details on bundle
-
-
-
-
+                bundle.putString("vax_dose", "2")
+                bundle.putString("vax_date", Preference.getVaxDose(requireContext(), 2))
+                bundle.putString("vax_batchno", Preference.getVaxBatchNo(requireContext(), 2))
+                bundle.putString("vax_lotno", Preference.getVaxLotNo(requireContext(), 2))
+                bundle.putString("vax_vaccinator", Preference.getVaxVaccinator(requireContext(), 2))
                 secondDoseDialog.arguments = bundle
                 secondDoseDialog.show(parentFragmentManager, "secondDoseDialog")
             }
@@ -171,7 +171,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun setVaxTVs(){
         if(!Preference.getVaxID(requireContext()).equals("")){
             tv_vaxID.setText(Preference.getVaxID(requireContext()))
+            tv_vaxFacility.setText(Preference.getVaxFacility(requireContext()))
+            tv_vaxCategory.setText(Preference.getVaxCategory(requireContext()))
         } else {
+            tv_vaxFacility.setText("No vaccine facility set.")
+            tv_vaxCategory.setText("No vaccine category set.")
             tv_vaxID.setText("No vaccine ID set.")
         }
 
@@ -192,13 +196,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         } else {
             tv_secondDose.setText("No second dose date set.")
         }
-
-        //TODO: SETUP NEW VACCINATION INFORMATION TVs (LotNo, BatchNo, Vaccinator, Facility)
-        // <TextView>.setText(Preference.getVaxCategory(requireContext()))
-        // <TextView>.setText(Preference.getVaxLotNo(requireContext(), 1))
-        // <TextView>.setText(Preference.getVaxBatchNo(requireContext(), 1))
-        // <TextView>.setText(Preference.getVaxVaccinator(requireContext(), 1))
-        // <TextView>.setText(Preference.getVaxFacility(requireContext()))
     }
 
     private fun getBoosterData(){
