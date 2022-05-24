@@ -283,8 +283,8 @@ class OtpActivationActivity : AppCompatActivity() {
                         sqliteBoosters.add(VaxBoosterRecord(
                             vaxbrand = fsBooster.get("vax_manufacturer").toString(),
                             date = fsBooster.get("date").toString(),
-                            blockno = fsBooster.get("blockno").toString(),
-                            lotno = fsBooster.get("lotno").toString(),
+                            blockno = fsBooster.get("batch_no").toString(),
+                            lotno = fsBooster.get("lot_no").toString(),
                             vaccinator = fsBooster.get("vaccinator").toString(),
                             category = fsBooster.get("category").toString(),
                             facility = fsBooster.get("facility").toString()

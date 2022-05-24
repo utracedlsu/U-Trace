@@ -124,7 +124,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             ll_firstDose.setOnClickListener {
                 val firstDoseDialog = VaccinationDetailsFragment()
                 val bundle = Bundle()
-                bundle.putString("vax_dose", "1")
+                bundle.putString("vax_dose", "First Dose Details")
                 bundle.putString("vax_date", Preference.getVaxDose(requireContext(), 1))
                 bundle.putString("vax_batchno", Preference.getVaxBatchNo(requireContext(), 1))
                 bundle.putString("vax_lotno", Preference.getVaxLotNo(requireContext(), 1))
@@ -139,7 +139,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             ll_secondDose.setOnClickListener {
                 val secondDoseDialog = VaccinationDetailsFragment()
                 val bundle = Bundle()
-                bundle.putString("vax_dose", "2")
+                bundle.putString("vax_dose", "Second Dose Details")
                 bundle.putString("vax_date", Preference.getVaxDose(requireContext(), 2))
                 bundle.putString("vax_batchno", Preference.getVaxBatchNo(requireContext(), 2))
                 bundle.putString("vax_lotno", Preference.getVaxLotNo(requireContext(), 2))
@@ -208,7 +208,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             .subscribe { retrievedBoosters ->
                 if(retrievedBoosters.size > 0){
                     for(booster in retrievedBoosters){
-                        boosterList.add(Booster(booster.date, booster.vaxbrand))
+                        boosterList.add(Booster(
+                            booster.date,
+                            booster.vaxbrand,
+                            booster.lotno,
+                            booster.blockno,
+                            booster.vaccinator,
+                            booster.category,
+                            booster.facility
+                            ))
                     }
 
                     // PREVIOUS CODE: rv_boosters.adapter = BoosterAdapter(boosterList)
@@ -220,22 +228,21 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     adapter.setOnItemClickListener(object: BoosterAdapter.onItemClickListener{
                         override fun onItemClick(position: Int) {
 
-                            val boosterDetailsDialog = VaccinationDetailsFragment()
+                            val boosterDetailsDialog = BoosterDetailsFragment()
                             val bundle = Bundle()
-                            // TODO: put *clicked* booster details on bundle
 
-
-
+                            bundle.putString("booster_date", boosterList.get(position).date)
+                            bundle.putString("booster_brand", boosterList.get(position).brand)
+                            bundle.putString("booster_facility", boosterList.get(position).facility)
+                            bundle.putString("booster_blockno", boosterList.get(position).blockno) //batch no
+                            bundle.putString("booster_lotno", boosterList.get(position).lotno)
+                            bundle.putString("booster_vaccinator", boosterList.get(position).vaccinator)
+                            bundle.putString("booster_category", boosterList.get(position).category)
 
                             boosterDetailsDialog.arguments = bundle
                             boosterDetailsDialog.show(parentFragmentManager, "boosterDetailsDialog")
                         }
                     })
-
-
-
-
-
                 } else {
                     //TODO: Display 'No boosters' textview or something
                 }

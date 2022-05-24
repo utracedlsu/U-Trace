@@ -32,17 +32,13 @@ class BoosterDetailsFragment: DialogFragment() {
 
         // get data
         val bundle = arguments
-        //TODO: get data from bundle
-
-        // set data
-        //TODO: set data (retrieved from bundle)
-        tv_boosterDate.text = ""
-        tv_boosterBrand.text = ""
-        tv_boosterFacility.text = ""
-        tv_boosterBatchNo.text = ""
-        tv_boosterLotNo.text = ""
-        tv_boosterVaccinator.text = ""
-        tv_boosterCategory.text = ""
+        tv_boosterDate.text = bundle?.getString("booster_date")
+        tv_boosterBrand.text = bundle?.getString("booster_brand")
+        tv_boosterFacility.text = bundle?.getString("booster_facility")
+        tv_boosterBatchNo.text = bundle?.getString("booster_blockno")
+        tv_boosterLotNo.text = bundle?.getString("booster_lotno")
+        tv_boosterVaccinator.text = bundle?.getString("booster_vaccinator")
+        tv_boosterCategory.text = bundle?.getString("booster_category")
 
         return content
     }
