@@ -22,6 +22,7 @@ import com.capstone.app.utrace_cts.status.persistence.StatusRecord
 import com.capstone.app.utrace_cts.status.persistence.StatusRecordStorage
 import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecord
 import com.capstone.app.utrace_cts.streetpass.persistence.StreetPassRecordStorage
+import com.capstone.app.utrace_cts.ui.util.LoadingDialog
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -48,6 +49,7 @@ class ConfirmUploadDataFragment: DialogFragment() {
     private var disposableObj: Disposable? = null
     private lateinit var mAuth: FirebaseAuth
     private var mUser: FirebaseUser? = null
+    private lateinit var loadingScreen: LoadingDialog
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -58,6 +60,7 @@ class ConfirmUploadDataFragment: DialogFragment() {
         //initialize firebase users and auth (for testing)
         mAuth = FirebaseAuth.getInstance()
         mUser = mAuth.currentUser
+        loadingScreen = LoadingDialog(requireActivity())
 
         Log.d("UploadFragment", "Current user is ${mUser?.uid}")
 
@@ -115,6 +118,7 @@ class ConfirmUploadDataFragment: DialogFragment() {
                     ).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io())
                         .subscribe { exportedData ->
                             if(exportedData.recordList.size > 0){
+                                loadingScreen.startLoading()
                                 Log.d("UploadFragment", "Records: ${exportedData.recordList}")
                                 Log.d("UploadFragment", "${exportedData.statusList}")
                                 Log.d("UploadFragment", "Timestamp: ${exportedData.statusList.get(0).timestamp}")
@@ -131,19 +135,23 @@ class ConfirmUploadDataFragment: DialogFragment() {
                                             uploadToken
                                         )
                                         task.addOnSuccessListener {
+                                            loadingScreen.loadingFinished()
                                             Log.d("UploadFragment", "Successfully Uploaded Records!")
                                             Toast.makeText(requireActivity().applicationContext, "Successfully Uploaded Records!", Toast.LENGTH_SHORT).show()
                                             dialog?.dismiss()
                                         }
                                         task.addOnFailureListener{
+                                            loadingScreen.loadingFinished()
                                             Log.d("UploadFragment", "Failed to upload records (task): ${it.message}")
                                             Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${it.message}", Toast.LENGTH_SHORT).show()
                                         }
                                     } catch(e: Exception){
+                                        loadingScreen.loadingFinished()
                                         Log.d("UploadFragment", "Failed to upload records (try exception): ${e.message}")
                                         Toast.makeText(requireActivity().applicationContext, "Failed to upload records: ${e.message}", Toast.LENGTH_SHORT).show()
                                     }
                                 }.addOnFailureListener {
+                                    loadingScreen.loadingFinished()
                                     Log.d("UploadFragment", "Failed to upload records (Invalid Code) ${it.message}")
                                     Toast.makeText(requireActivity().applicationContext, "Failed to upload records (Invalid Code ${it.message})", Toast.LENGTH_SHORT).show()
                                 }
