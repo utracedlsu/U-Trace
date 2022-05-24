@@ -38,7 +38,6 @@ class BoosterDetailsFragment: DialogFragment() {
         tv_boosterBatchNo.text = bundle?.getString("booster_blockno")
         tv_boosterLotNo.text = bundle?.getString("booster_lotno")
         tv_boosterVaccinator.text = bundle?.getString("booster_vaccinator")
-        tv_boosterCategory.text = bundle?.getString("booster_category")
 
         return content
     }
