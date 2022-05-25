@@ -246,6 +246,11 @@ class RegisterActivity : AppCompatActivity() {
             return false
         }
 
+        if (et_regMobileNo.length() != 10) {
+            et_regMobileNo.error = "Invalid mobile phone number (not exactly 10 digits)"
+            return false
+        }
+
         if (sp_region.selectedItem.toString() == "Select Region"){
             Toast.makeText(this, "Please select a Region.", Toast.LENGTH_LONG).show()
             return false
