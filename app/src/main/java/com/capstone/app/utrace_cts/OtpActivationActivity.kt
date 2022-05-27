@@ -68,9 +68,11 @@ class OtpActivationActivity : AppCompatActivity() {
         resendOTPTimer = object: CountDownTimer(61000, 1000){
             override fun onTick(millisUntilFinished: Long){
                 tvResendOTP.setText("Resend OTP (${millisUntilFinished/1000})")
+                tvResendOTP.setClickable(false)
+                tvResendOTP.setTextColor(Color.parseColor("#949494"))
             }
             override fun onFinish(){
-                tvResendOTP.setEnabled(true)
+                tvResendOTP.setClickable(true)
                 tvResendOTP.setTextColor(Color.parseColor("#428E5C"))
                 tvResendOTP.setText("Resend OTP")
             }
@@ -97,7 +99,6 @@ class OtpActivationActivity : AppCompatActivity() {
         tvResendOTP = findViewById(R.id.tv_resendOTP)
         btn_otpConfirm = findViewById(R.id.btn_otpConfirm)
 
-        tvResendOTP.setEnabled(false)
 
         signInMap = regMap as HashMap<String, Object>
         phoneNum = signInMap.get("phone") as String

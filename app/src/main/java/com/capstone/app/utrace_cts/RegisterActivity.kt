@@ -108,8 +108,13 @@ class RegisterActivity : AppCompatActivity() {
                         override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                             if(regionsNamesArray.get(position).equals("Select Region")){
                                 //disable spinners if no item is selected
+                                sp_province.setSelection(0)
                                 sp_province.setEnabled(false)
+                                
+                                sp_city.setSelection(0)
                                 sp_city.setEnabled(false)
+
+                                sp_barangay.setSelection(0)
                                 sp_barangay.setEnabled(false)
                             } else {
                                 //initialize spinner data for province
@@ -174,7 +179,9 @@ class RegisterActivity : AppCompatActivity() {
                                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                                     if(provincesNamesArray.get(position).equals("Select Province")){
                                         //disable spinners if no item is selected
+                                        sp_city.setSelection(0)
                                         sp_city.setEnabled(false)
+                                        sp_barangay.setSelection(0)
                                         sp_barangay.setEnabled(false)
                                     } else {
                                         //initialize spinner data for cities from selected province
@@ -195,6 +202,7 @@ class RegisterActivity : AppCompatActivity() {
                                 override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                                     if(citiesNamesArray.get(position).equals("Select City")){
                                         //disable spinner if no item is selected
+                                        sp_barangay.setSelection(0)
                                         sp_barangay.setEnabled(false)
                                     } else {
                                         //initialize spinner data for barangays from selected city
