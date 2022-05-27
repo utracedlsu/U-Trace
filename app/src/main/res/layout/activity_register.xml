@@ -160,11 +160,11 @@
                         android:id="@+id/LinearLayout2"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="5dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/LinearLayout">
+                        app:layout_constraintTop_toBottomOf="@+id/textView9">
 
                         <Spinner
                             android:id="@+id/sp_region"
@@ -297,6 +297,19 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/Linearlayout" />
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Note: Please use this phone's phone number."
+                        android:textColor="#7A557A62"
+                        android:textSize="10sp"
+                        android:textStyle="italic"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/LinearLayout" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
