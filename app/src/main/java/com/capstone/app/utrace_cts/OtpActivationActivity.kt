@@ -127,25 +127,25 @@ class OtpActivationActivity : AppCompatActivity() {
         when(intentSource){
             "RegisterActivity"->{
                 tvOTPText.setText(
-                    "An OTP has been sent to your device. Please enter the correct OTP in order to complete" +
+                    "An OTP has been sent to " + phoneNum + ". Please enter the correct OTP on this page in order to complete" +
                             " the user registration."
                 )
             }
             "LoginActivity"->{
                 tvOTPText.setText(
-                    "An OTP has been sent to your device. Please enter the correct OTP in order to complete" +
+                    "An OTP has been sent to " + phoneNum + ". Please enter the correct OTP on this page in order to complete" +
                             " user log in."
                 )
             }
             "UserVerification"->{
                 tvOTPText.setText(
-                    "An OTP has been sent to your device. Please enter the correct OTP in order to complete" +
+                    "An OTP has been sent to " + phoneNum + ". Please enter the correct OTP on this page in order to complete" +
                             " user verification."
                 )
             }
             "UserDeletion"->{
                 tvOTPText.setText(
-                    "An OTP has been sent to your device. Please enter the correct OTP in order to complete" +
+                    "An OTP has been sent to " + phoneNum + ". Please enter the correct OTP on this page in order to complete" +
                             " user deletion."
                 )
             }

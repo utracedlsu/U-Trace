@@ -304,7 +304,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="25dp"
                         android:layout_marginTop="5dp"
-                        android:text="Note: Please use this phone's phone number."
+                        android:text="Please use this device's mobile phone number."
                         android:textColor="#7A557A62"
                         android:textSize="10sp"
                         android:textStyle="italic"
