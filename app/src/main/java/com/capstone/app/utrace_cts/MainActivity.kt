@@ -291,6 +291,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     /*
+    override fun onDestroy() {
+        super.onDestroy()
+        Utils.endBluetoothMonitoringService(applicationContext)
+    }
+    */
+    /*
     //should minimize app if pressed
     override fun onBackPressed() {
         super.onBackPressed()

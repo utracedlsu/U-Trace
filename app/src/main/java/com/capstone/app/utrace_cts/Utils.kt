@@ -54,6 +54,13 @@ object Utils {
         Log.d("Utils", "startBluetoothMonitoringService()")
     }
 
+    fun endBluetoothMonitoringService(context: Context){
+        val intent = Intent(context, BluetoothMonitoringService::class.java)
+        context.stopService(intent)
+        Log.d("Utils", "stopBluetoothMonitoringService()")
+    }
+
+
     //used when saving timestamp from millis to dateformat
     fun getDate(milliSeconds: Long): String {
         val dateFormat = "dd/MM/yyyy HH:mm:ss.SSS"

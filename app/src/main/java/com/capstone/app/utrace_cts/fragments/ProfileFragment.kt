@@ -267,6 +267,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             intent.putExtra("EXIT", true)
             startActivity(intent)
+            Utils.endBluetoothMonitoringService(requireContext())
             activity?.finish()
         }
 

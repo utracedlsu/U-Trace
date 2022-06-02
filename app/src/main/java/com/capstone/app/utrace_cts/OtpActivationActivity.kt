@@ -321,7 +321,7 @@ class OtpActivationActivity : AppCompatActivity() {
         }
     }
 
-    //upon REGISTERING, should be renamed in order to avoid confusion
+    //upon REGISTERING
     private fun registerWithPhoneCredential(credential: PhoneAuthCredential){
         Log.d("OTPActivation", "Entering registerWithPhoneCredential")
         Log.d("OTPActivation", "credential: ${credential.toString()}")
@@ -440,6 +440,7 @@ class OtpActivationActivity : AppCompatActivity() {
                                                                 }
 
                                                             Log.i("ConfirmDelete", "Deleted everything, logging out")
+                                                            Utils.endBluetoothMonitoringService(applicationContext)
                                                             FirebaseAuth.getInstance().signOut()
                                                             val intent = Intent(applicationContext, LoginActivity::class.java)
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
