@@ -282,6 +282,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         disposableObj?.dispose()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(Preference.getVerification(requireContext()).equals("false")){
+            btn_verifyAcc.setOnClickListener {
+                goToOTP("UserVerification")
+            }
+        } else {
+            //disable verification button if already verified
+            btn_verifyAcc.setEnabled(false)
+            btn_verifyAcc.setText("ACCOUNT VERIFIED")
+        }
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of
