@@ -52,6 +52,7 @@
                 android:layout_marginTop="15dp"
                 android:ems="10"
                 android:hint='type the word "DELETE" to confirm'
+                android:textColor="#428E5C"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
                 android:textSize="14dp"

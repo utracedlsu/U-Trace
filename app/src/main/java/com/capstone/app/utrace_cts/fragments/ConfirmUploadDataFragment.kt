@@ -71,27 +71,21 @@ class ConfirmUploadDataFragment: DialogFragment() {
 
         tv_dataPrivConsent_content.movementMethod = ScrollingMovementMethod() // allow popup to be scrollable
 
-        // get data -- either from EnablingPermissionsActivity or UploadDataActivity
+        // get data -- either from RegisterActivity or UploadDataActivity
         val bundle = arguments
         val source: Boolean = bundle!!.getBoolean("source")
 
-        if (source) { // if previous activity was EnablingPermissionsActivity...
-
+        if (source) { // if previous activity was RegisterActivity...
+            val userDetails = bundle!!.getSerializable("USER_DETAILS") as HashMap<String, Object>
             // set appropriate button text for the popup
-            btn_agreeConsent.text = "I ACCEPT"
+            btn_agreeConsent.text = "AGREE AND REGISTER"
 
-            // btn logic: go to MainActivity
+            //Go to Register OTP
             btn_agreeConsent.setOnClickListener{
-
-                // 5/22/2022 - DO NOT start a new MainActivity. instead finish() and return to prev
-                //val intent = Intent(context, MainActivity::class.java)
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                //intent.putExtra("EXIT", true)
-                //startActivity(intent)
-                //activity?.
-                activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+                val otpIntent = Intent(requireContext(), OtpActivationActivity::class.java)
+                otpIntent.putExtra("USER_DETAILS", userDetails)
+                startActivity(otpIntent)
+                //activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
             }
         }
         else if (!source) { // else, previous activity was UploadDataActivity

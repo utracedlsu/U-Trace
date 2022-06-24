@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import com.capstone.app.utrace_cts.fragments.ConfirmUploadDataFragment
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -324,9 +325,19 @@ class RegisterActivity : AppCompatActivity() {
                                 Toast.makeText(applicationContext, "Someone else is using this phone number," +
                                         " please use a different one.", Toast.LENGTH_SHORT).show()
                             } else {
+                                // 6/24/2022 - defense revisions (registration consent)
+                                val confirmRegDialog = ConfirmUploadDataFragment()
+                                val confirmBundle = Bundle()
+                                confirmBundle.putBoolean("source", true)
+                                confirmBundle.putSerializable("USER_DETAILS", userDetails)
+                                confirmRegDialog.arguments = confirmBundle
+                                confirmRegDialog.show(supportFragmentManager, "confirmUploadDialog")
+
+                                /*
                                 val otpIntent = Intent(this, OtpActivationActivity::class.java)
                                 otpIntent.putExtra("USER_DETAILS", userDetails)
                                 startActivity(otpIntent)
+                                 */
                             }
                         }
                     } else {

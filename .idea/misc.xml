@@ -15,7 +15,8 @@
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/boosters_list.xml" value="0.33" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_boosteraddinfo.xml" value="0.5" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_confirm_account_deletion.xml" value="0.25" />
-        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_confirm_upload_data.xml" value="0.2483766233766234" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_confirm_register.xml" value="0.22" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_confirm_upload_data.xml" value="0.11" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_contact_tracing.xml" value="0.33" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.75" />
         <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_notifications.xml" value="0.11666666666666667" />
