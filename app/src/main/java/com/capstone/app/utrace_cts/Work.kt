@@ -6,7 +6,7 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import com.google.gson.Gson
-import com.capstone.app.utrace_cts.Streetpass.StreetPassWorker
+import com.capstone.app.utrace_cts.streetpass.StreetPassWorker
 import kotlin.properties.Delegates
 
 class Work constructor(

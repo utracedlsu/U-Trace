@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "122688814579",
-    "project_id": "u-trace-330014",
-    "storage_bucket": "u-trace-330014.appspot.com"
+    "project_number": "504780894570",
+    "project_id": "u-trace-332014",
+    "storage_bucket": "u-trace-332014.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:122688814579:android:df025eb3a3ad90739ae686",
+        "mobilesdk_app_id": "1:504780894570:android:a216b5f62fffc7c3afb513",
         "android_client_info": {
           "package_name": "com.capstone.app.utrace_cts"
         }
       },
       "oauth_client": [
         {
-          "client_id": "122688814579-251jkd6r9n8fbv963cbqh6mb47r0a86k.apps.googleusercontent.com",
+          "client_id": "504780894570-a625mtur5eo8p8uvmrqoqtn0bjfkcq58.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAlkdb-1WnSFe9FJfmJs7BjhKLjZPDBZW4"
+          "current_key": "AIzaSyAd-Ej-8-UM8NCZmcqw5Xwyw2IIUhiWtGY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "122688814579-251jkd6r9n8fbv963cbqh6mb47r0a86k.apps.googleusercontent.com",
+              "client_id": "504780894570-a625mtur5eo8p8uvmrqoqtn0bjfkcq58.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

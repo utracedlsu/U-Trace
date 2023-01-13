@@ -4,6 +4,29 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Denver/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout-xxxhdpi/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_enabling_permissions.xml" value="0.1" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_login.xml" value="0.25" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_otp_activation.xml" value="0.32222222222222224" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_test_status.xml" value="0.25" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/activity_upload_data.xml" value="0.33" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/boosters_list.xml" value="0.33" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_boosteraddinfo.xml" value="0.5" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_confirm_account_deletion.xml" value="0.25" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_confirm_register.xml" value="0.22" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_confirm_upload_data.xml" value="0.11" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_contact_tracing.xml" value="0.33" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.75" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_notifications.xml" value="0.11666666666666667" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_settings.xml" value="0.22" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/fragment_vaxaddinfo.xml" value="0.5" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/notif_child.xml" value="0.12864583333333332" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/notif_list.xml" value="0.67" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/notif_parent.xml" value="0.12864583333333332" />
+        <entry key="..\:/Users/Lex/AndroidStudioProjects/U-Trace/app/src/main/res/layout/style_spinner.xml" value="0.1296875" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/homenav.xml" value="0.2703125" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/nav_contacttracing.xml" value="0.2703125" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/drawable/nav_home.xml" value="0.2703125" />
@@ -16,7 +39,37 @@
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/layout/fragment_profile.xml" value="0.23369565217391305" />
         <entry key="..\:/Users/rjvdm/Documents/Capstone/utrace_cts/app/src/main/res/menu/menu.xml" value="0.264" />
-        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_profile.xml" value="0.2427536231884058" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/drawable/header.xml" value="0.2703125" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/drawable/roundedbutton.xml" value="0.3828125" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/drawable/style_spinner.xml" value="0.2703125" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/font/roboto.xml" value="0.284375" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-hdpi/fragment_home.xml" value="0.148224043715847" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-land/fragment_home.xml" value="0.21516754850088182" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-xhdpi/fragment_home.xml" value="0.6" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-xxhdpi/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout-xxxhdpi/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_enabling_permissions.xml" value="0.4" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_login.xml" value="0.4" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_main.xml" value="0.15670289855072464" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_otp_activation.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_register.xml" value="0.5" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_test_status.xml" value="0.2" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/activity_upload_data.xml" value="0.19519927536231885" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/boosters_list.xml" value="0.4" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fargment_boosteraddinfo.xml" value="0.5" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_blank.xml" value="0.536" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_boosteraddinfo.xml" value="0.5" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_confirm_account_deletion.xml" value="0.29257246376811596" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_confirm_upload_data.xml" value="0.4" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_contact_tracing.xml" value="0.4" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_home.xml" value="0.6" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_notifications.xml" value="0.264" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_profile.xml" value="0.5" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_settings.xml" value="0.2" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/fragment_vaxaddinfo.xml" value="0.5" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/notif_child.xml" value="0.72" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/notif_list.xml" value="0.4" />
+        <entry key="..\:/Users/rjvdm/Documents/GitHub/U-Trace/app/src/main/res/layout/style_spinner.xml" value="0.264" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/drawable/gradientbg.xml" value="0.2703125" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/drawable/nav_settings.xml" value="0.26615384615384613" />
         <entry key="..\:/Users/rjvdm/Documents/GitHub/u-trace_ui/app/src/main/res/layout/activity_enabling_permissions.xml" value="0.2" />
@@ -36,7 +89,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

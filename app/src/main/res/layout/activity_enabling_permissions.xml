@@ -47,7 +47,7 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
-                android:text="Please enable bluetooth permissons. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation."
+                android:text="U-Trace needs you to enable bluetooth permissions to allow the system's contact tracing functionality to work."
                 android:textColor="#428E5C"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

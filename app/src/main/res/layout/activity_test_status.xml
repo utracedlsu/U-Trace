@@ -10,36 +10,12 @@
 
     <ImageView
         android:id="@+id/iv_bgheader"
-        android:layout_width="match_parent"
-        android:layout_height="210dp"
+        android:layout_width="0dp"
+        android:layout_height="205dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bgheader" />
-
-    <TextView
-        android:id="@+id/tv_utrace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:text="U-TRACE"
-        android:textColor="#FFFEF6"
-        android:textSize="19sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_testStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="32dp"
-        android:text="TEST STATUS"
-        android:textColor="#D2FF99"
-        android:textSize="45sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/header" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -55,16 +31,44 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cv_testStatusInfo"
-                android:layout_width="374dp"
+            <TextView
+                android:id="@+id/tv_utrace"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="U-TRACE"
+                android:textColor="#FFFEF6"
+                android:textSize="19dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_testStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="41dp"
+                android:fontFamily="@font/roboto_light"
+                android:text="TEST STATUS"
+                android:textColor="#D2FF99"
+                android:textSize="45dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_basicUserInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginEnd="20dp"
                 app:cardBackgroundColor="#FFFEF6"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_testStatus"
                 app:strokeColor="#428E5C"
                 app:strokeWidth="2dp">
 
@@ -73,11 +77,14 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/tv_uploadDataTitle"
-                        android:layout_width="240dp"
-                        android:layout_height="36dp"
+                        android:id="@+id/tv_testDateHeader"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="80dp"
                         android:layout_marginTop="20dp"
-                        android:gravity="center_horizontal"
+                        android:layout_marginEnd="80dp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:gravity="center"
                         android:text="As of [date],"
                         android:textColor="#428E5C"
                         android:textStyle="normal"
@@ -86,42 +93,47 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_confirmationText"
-                        android:layout_width="320dp"
+                        android:id="@+id/tv_covidTestStatus"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="30dp"
+                        android:fontFamily="@font/roboto_bold"
                         android:gravity="center"
-                        android:text="You have not yet set your test status."
+                        android:text="Your test status has not yet been set."
                         android:textColor="#428E5C"
                         android:textSize="22sp"
                         android:textStyle="normal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_uploadDataTitle" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_testDateHeader" />
 
                     <TextView
                         android:id="@+id/tv_testStatusAddInfo"
-                        android:layout_width="320dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
                         android:layout_marginTop="15dp"
+                        android:layout_marginEnd="30dp"
+                        android:fontFamily="@font/roboto_regular"
                         android:gravity="center"
-                        android:text="Have you undergone testing? If yes, you can set your test status by clicking the button below."
+                        android:text="U-Trace heavily recommends you to take the neccessary steps should you test positive."
                         android:textColor="#428E5C"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_confirmationText" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_covidTestStatus" />
 
                     <Button
-                        android:id="@+id/button"
-                        android:layout_width="120dp"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="127dp"
+                        android:id="@+id/btn_updateTestStatus"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
                         android:layout_marginTop="15dp"
-                        android:layout_marginEnd="127dp"
+                        android:layout_marginEnd="30dp"
                         android:layout_marginBottom="25dp"
                         android:backgroundTint="#428E5C"
-                        android:text="UPDATE"
-                        android:textSize="11sp"
+                        android:text="REFRESH TEST STATUS"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -132,14 +144,16 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cv_testDetails"
-                android:layout_width="374dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
+                android:layout_marginEnd="20dp"
                 app:cardBackgroundColor="#FFFEF6"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cv_testStatusInfo">
+                app:layout_constraintTop_toBottomOf="@+id/cv_basicUserInfo">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -148,7 +162,7 @@
                     <LinearLayout
                         android:id="@+id/ll_statusBanner"
                         android:layout_width="match_parent"
-                        android:layout_height="22dp"
+                        android:layout_height="wrap_content"
                         android:background="#428E5C"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -159,41 +173,64 @@
                             android:id="@+id/tv_testDetails"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:paddingTop="1.5dp"
-                            android:text="TESTING DETAILS"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:gravity="center"
+                            android:letterSpacing="0.1"
+                            android:text="LATEST TESTING DETAILS"
                             android:textColor="#FFFFFF" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_fullName"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ll_statusBanner">
 
-                        <TextView
-                            android:id="@+id/textView3"
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="13dp"
-                            android:layout_weight="1"
-                            android:text="TEST ID"
-                            android:textColor="#2A8348"
-                            android:textStyle="bold" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
-                        <TextView
-                            android:id="@+id/tv_details_testID"
-                            android:layout_width="340dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="13dp"
-                            android:layout_weight="1"
-                            android:text="[0000000000000]"
-                            android:textColor="#2A8348" />
+                            <TextView
+                                android:id="@+id/textView3"
+                                android:layout_width="95dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="13dp"
+                                android:layout_weight="1"
+                                android:text="TEST ID"
+                                android:textColor="#2A8348"
+                                android:textSize="12dp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_details_testID"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="N/A"
+                                android:textColor="#2A8348"
+                                android:textSize="12dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/textView3"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -206,26 +243,149 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/ll_fullName">
 
-                        <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="13dp"
-                            android:layout_weight="1"
-                            android:text="DATE OF TEST"
-                            android:textColor="#2A8348"
-                            android:textStyle="bold" />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
 
-                        <TextView
-                            android:id="@+id/tv_details_dateOfTest"
-                            android:layout_width="340dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="13dp"
-                            android:layout_weight="1"
-                            android:text="00/00/0000"
-                            android:textColor="#2A8348" />
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="95dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="13dp"
+                                android:layout_weight="1"
+                                android:text="TESTING DATE"
+                                android:textColor="#2A8348"
+                                android:textSize="12dp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_details_dateOfTest"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="N/A"
+                                android:textColor="#2A8348"
+                                android:textSize="12dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/textView4"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_facility"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_address">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/textView6"
+                                android:layout_width="95dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="13dp"
+                                android:layout_weight="1"
+                                android:text="FACILITY"
+                                android:textColor="#2A8348"
+                                android:textSize="12dp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_details_facility"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="N/A"
+                                android:textColor="#2A8348"
+                                android:textSize="12dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/textView6"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ll_method"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="#FDFCF1"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ll_facility">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/textView8"
+                                android:layout_width="95dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="13dp"
+                                android:layout_weight="1"
+                                android:text="TEST METHOD"
+                                android:textColor="#2A8348"
+                                android:textSize="12dp"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tv_details_method"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/roboto_regular"
+                                android:text="N/A"
+                                android:textColor="#2A8348"
+                                android:textSize="12dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/textView8"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </LinearLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -234,9 +394,11 @@
 
             <Button
                 android:id="@+id/btn_back_TestStatus"
-                android:layout_width="250dp"
+                android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="75dp"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="60dp"
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="#708978"
                 android:text="GO BACK"

@@ -24,7 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="160dp"
-        android:text="Insert tag line here. Lorem ipsum or somethin."
+        android:fontFamily="@font/roboto_regular"
+        android:text=""
         android:textColor="#FFFEF6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,46 +60,46 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <EditText
-                    android:id="@+id/et_loginMobileNo"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="25dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:hint="mobile phone number"
-                    android:inputType="phone"
-                    android:paddingStart="10sp"
-                    android:paddingEnd="10sp"
-                    android:textSize="13sp" />
-            </LinearLayout>
+                    android:layout_weight="1">
 
-            <LinearLayout
-                android:id="@+id/LinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                    <TextView
+                        android:id="@+id/intIdentifier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="+63"
+                        android:textColor="#428E5C"
+                        android:textStyle="normal"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/et_loginPass"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="25dp"
-                    android:layout_weight="1"
-                    android:background="#FDFCF1"
-                    android:ems="10"
-                    android:hint="password"
-                    android:inputType="textPassword"
-                    android:paddingStart="10sp"
-                    android:paddingEnd="10sp"
-                    android:textSize="13sp" />
+                    <EditText
+                        android:id="@+id/et_loginMobileNo"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="25dp"
+                        android:layout_weight="1"
+                        android:background="#FDFCF1"
+                        android:ems="10"
+                        android:hint="mobile phone number"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textColor="#428E5C"
+                        android:textColorHint="#7A557A62"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/intIdentifier" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
             <Button
@@ -106,45 +107,32 @@
                 android:layout_width="150dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="95dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="95dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="10dp"
                 android:backgroundTint="#428E5C"
                 android:text="LOGIN"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/LinearLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/tv_forgotPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="134dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="134dp"
-        android:text="Forgot your password?"
-        android:textColor="#FFFEF6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
-
-    <TextView
         android:id="@+id/tv_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="180dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="180dp"
-        android:text="Register"
+        android:text="New to U-Trace? Register!"
         android:textColor="#FFFEF6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_forgotPass" />
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
     <ImageView
         android:id="@+id/imageView4"

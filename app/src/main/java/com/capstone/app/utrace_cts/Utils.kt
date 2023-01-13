@@ -4,16 +4,22 @@ import android.Manifest
 import android.bluetooth.BluetoothDevice
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.Settings
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.capstone.app.utrace_cts.Bluetooth.*
+import com.capstone.app.utrace_cts.bluetooth.ACTION_DEVICE_PROCESSED
+import com.capstone.app.utrace_cts.bluetooth.ACTION_RECEIVED_STATUS
+import com.capstone.app.utrace_cts.bluetooth.DEVICE_ADDRESS
+import com.capstone.app.utrace_cts.bluetooth.*
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_ADVERTISE_REQ_CODE
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_BM_UPDATE
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_HEALTH_CHECK_CODE
 import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_SCAN_REQ_CODE
-import com.capstone.app.utrace_cts.Status.Status
-import com.capstone.app.utrace_cts.Streetpass.ACTION_DEVICE_SCANNED
-import com.capstone.app.utrace_cts.Scheduler
+import com.capstone.app.utrace_cts.BluetoothMonitoringService.Companion.PENDING_PURGE_CODE
+import com.capstone.app.utrace_cts.status.Status
+import com.capstone.app.utrace_cts.streetpass.ACTION_DEVICE_SCANNED
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,6 +27,20 @@ object Utils {
 
     fun getRequiredPermissions(): Array<String>{
         return arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+    }
+
+    fun getBatteryOptimizerExemptionIntent(packageName: String): Intent {
+        val intent = Intent()
+        intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+        intent.data = Uri.parse("package:$packageName")
+        return intent
+    }
+
+    fun canHandleIntent(batteryExemptionIntent: Intent, packageManager: PackageManager?): Boolean {
+        packageManager?.let {
+            return batteryExemptionIntent.resolveActivity(packageManager) != null
+        }
+        return false
     }
 
     fun startBluetoothMonitoringService(context: Context) {
@@ -34,9 +54,38 @@ object Utils {
         Log.d("Utils", "startBluetoothMonitoringService()")
     }
 
+    fun endBluetoothMonitoringService(context: Context){
+        val intent = Intent(context, BluetoothMonitoringService::class.java)
+        context.stopService(intent)
+        Log.d("Utils", "stopBluetoothMonitoringService()")
+    }
+
+
     //used when saving timestamp from millis to dateformat
     fun getDate(milliSeconds: Long): String {
         val dateFormat = "dd/MM/yyyy HH:mm:ss.SSS"
+        // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat(dateFormat)
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = milliSeconds
+        return formatter.format(calendar.time)
+    }
+
+    fun getDDMMYYY(milliSeconds: Long): String {
+        val dateFormat = "MM/dd/yyyy"
+        // Create a DateFormatter object for displaying date in specified format.
+        val formatter = SimpleDateFormat(dateFormat)
+
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = milliSeconds
+        return formatter.format(calendar.time)
+    }
+
+    fun getTimeInHours(milliSeconds: Long): String {
+        val dateFormat = "HH:mm:ss"
         // Create a DateFormatter object for displaying date in specified format.
         val formatter = SimpleDateFormat(dateFormat)
 
@@ -98,6 +147,21 @@ object Utils {
         )
     }
 
+    fun scheduleRepeatingPurge(context: Context, intervalMillis: Long) {
+        val nextIntent = Intent(context, BluetoothMonitoringService::class.java)
+        nextIntent.putExtra(
+            BluetoothMonitoringService.COMMAND_KEY,
+            BluetoothMonitoringService.Command.ACTION_PURGE.index
+        )
+
+        Scheduler.scheduleRepeatingServiceIntent(
+            PENDING_PURGE_CODE,
+            context,
+            nextIntent,
+            intervalMillis
+        )
+    }
+
     fun scheduleBMUpdateCheck(context: Context, bmCheckInterval: Long) {
 
         cancelBMUpdateCheck(context)
@@ -154,4 +218,9 @@ object Utils {
         Scheduler.cancelServiceIntent(PENDING_BM_UPDATE, context, intent)
     }
 
+    fun getDateFromUnix(unix_timestamp: Long): String? {
+        val sdf = SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.ENGLISH)
+        val date = sdf.format(unix_timestamp)
+        return date.toString()
+    }
 }
